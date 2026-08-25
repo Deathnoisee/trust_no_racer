@@ -65,7 +65,7 @@ public class LineChart : MonoBehaviour
             positions.Add(new Vector2(x, y));
         }
 
-
+        DrawGridLines(minVal, maxVal);
         Sequence seq = DOTween.Sequence();
 
         //  Axis labels fade in
@@ -121,6 +121,8 @@ public class LineChart : MonoBehaviour
                 }
             });
             seq.AppendInterval(0.3f);
+
+
         }
 
         seq.Play();
@@ -169,6 +171,33 @@ public class LineChart : MonoBehaviour
         }
     }
 
+    private void DrawGridLines(float minVal, float maxVal)
+    {
+        Color gridColor = new Color(1, 1, 1, 0.1f); // slightly more visible
+        float areaWidth = chartArea.rect.width;
+        float areaHeight = chartArea.rect.height;
+        float margin = 2f; // small margin from edges
+
+        // Horizontal
+        float step = (maxVal - minVal) / (yAxisTickCount - 1);
+        for (int i = 0; i < yAxisTickCount; i++)
+        {
+            float value = minVal + i * step;
+            float normalized = (value - minVal) / (maxVal - minVal);
+            float y = normalized * areaHeight;
+            // Clamp y to avoid drawing exactly at edges
+            y = Mathf.Clamp(y, margin, areaHeight - margin);
+            DrawLine(new Vector2(0, y), new Vector2(areaWidth, y), gridColor, 1f);
+        }
+
+        // Vertical
+        for (int i = 0; i < positions.Count; i++)
+        {
+            float x = Mathf.Clamp(positions[i].x, margin, areaWidth - margin);
+            DrawLine(new Vector2(x, 0), new Vector2(x, areaHeight), gridColor, 1f);
+        }
+    }
+
     private GameObject DrawLine(Vector2 from, Vector2 to, Color color, float thickness)
     {
         GameObject lineObj = new GameObject("LineSegment", typeof(Image));
@@ -181,7 +210,7 @@ public class LineChart : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         rt.pivot = new Vector2(0f, 0.5f);
-        rt.sizeDelta = new Vector2(distance, thickness); // full size – will be overridden by tween
+        rt.sizeDelta = new Vector2(distance, thickness);
         rt.anchorMin = rt.anchorMax = Vector2.zero;
         rt.anchoredPosition = from;
         rt.localEulerAngles = new Vector3(0, 0, angle);
@@ -194,6 +223,7 @@ public class LineChart : MonoBehaviour
         GameObject dot = Instantiate(dotPrefab, chartArea);
         dot.transform.localPosition = position;
         dot.GetComponent<Image>().color = color;
+
         return dot;
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum RaceDataType { Pace, HeartRate, BloodTest, UrineTest, Trajectory }
+public enum RaceDataType { Pace, HeartRate, BloodTest, UrineTest }
 
 public class graphManager : MonoBehaviour
 {
@@ -15,15 +15,14 @@ public class graphManager : MonoBehaviour
         switch (type)
         {
             case RaceDataType.Pace:
-            case RaceDataType.HeartRate:
                 ShowLineChart(data);
+                break;
+            case RaceDataType.HeartRate:
+                ShowBarChart(data);
                 break;
             case RaceDataType.BloodTest:
             case RaceDataType.UrineTest:
                 ShowBarChart(data);
-                break;
-            case RaceDataType.Trajectory:
-                // ShowLineChart(data);
                 break;
         }
     }
