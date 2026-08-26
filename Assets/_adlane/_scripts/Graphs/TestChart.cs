@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class TestChart : MonoBehaviour
 {
     [SerializeField] private graphManager manager;
-    [SerializeField] private trajectoryGraph trajectoryChart;
 
     private void Start()
     {
@@ -30,7 +29,6 @@ public class TestChart : MonoBehaviour
         manager.ShowData(RaceDataType.Pace, paceData);
         manager.ShowData(RaceDataType.HeartRate, heartRateData);
 
-        // Dummy runner trajectory: 40 world-space points on a winding course
         List<Vector3> worldPoints = new List<Vector3>();
         for (int i = 0; i < 40; i++)
         {
@@ -40,7 +38,6 @@ public class TestChart : MonoBehaviour
                 Mathf.Sin(t * Mathf.PI * 3f) * 10f + Mathf.Cos(t * Mathf.PI * 7f) * 3f,
                 0f));
         }
-
-        trajectoryChart.SetWorldPoints(worldPoints);
+        manager.ShowTrajectoryChart(worldPoints);
     }
 }

@@ -13,16 +13,14 @@ public class trajectoryGraph : MaskableGraphic
 {
     [Header("Chart Area")]
     [SerializeField] private RectTransform chartArea;
-
     [Header("Path Styling")]
-    [SerializeField] private float lineWidth = 6f;
-    [SerializeField] private int smoothingSubdivisions = 6; // points added between each input point
-
+    [SerializeField] private float lineWidth = 10f;
+    [SerializeField] private int smoothingSubdivisions = 6;
     [Header("Start / End Markers")]
     [SerializeField] private GameObject dotPrefab;
     [SerializeField] private Color startColor = Color.green;
     [SerializeField] private Color endColor = Color.red;
-    [SerializeField] private float markerSize = 14f;
+    [SerializeField] private float markerSize = 22f;
 
     [Header("Animation")]
     [SerializeField] private float drawDuration = 1.5f;
@@ -31,60 +29,54 @@ public class trajectoryGraph : MaskableGraphic
     [Header("World Conversion")]
     [SerializeField] private Camera worldCamera;
 
-    // Full smoothed path in chartArea local space
     private readonly List<Vector2> pathPoints = new List<Vector2>();
-    // Cumulative distance along the path (for even-progress drawing)
     private readonly List<float> cumulativeDistances = new List<float>();
     private float totalLength;
-
-    // 0 → 1 draw progress, animated by DOTween
     private float drawProgress = 0f;
-
-    private Transform markerParent;
+    private readonly List<GameObject> spawnedMarkers = new List<GameObject>();
 
     protected override void Awake()
     {
-        base.Awake();
-        AlignToChartArea();
+        // base.Awake();
+        // SetupRectTransform();
+        // chartArea.gameObject.SetActive(true);
     }
-
     protected override void OnEnable()
     {
         base.OnEnable();
-        AlignToChartArea(); // in case chartArea was assigned after Awake
+        SetupRectTransform();
+        chartArea.gameObject.SetActive(true);
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        chartArea.gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Makes this graphic's RectTransform exactly overlay chartArea,
-    /// so its local mesh space == chartArea's local space.
-    /// </summary>
-    private void AlignToChartArea()
+    private void SetupRectTransform()
     {
         if (chartArea == null) return;
 
-        // Make sure we're a direct child of chartArea
+        // Ensure we are a child of chartArea so we render inside it
         if (transform.parent != chartArea)
             transform.SetParent(chartArea, false);
 
+        // Configure rect to stretch and fill chartArea perfectly using Unity UI anchors
         RectTransform rt = rectTransform;
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.pivot = new Vector2(0f, 0f);
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
         rt.localScale = Vector3.one;
         rt.localRotation = Quaternion.identity;
         rt.localPosition = Vector3.zero;
-
-        // Stretch to fill chartArea completely
-        rt.anchorMin = Vector2.zero;
-        rt.anchorMax = Vector2.one;
-        rt.pivot = new Vector2(0.5f, 0.5f);
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
     }
 
-    // ---------------- Public API ----------------
-
-    /// <summary>Feed raw world-space positions (e.g., recorded runner transforms).</summary>
     public void SetWorldPoints(List<Vector3> worldPositions)
     {
-        // Same camera for both steps: it renders the world AND the UI (Screen Space - Camera)
+        SetupRectTransform(); // Ensure correct size before calculating
+
         Camera cam = worldCamera != null ? worldCamera : Camera.main;
         if (cam == null)
         {
@@ -98,7 +90,7 @@ public class trajectoryGraph : MaskableGraphic
             Vector3 screenPos = cam.WorldToScreenPoint(wp);
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    chartArea, screenPos, cam, out Vector2 local)) // <-- pass cam, not null
+                    chartArea, screenPos, cam, out Vector2 local))
             {
                 localPoints.Add(local);
             }
@@ -107,13 +99,12 @@ public class trajectoryGraph : MaskableGraphic
         BuildPath(localPoints);
     }
 
-    /// <summary>Feed points already in chartArea local space.</summary>
     public void SetLocalPoints(List<Vector2> localPoints)
     {
+        SetupRectTransform();
         BuildPath(new List<Vector2>(localPoints));
     }
 
-    /// <summary>Replays the draw animation.</summary>
     public void PlayDrawAnimation()
     {
         KillTweens();
@@ -140,21 +131,20 @@ public class trajectoryGraph : MaskableGraphic
         SetVerticesDirty();
     }
 
-    // ---------------- Path building ----------------
-
     private void BuildPath(List<Vector2> rawPoints)
     {
         if (rawPoints == null || rawPoints.Count < 2) return;
 
-        // Catmull-Rom smoothing through all input points
+        List<Vector2> fittedPoints = FitPointsToChartArea(rawPoints);
+
         pathPoints.Clear();
-        int last = rawPoints.Count - 1;
+        int last = fittedPoints.Count - 1;
         for (int i = 0; i < last; i++)
         {
-            Vector2 p0 = rawPoints[Mathf.Max(i - 1, 0)];
-            Vector2 p1 = rawPoints[i];
-            Vector2 p2 = rawPoints[i + 1];
-            Vector2 p3 = rawPoints[Mathf.Min(i + 2, last)];
+            Vector2 p0 = fittedPoints[Mathf.Max(i - 1, 0)];
+            Vector2 p1 = fittedPoints[i];
+            Vector2 p2 = fittedPoints[i + 1];
+            Vector2 p3 = fittedPoints[Mathf.Min(i + 2, last)];
 
             for (int s = 0; s < smoothingSubdivisions; s++)
             {
@@ -162,9 +152,8 @@ public class trajectoryGraph : MaskableGraphic
                 pathPoints.Add(CatmullRom(p0, p1, p2, p3, t));
             }
         }
-        pathPoints.Add(rawPoints[last]);
+        pathPoints.Add(fittedPoints[last]);
 
-        // Precompute cumulative distances so animation speed is constant
         cumulativeDistances.Clear();
         cumulativeDistances.Add(0f);
         totalLength = 0f;
@@ -175,6 +164,49 @@ public class trajectoryGraph : MaskableGraphic
         }
 
         PlayDrawAnimation();
+    }
+
+    private List<Vector2> FitPointsToChartArea(List<Vector2> points)
+    {
+        if (points.Count == 0) return points;
+
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minY = float.MaxValue, maxY = float.MinValue;
+
+        foreach (var p in points)
+        {
+            minX = Mathf.Min(minX, p.x);
+            maxX = Mathf.Max(maxX, p.x);
+            minY = Mathf.Min(minY, p.y);
+            maxY = Mathf.Max(maxY, p.y);
+        }
+
+        float rangeX = maxX - minX;
+        float rangeY = maxY - minY;
+
+        if (Mathf.Approximately(rangeX, 0f)) rangeX = 1f;
+        if (Mathf.Approximately(rangeY, 0f)) rangeY = 1f;
+
+        // Force layout update to ensure rect size is valid
+        Canvas.ForceUpdateCanvases();
+        Vector2 areaSize = chartArea != null ? chartArea.rect.size : new Vector2(200f, 200f);
+
+        float margin = 40f;
+        float usableWidth = Mathf.Max(areaSize.x - margin * 2f, 10f);
+        float usableHeight = Mathf.Max(areaSize.y - margin * 2f, 10f);
+
+        float scale = Mathf.Min(usableWidth / rangeX, usableHeight / rangeY);
+
+        List<Vector2> fitted = new List<Vector2>(points.Count);
+
+        foreach (var p in points)
+        {
+            float x = margin + (p.x - minX) * scale;
+            float y = margin + (p.y - minY) * scale;
+            fitted.Add(new Vector2(x, y));
+        }
+
+        return fitted;
     }
 
     private static Vector2 CatmullRom(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
@@ -188,8 +220,6 @@ public class trajectoryGraph : MaskableGraphic
             (-p0 + 3f * p1 - 3f * p2 + p3) * t3);
     }
 
-    // ---------------- Mesh (single draw call) ----------------
-
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
@@ -197,7 +227,6 @@ public class trajectoryGraph : MaskableGraphic
 
         float targetDistance = totalLength * drawProgress;
 
-        // Collect only the visible portion of the path
         List<Vector2> visible = new List<Vector2>();
         visible.Add(pathPoints[0]);
 
@@ -209,7 +238,6 @@ public class trajectoryGraph : MaskableGraphic
             }
             else
             {
-                // Partial segment: interpolate the exact tip of the growing line
                 float prevDist = cumulativeDistances[i - 1];
                 float segLen = cumulativeDistances[i] - prevDist;
                 float t = segLen > 0f ? (targetDistance - prevDist) / segLen : 0f;
@@ -221,7 +249,6 @@ public class trajectoryGraph : MaskableGraphic
         DrawLineStrip(visible, lineWidth, vh);
     }
 
-    // Same technique as UIPipeLine.DrawLineStripMesh
     private void DrawLineStrip(List<Vector2> vertices, float width, VertexHelper vh)
     {
         if (vertices.Count < 2) return;
@@ -257,13 +284,9 @@ public class trajectoryGraph : MaskableGraphic
         }
     }
 
-    // ---------------- Markers (start/end dots) ----------------
-
     private void ShowMarkers()
     {
-        EnsureMarkerParent();
         ClearMarkers();
-
         CreateMarker(pathPoints[0], startColor, 0f);
         CreateMarker(pathPoints[pathPoints.Count - 1], endColor, drawDuration * 0.8f);
     }
@@ -273,12 +296,12 @@ public class trajectoryGraph : MaskableGraphic
         GameObject dot;
         if (dotPrefab != null)
         {
-            dot = Instantiate(dotPrefab, markerParent);
+            dot = Instantiate(dotPrefab, chartArea);
         }
         else
         {
             dot = new GameObject("Marker", typeof(Image));
-            dot.transform.SetParent(markerParent, false);
+            dot.transform.SetParent(chartArea, false);
         }
 
         Image img = dot.GetComponent<Image>();
@@ -286,40 +309,43 @@ public class trajectoryGraph : MaskableGraphic
         img.raycastTarget = false;
 
         RectTransform rt = (RectTransform)dot.transform;
+        rt.localScale = Vector3.one;
+        rt.localRotation = Quaternion.identity;
         rt.sizeDelta = new Vector2(markerSize, markerSize);
         rt.localPosition = localPos;
 
         dot.transform.localScale = Vector3.zero;
         dot.transform.DOScale(1f, 0.35f).SetEase(Ease.OutBack).SetDelay(delay);
-    }
 
-    private void EnsureMarkerParent()
-    {
-        if (markerParent != null) return;
-        GameObject go = new GameObject("TrajectoryMarkers", typeof(RectTransform));
-        go.transform.SetParent(chartArea, false);
-        ((RectTransform)go.transform).localScale = Vector3.one;
-        markerParent = go.transform;
+        spawnedMarkers.Add(dot);
     }
 
     private void ClearMarkers()
     {
-        if (markerParent == null) return;
-        for (int i = markerParent.childCount - 1; i >= 0; i--)
-            Destroy(markerParent.GetChild(i).gameObject);
+        foreach (var marker in spawnedMarkers)
+        {
+            if (marker != null)
+            {
+                marker.transform.DOKill();
+                Destroy(marker);
+            }
+        }
+        spawnedMarkers.Clear();
     }
 
     private void HideMarkers()
     {
-        if (markerParent != null) markerParent.gameObject.SetActive(false);
+        ClearMarkers();
     }
 
     private void KillTweens()
     {
         DOTween.Kill(this);
-        if (markerParent != null)
-            foreach (Transform child in markerParent)
-                child.DOKill();
+        foreach (var marker in spawnedMarkers)
+        {
+            if (marker != null)
+                marker.transform.DOKill();
+        }
     }
 
     protected override void OnDestroy()

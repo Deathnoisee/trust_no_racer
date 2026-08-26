@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum RaceDataType { Pace, HeartRate, BloodTest, UrineTest }
+public enum RaceDataType { Pace, HeartRate, BloodTest, UrineTest, Trajectory }
 
 public class graphManager : MonoBehaviour
 {
     [SerializeField] private LineChart lineChart;
     [SerializeField] private BarChart barChart;
+    [SerializeField] private trajectoryGraph trajectoryChart;
     // [SerializeField] private PieChart pieChart;
 
 
@@ -24,6 +25,9 @@ public class graphManager : MonoBehaviour
             case RaceDataType.UrineTest:
                 ShowBarChart(data);
                 break;
+            case RaceDataType.Trajectory:
+                ShowLineChart(data);
+                break;
         }
     }
 
@@ -37,6 +41,11 @@ public class graphManager : MonoBehaviour
     {
         barChart.gameObject.SetActive(true);
         barChart.SetData(data);
+    }
+    public void ShowTrajectoryChart(List<Vector3> data)
+    {
+        trajectoryChart.gameObject.SetActive(true);
+        trajectoryChart.SetWorldPoints(data);
     }
 }
 
