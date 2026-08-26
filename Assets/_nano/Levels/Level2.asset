@@ -13,4 +13,40 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   totalRacers: 8
-  cheaterCheats: []
+  cheaterCheats:
+  - type: 2
+    chance: 1
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0.5
+    disappearDuration: 3
+    disappearBoostMultiplier: 3
+    injureTriggerProgress: 0
+    injureRange: 0
+    triggerProgress: 0
+    boostMultiplier: 0
+    boostDuration: 0
+  - type: 1
+    chance: 1
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0
+    disappearDuration: 0
+    disappearBoostMultiplier: 0
+    injureTriggerProgress: 0
+    injureRange: 0
+    triggerProgress: 0.75
+    boostMultiplier: 2
+    boostDuration: 4
+  - type: 3
+    chance: 1
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0
+    disappearDuration: 0
+    disappearBoostMultiplier: 0
+    injureTriggerProgress: 0.25
+    injureRange: 1
+    triggerProgress: 0.75
+    boostMultiplier: 2
+    boostDuration: 4
