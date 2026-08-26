@@ -36,9 +36,29 @@ public class RunnerData
     public float weight;
     public float height;
     public int age;
+    public Gender gender;
     public int runnerID;
     public Nationality runnerNationality;
 
     public List<string> runningHistory;
 
+}
+
+
+
+
+public enum Nationality
+{
+    Galean,
+    Pyronian,
+    Veldtish,
+    Stratusian,
+    Zeyphran,
+    Miragian
+}
+
+public enum Gender
+{
+    Male,
+    Female,
 }

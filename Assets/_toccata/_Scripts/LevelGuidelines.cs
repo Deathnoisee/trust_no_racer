@@ -14,13 +14,3 @@ public class LevelGuidelines : ScriptableObject
 
 }
 
-
-public enum Nationality
-{
-    Galean,
-    Pyronian,
-    Veldtish,
-    Stratusian,
-    Zeyphran,
-    Miragian
-}

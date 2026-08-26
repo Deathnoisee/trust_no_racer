@@ -14,6 +14,12 @@ public class RunnerFrontVisualisation : MonoBehaviour
 
     public TextMeshProUGUI runnerId;
 
+    public TextMeshProUGUI runnerName;
+    public TextMeshProUGUI runnerAge;
+    public TextMeshProUGUI runnerGender;
+    public TextMeshProUGUI runnerNationality;
+
+
     public void DisplayPerson(RunnerData data)
     {
         if (data == null) return;
@@ -39,5 +45,11 @@ public class RunnerFrontVisualisation : MonoBehaviour
         {
             runnerId.text = data.runnerID.ToString();
         }
+
+        runnerName.text = data.runnerName;
+        runnerAge.text = data.age.ToString();
+        runnerNationality.text = data.runnerNationality.ToString();
+        runnerGender.text = data.gender.ToString();
+
     }
 }
