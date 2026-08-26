@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
   totalRacers: 8
+  lapCount: 2
   cheaterCheats:
   - type: 2
     chance: 1
+    cheatOnLap: 1
     shortcutFromKnot: 0
     shortcutSkipCount: 0
     disappearTriggerProgress: 0.5
@@ -28,6 +30,7 @@ MonoBehaviour:
     boostDuration: 0
   - type: 1
     chance: 1
+    cheatOnLap: 1
     shortcutFromKnot: 0
     shortcutSkipCount: 0
     disappearTriggerProgress: 0
@@ -40,6 +43,7 @@ MonoBehaviour:
     boostDuration: 4
   - type: 3
     chance: 1
+    cheatOnLap: 2
     shortcutFromKnot: 0
     shortcutSkipCount: 0
     disappearTriggerProgress: 0

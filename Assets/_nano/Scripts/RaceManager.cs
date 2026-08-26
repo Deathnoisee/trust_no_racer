@@ -60,6 +60,21 @@ public class RaceManager : MonoBehaviour
         SpawnRacers();
     }
 
+    // Convenience for "next level" buttons/triggers. Does nothing (just logs) once
+    // you're past the last configured level.
+    public void LoadNextLevel()
+    {
+        int nextIndex = currentLevelIndex + 1;
+        if (levels != null && nextIndex < levels.Count)
+        {
+            LoadLevel(nextIndex);
+        }
+        else
+        {
+            Debug.Log("No more levels configured — this was the last one.");
+        }
+    }
+
     void SpawnRacers()
     {
         LevelConfig level = CurrentLevel;
@@ -85,6 +100,7 @@ public class RaceManager : MonoBehaviour
             runner.mainSpline = mainSpline;
             runner.baseSpeed = Random.Range(3.5f, 4.5f);
             runner.roadHalfWidth = roadHalfWidth;
+            runner.totalLaps = level != null ? level.lapCount : 1;
 
             if (cheatByRacerIndex.TryGetValue(i, out CheatConfig cheat))
             {

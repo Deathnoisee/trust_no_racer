@@ -8,10 +8,9 @@ public class LevelConfig : ScriptableObject
 {
     public int totalRacers = 8;
 
-    [Tooltip("One entry = one cheater with exactly that one cheat. The number of cheaters in " +
-             "this level is simply the length of this list — e.g. 2 entries here means 2 cheaters, " +
-             "each doing whichever cheat you gave them. Leave it empty for a clean level with no cheaters.\n\n" +
-             "Example — Level 1: two ShortcutCut entries (both cheaters cut).\n" +
-             "Example — Level 2: one ShortcutCut entry + one SpeedBoost entry (one cutter, one on the drugs).")]
+
+    [Min(1)] public int lapCount = 1;
+
+
     public List<CheatConfig> cheaterCheats = new List<CheatConfig>();
 }
