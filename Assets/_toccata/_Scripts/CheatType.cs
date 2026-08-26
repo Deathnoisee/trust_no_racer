@@ -1,4 +1,4 @@
-public enum CheatType
+public enum Cheatos
 {
     None,
     ShortCut,

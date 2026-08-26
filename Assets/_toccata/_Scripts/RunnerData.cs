@@ -1,17 +1,26 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class Runner
+
+[System.Serializable]
+public class SpriteView
+{
+    public Sprite frontView;
+    public Sprite sideView;
+}
+
+
+public class RunnerData
 {
     [Header("Visuals")]
-    public Sprite hair;
-    public Sprite eyes;
-    public Sprite mouth;
-    public Sprite shoes;
+    public SpriteView hair;
+    public SpriteView eyes;
+    public SpriteView mouth;
+    public SpriteView shoes;
 
+    public Color hairColor;
     public Color shirtColor;
     public Color skinColor;
     public Color shoesColor;
-    public Color hairColor;
 
     [Header("Cheats")]
     public CheatType cheatType;
@@ -28,7 +37,7 @@ public class Runner
     public float height;
     public int age;
     public int runnerID;
-
+    public Nationality runnerNationality;
 
     public List<string> runningHistory;
 
