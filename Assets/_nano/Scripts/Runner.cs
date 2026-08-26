@@ -2,6 +2,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
+
+public enum CheatType
+{
+    ShortcutCut,
+    SpeedBoost,
+    DisappearBoost,
+    Injure
+}
+
+[System.Serializable]
+public class CheatConfig
+{
+    public CheatType type = CheatType.ShortcutCut;
+    [Range(0f, 1f)] public float chance = 1f; // chance the assigned runner actually cheats this race
+
+    [Header("Shortcut Cut settings")]
+    public int shortcutFromKnot = 3;
+    public int shortcutSkipCount = 2;
+
+    [Header("Disappear Boost settings")]
+    [Range(0f, 1f)] public float disappearTriggerProgress = 0.4f;
+    public float disappearDuration = 2f;
+    public float disappearBoostMultiplier = 2f;
+
+    [Header("Injure settings")]
+    [Range(0f, 1f)] public float injureTriggerProgress = 0.3f;
+    public float injureRange = 0.03f; // how close in t counts as "close enough to injure"
+
+    [Header("Speed Boost settings")]
+    [Tooltip("Progress along the track (0-1) at which the boost kicks in.")]
+    [Range(0f, 1f)] public float triggerProgress = 0.3f;
+    public float boostMultiplier = 2.5f;
+    public float boostDuration = 1.5f;
+}
+
+// Runtime state for the single cheat a Runner has been assigned. Kept separate from
+// CheatConfig so the same designer-authored config asset can be reused across runners/levels.
+public class ActiveCheat
+{
+    public CheatConfig config;
+    public bool hasTriggered;
+
+    // shortcut cut runtime
+    public int resolvedFromKnot;
+    public int resolvedToKnot;
+    public float shortcutStartT;
+    public float shortcutEndT;
+    public bool isShortcutActive;
+    public Vector3 shortcutStartPos;
+    public Vector3 shortcutEndPos;
+    public float shortcutProgress;
+
+    // speed boost runtime
+    public float boostTimeRemaining;
+
+    // disappear boost runtime
+    public float disappearTimeRemaining;
+    public bool isDisappeared;
+
+    // injure runtime
+    public bool hasInjured;
+}
+
 public class Runner : MonoBehaviour
 {
     [Header("Identity")]
@@ -25,21 +88,6 @@ public class Runner : MonoBehaviour
     public float paceChangeIntervalMax = 7f;
     private float nextPaceChangeTime;
 
-
-    [Header("Shortcut / Cheating Behavior")]
-    public int shortcutFromKnot = 3;   // knot index where the skip starts
-    public int shortcutSkipCount = 2;  // how many knots to skip ahead (2 = skip one knot)
-    public float shortcutChance = 1f; // chance a cheater will take the shortcut
-    private bool hasTakenShortcut = false;
-    private bool willTakeShortcut = false;
-    private bool isShortcutting = false;
-    private float shortcutStartT;
-    private float shortcutEndT;
-    private Vector3 shortcutStartPos;
-    private Vector3 shortcutEndPos;
-    private float shortcutProgress = 0f; // 0-1 through the skip itself
-
-
     [Header("Lane")]
     public float laneOffset = 0f;
     public float laneWobbleAmount = 0.1f;
@@ -47,100 +95,194 @@ public class Runner : MonoBehaviour
     private float laneWobblePhase;
 
     [Header("Racing Line")]
-    public float preferredOffset = 0f;     // this runner's ideal line on the track
-    public float desiredLaneOffset = 0f;   // computed each frame from preference + nearby runners
-    public float laneEaseSpeed = 2f;       // how quickly laneOffset chases desiredLaneOffset
-    public float neighborTDistance = 0.02f; // how close in progress counts as "nearby"
-    public float neighborLateralThreshold = 0.5f; // how close laterally before yielding
+    public float preferredOffset = 0f;
+    public float desiredLaneOffset = 0f;
+    public float laneEaseSpeed = 2f;
+    public float neighborTDistance = 0.02f;
+    public float neighborLateralThreshold = 0.5f;
     public float steerAwayAmount = 0.4f;
+
+    [Header("Racing Line - Corner Cutting")]
+    [Tooltip("How far ahead in t to look when judging whether a corner is coming up.")]
+    public float cornerLookahead = 0.03f;
+    [Tooltip("How strongly runners lean toward the inside of a corner, as a fraction of road half-width. " +
+             "NOTE: which side is 'inside' depends on your spline's winding direction — if runners hug " +
+             "the outside instead, flip the sign in ComputeCornerHugOffset().")]
+    [Range(0f, 1f)] public float cornerHugStrength = 0.6f;
+
+    [Header("Racing Line - Wander")]
+    [Tooltip("Slow side-to-side roaming so runners don't all glue to one line down the straights.")]
+    public float wanderAmplitude = 0.4f;
+    public float wanderSpeed = 0.3f;
+    private float wanderPhase;
+
+    [Header("Road")]
+    [Tooltip("How far from the spline centerline the road extends on either side. Every lane " +
+             "target (preferred line, avoidance steering, overlap pushes) gets clamped to this, " +
+             "so a runner spawned or pushed off-road always works its way back onto the road " +
+             "instead of running a permanent off-road lane. Set by RaceManager per track.")]
+    public float roadHalfWidth = 1.5f;
 
     [Header("Cheater Data (hidden from player during race)")]
     public bool isCheater = false;
+    [Tooltip("The single cheat this runner performs, assigned by RaceManager from the current " +
+             "LevelConfig. A runner can only ever have one — never a list.")]
+    public CheatConfig assignedCheat;
+
+    private ActiveCheat activeCheat; // null if not a cheater, no cheat assigned, or the chance roll failed
 
     [HideInInspector] public float t = 0f;
     [HideInInspector] public bool hasFinished = false;
 
+    public RunnerVisuals visuals;
+
+    [HideInInspector] public bool isInjured = false;
+
+    // Call this right after Instantiate (before Start runs, since Start is deferred to
+    // just before the next Update) to place the runner at a designated spawn location
+    // and have it continue running from there with no snap/teleport.
+
+    public void SetSpawn(float startT, float startLaneOffset, Vector3 worldPos)
+    {
+        t = startT;
+        // clamp to the road: a spawn point placed off-road still starts the runner there
+        // visually, but its target lane is pulled onto the road, so it eases back on over
+        // the first stretch instead of permanently running parallel to the actual track.
+        laneOffset = Mathf.Clamp(startLaneOffset, -roadHalfWidth, roadHalfWidth);
+        preferredOffset = laneOffset;
+        transform.position = worldPos;
+    }
+    public void Injure()
+    {
+        if (isInjured) return; // don't double-trigger
+        isInjured = true;
+
+        // stop moving immediately — the Tick() guard below prevents further progress
+        currentSpeedMultiplier = 0f;
+        targetSpeedMultiplier = 0f;
+
+        if (visuals != null) visuals.PlayInjuredDisappearAnimation();
+    }
     void Start()
     {
-        willTakeShortcut = isCheater && UnityEngine.Random.value < shortcutChance;
-        if (willTakeShortcut)
-        {
-            shortcutStartT = SplineKnotUtils.GetKnotT(mainSpline, shortcutFromKnot);
-            shortcutEndT = SplineKnotUtils.GetKnotT(mainSpline, shortcutFromKnot + shortcutSkipCount);
-        }
-        gameObject.GetComponent<SpriteRenderer>().color = runnerColor;
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
+        visuals = GetComponentInChildren<RunnerVisuals>();
         nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
         laneWobblePhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+        wanderPhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
 
-        // start the desired offset at the preferred line so runners don't lerp from 0 at spawn
+        // reaffirm desired/actual lane offset from preferredOffset (SetSpawn already set
+        // preferredOffset for spawn-placed runners, so this is a no-op harmless overwrite)
         desiredLaneOffset = preferredOffset;
         laneOffset = preferredOffset;
+
+        BuildActiveCheat();
+    }
+
+    void BuildActiveCheat()
+    {
+        activeCheat = null;
+        if (!isCheater || assignedCheat == null) return;
+        if (UnityEngine.Random.value > assignedCheat.chance) return; // rolled to run clean this race
+
+        activeCheat = new ActiveCheat { config = assignedCheat };
+
+        if (assignedCheat.type == CheatType.ShortcutCut)
+        {
+            int knotCount = mainSpline.Spline.Count;
+            // clamp so a badly configured knot range can't index out of bounds
+            activeCheat.resolvedFromKnot = Mathf.Clamp(assignedCheat.shortcutFromKnot, 0, knotCount - 1);
+            activeCheat.resolvedToKnot = Mathf.Clamp(assignedCheat.shortcutFromKnot + assignedCheat.shortcutSkipCount, 0, knotCount - 1);
+            activeCheat.shortcutStartT = SplineKnotUtils.GetKnotT(mainSpline, activeCheat.resolvedFromKnot);
+            activeCheat.shortcutEndT = SplineKnotUtils.GetKnotT(mainSpline, activeCheat.resolvedToKnot);
+        }
     }
 
     // Call this on ALL runners BEFORE calling Tick() on any of them,
     // so decisions are based on last frame's positions consistently.
     public void ComputeDesiredOffset(List<Runner> allRunners)
     {
-        desiredLaneOffset = preferredOffset;
+        UpdateInjureCheck(allRunners);
+        float cornerBias = ComputeCornerHugOffset();
+        float wander = Mathf.Sin(Time.time * wanderSpeed + wanderPhase) * wanderAmplitude;
+        float baseTarget = preferredOffset + cornerBias + wander;
 
+        // proportional avoidance instead of a hard on/off threshold: the closer another
+        // runner is laterally, the harder we push away, so movement reads as "finding room"
+        // rather than snapping between two fixed states.
+        float avoidance = 0f;
         foreach (Runner other in allRunners)
         {
             if (other == this || other.hasFinished) continue;
 
             float tDiff = Mathf.Abs(other.t - t);
-            if (tDiff > neighborTDistance) continue; // only care about runners close in progress
+            if (tDiff > neighborTDistance) continue;
 
-            float lateralDiff = Mathf.Abs(other.laneOffset - preferredOffset);
-            if (lateralDiff < neighborLateralThreshold)
+            float lateralDiff = baseTarget - other.laneOffset;
+            float absDiff = Mathf.Abs(lateralDiff);
+            if (absDiff < neighborLateralThreshold)
             {
-                // someone's occupying my preferred line — steer to whichever side has more room
-                float pushAway = (preferredOffset - other.laneOffset >= 0) ? steerAwayAmount : -steerAwayAmount;
-                desiredLaneOffset = preferredOffset + pushAway;
+                float closeness = 1f - (absDiff / neighborLateralThreshold); // 0 far -> 1 right on top
+                float direction = lateralDiff >= 0f ? 1f : -1f;
+                avoidance += direction * steerAwayAmount * closeness;
             }
         }
+
+        desiredLaneOffset = Mathf.Clamp(baseTarget + avoidance, -roadHalfWidth, roadHalfWidth);
     }
+
+    // Estimates whether a corner is coming up and how sharp it is, and returns a signed
+    // lateral offset that leans toward the inside of it — the same trick real racers use
+    // to shorten their line through a turn, which naturally reads as "cutting inside if
+    // there's room" once combined with the neighbor avoidance above.
+    float ComputeCornerHugOffset()
+    {
+        float aheadT = Mathf.Clamp01(t + cornerLookahead);
+        Vector3 nowDir = ((Vector3)mainSpline.EvaluateTangent(t)).normalized;
+        Vector3 aheadDir = ((Vector3)mainSpline.EvaluateTangent(aheadT)).normalized;
+
+        // signed turn amount via 2D cross product: sign tells you which way the track is
+        // curving, magnitude tells you how sharply.
+        float turnAmount = nowDir.x * aheadDir.y - nowDir.y * aheadDir.x;
+        float turnSharpness = Mathf.Clamp01(Mathf.Abs(turnAmount) * 10f); // tune the 10x to taste
+        float sign = Mathf.Sign(turnAmount);
+
+        return -sign * turnSharpness * cornerHugStrength * roadHalfWidth;
+    }
+
     public void Tick(float deltaTime)
     {
-        if (hasFinished) return;
+        if (hasFinished || isInjured) return;
 
         if (Time.time >= nextPaceChangeTime)
         {
             targetSpeedMultiplier = UnityEngine.Random.Range(minPaceMultiplier, maxPaceMultiplier);
             nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
         }
-
         currentSpeedMultiplier = Mathf.Lerp(currentSpeedMultiplier, targetSpeedMultiplier, deltaTime * speedChangeSmoothing);
-        float distance = baseSpeed * currentSpeedMultiplier * deltaTime;
 
-        // trigger the shortcut once we reach the start knot's t
-        if (willTakeShortcut && !hasTakenShortcut && !isShortcutting && t >= shortcutStartT)
-        {
-            isShortcutting = true;
-            hasTakenShortcut = true;
-            shortcutStartPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, shortcutFromKnot);
-            shortcutEndPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, shortcutFromKnot + shortcutSkipCount);
-            shortcutProgress = 0f;
-        }
+        ActiveCheat activeShortcut = GetOrTriggerShortcut();
+        float speedBoostMultiplier = UpdateSpeedBoost(deltaTime);
+        float disappearBoostMultiplier = UpdateDisappearBoost(deltaTime);
+        float distance = baseSpeed * currentSpeedMultiplier * speedBoostMultiplier * disappearBoostMultiplier * deltaTime;
 
         Vector3 finalPos;
 
-        if (isShortcutting)
+        if (activeShortcut != null)
         {
-            float skipDistance = Vector3.Distance(shortcutStartPos, shortcutEndPos);
-            shortcutProgress += distance / Mathf.Max(skipDistance, 0.01f);
+            float skipDistance = Vector3.Distance(activeShortcut.shortcutStartPos, activeShortcut.shortcutEndPos);
+            activeShortcut.shortcutProgress += distance / Mathf.Max(skipDistance, 0.01f);
 
-            if (shortcutProgress >= 1f)
+            if (activeShortcut.shortcutProgress >= 1f)
             {
-                shortcutProgress = 1f;
-                isShortcutting = false;
-                t = shortcutEndT; // rejoin the normal spline at the landing knot
+                activeShortcut.shortcutProgress = 1f;
+                activeShortcut.isShortcutActive = false;
+                t = activeShortcut.shortcutEndT; // rejoin the normal spline at the landing knot
             }
 
-            finalPos = Vector3.Lerp(shortcutStartPos, shortcutEndPos, shortcutProgress);
+            finalPos = Vector3.Lerp(activeShortcut.shortcutStartPos, activeShortcut.shortcutEndPos, activeShortcut.shortcutProgress);
 
-            // lane offset still applies, but skip the tangent-based perpendicular calc during the cut
-            // (straight-line lerp direction acts as our "tangent" here)
-            Vector3 cutDir = (shortcutEndPos - shortcutStartPos).normalized;
+            Vector3 cutDir = (activeShortcut.shortcutEndPos - activeShortcut.shortcutStartPos).normalized;
             Vector3 perp = new Vector3(-cutDir.y, cutDir.x, 0f);
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;
@@ -164,6 +306,98 @@ public class Runner : MonoBehaviour
 
         transform.position = finalPos;
     }
+
+    // Returns the shortcut cheat while it's mid-cut, triggering it the moment we reach
+    // its start knot. Null the rest of the time (including for non-shortcut cheaters).
+    ActiveCheat GetOrTriggerShortcut()
+    {
+        if (activeCheat == null || activeCheat.config.type != CheatType.ShortcutCut) return null;
+
+        if (activeCheat.isShortcutActive) return activeCheat;
+
+        if (!activeCheat.hasTriggered && t >= activeCheat.shortcutStartT)
+        {
+            activeCheat.hasTriggered = true;
+            activeCheat.isShortcutActive = true;
+            activeCheat.shortcutProgress = 0f;
+            activeCheat.shortcutStartPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, activeCheat.resolvedFromKnot);
+            activeCheat.shortcutEndPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, activeCheat.resolvedToKnot);
+            return activeCheat;
+        }
+
+        return null;
+    }
+
+    // Triggers the speed boost once its progress threshold is reached, ticks it down,
+    // and returns the multiplier to apply to movement this frame (1 = no boost active).
+    float UpdateSpeedBoost(float deltaTime)
+    {
+        if (activeCheat == null || activeCheat.config.type != CheatType.SpeedBoost) return 1f;
+
+        if (!activeCheat.hasTriggered && t >= activeCheat.config.triggerProgress)
+        {
+            activeCheat.hasTriggered = true;
+            activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
+        }
+
+        if (activeCheat.boostTimeRemaining > 0f)
+        {
+            activeCheat.boostTimeRemaining -= deltaTime;
+            return activeCheat.config.boostMultiplier;
+        }
+
+        return 1f;
+    }
+
+    float UpdateDisappearBoost(float deltaTime)
+    {
+        if (activeCheat == null || activeCheat.config.type != CheatType.DisappearBoost) return 1f;
+
+        if (!activeCheat.hasTriggered && t >= activeCheat.config.disappearTriggerProgress)
+        {
+            activeCheat.hasTriggered = true;
+            activeCheat.isDisappeared = true;
+            activeCheat.disappearTimeRemaining = activeCheat.config.disappearDuration;
+            SetVisible(false);
+        }
+
+        if (activeCheat.isDisappeared)
+        {
+            activeCheat.disappearTimeRemaining -= deltaTime;
+            if (activeCheat.disappearTimeRemaining <= 0f)
+            {
+                activeCheat.isDisappeared = false;
+                SetVisible(true);
+            }
+            return activeCheat.config.disappearBoostMultiplier;
+        }
+
+        return 1f;
+    }
+
+    void SetVisible(bool visible)
+    {
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr != null) sr.enabled = visible;
+    }
+
+    void UpdateInjureCheck(List<Runner> allRunners)
+    {
+        if (activeCheat == null || activeCheat.config.type != CheatType.Injure) return;
+        if (activeCheat.hasInjured || t < activeCheat.config.injureTriggerProgress) return;
+
+        foreach (Runner other in allRunners)
+        {
+            if (other == this || other.isInjured || other.hasFinished) continue;
+
+            if (Mathf.Abs(other.t - t) <= activeCheat.config.injureRange)
+            {
+                other.Injure();
+                activeCheat.hasInjured = true; // this cheater can only injure once, ever
+                break;
+            }
+        }
+    }
 }
 
 public static class SplineKnotUtils
@@ -179,5 +413,20 @@ public static class SplineKnotUtils
     {
         float3 localPos = container.Spline[knotIndex].Position;
         return container.transform.TransformPoint((Vector3)localPos);
+    }
+
+    // Finds the closest point on the spline to a world-space position, and how far
+    // sideways (perpendicular to the track) that position sits from the spline.
+    // Used to turn an arbitrary designer-placed spawn point into a (t, laneOffset) pair.
+    public static void GetNearestTAndLateralOffset(SplineContainer container, Vector3 worldPos, out float t, out float lateralOffset)
+    {
+        float3 localPos = container.transform.InverseTransformPoint(worldPos);
+        SplineUtility.GetNearestPoint(container.Spline, localPos, out float3 nearest, out t);
+
+        Vector3 nearestWorld = container.transform.TransformPoint((Vector3)nearest);
+        Vector3 tangent = container.EvaluateTangent(t);
+        Vector3 perpendicular = new Vector3(-tangent.y, tangent.x, 0f).normalized;
+
+        lateralOffset = Vector3.Dot(worldPos - nearestWorld, perpendicular);
     }
 }
