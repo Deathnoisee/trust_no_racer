@@ -194,7 +194,7 @@ public class RunnersGenerator : MonoBehaviour
 
         currentPerson = newPerson;
         personVisuals.DisplayPerson(currentPerson);
-
+        currentRunners.Add(currentPerson);
         return currentPerson;
     }
 
