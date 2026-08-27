@@ -12,19 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd8a5c05db95c94db12f8b11fa4c548, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
-  totalRacers: 6
+  trackName: TrackTest
+  totalRacers: 8
+  lapCount: 2
   cheaterCheats:
   - type: 1
     chance: 1
+    cheatOnLap: 2
     shortcutFromKnot: 3
     shortcutSkipCount: 3
-    triggerProgress: 0.402
+    disappearTriggerProgress: 0.4
+    disappearDuration: 2
+    disappearBoostMultiplier: 2
+    injureTriggerProgress: 0.3
+    injureRange: 0.03
+    triggerProgress: 0.25
     boostMultiplier: 2
     boostDuration: 3
   - type: 1
     chance: 1
+    cheatOnLap: 2
     shortcutFromKnot: 2
     shortcutSkipCount: 2
-    triggerProgress: 0.765
+    disappearTriggerProgress: 0.4
+    disappearDuration: 2
+    disappearBoostMultiplier: 2
+    injureTriggerProgress: 0.3
+    injureRange: 0.03
+    triggerProgress: 0.75
     boostMultiplier: 2
     boostDuration: 3

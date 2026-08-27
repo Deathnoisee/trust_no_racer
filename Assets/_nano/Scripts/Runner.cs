@@ -17,6 +17,11 @@ public class CheatConfig
     public CheatType type = CheatType.ShortcutCut;
     [Range(0f, 1f)] public float chance = 1f; // chance the assigned runner actually cheats this race
 
+    [Tooltip("Which lap this cheat triggers on (1 = first lap). Only matters when the level's " +
+             "lap count is greater than 1 — clamped to the runner's actual total laps, so a " +
+             "'lap 3' cheat on a 2-lap level just fires on the last lap instead.")]
+    [Min(1)] public int cheatOnLap = 1;
+
     [Header("Shortcut Cut settings")]
     public int shortcutFromKnot = 3;
     public int shortcutSkipCount = 2;
@@ -43,6 +48,10 @@ public class ActiveCheat
 {
     public CheatConfig config;
     public bool hasTriggered;
+
+    // which lap (0-indexed) this cheat is allowed to fire on, resolved once at spawn
+    // time from config.cheatOnLap and clamped to the runner's actual total laps
+    public int resolvedCheatLap;
 
     // shortcut cut runtime
     public int resolvedFromKnot;
@@ -131,6 +140,17 @@ public class Runner : MonoBehaviour
 
     private ActiveCheat activeCheat; // null if not a cheater, no cheat assigned, or the chance roll failed
 
+    [Header("Laps")]
+    [Tooltip("How many times this runner must loop mainSpline before the race counts them as " +
+             "finished. Set by RaceManager from the current LevelConfig.")]
+    public int totalLaps = 1;
+    [HideInInspector] public int currentLap = 0;
+
+    // Overall race completion, 0-1, across ALL laps (not just the current one around the
+    // spline). Handy for progress bars / minimaps — t alone only tells you where you are
+    // on the current lap.
+    public float RaceProgress => Mathf.Clamp01((currentLap + Mathf.Clamp01(t)) / totalLaps);
+
     [HideInInspector] public float t = 0f;
     [HideInInspector] public bool hasFinished = false;
 
@@ -138,6 +158,12 @@ public class Runner : MonoBehaviour
 
     [HideInInspector] public bool isInjured = false;
 
+
+    [Header("Rotation")]
+    public float rotationSmoothing = 8f;
+
+
+    public SpriteRenderer tshirtRenderer;
     // Call this right after Instantiate (before Start runs, since Start is deferred to
     // just before the next Update) to place the runner at a designated spawn location
     // and have it continue running from there with no snap/teleport.
@@ -165,7 +191,8 @@ public class Runner : MonoBehaviour
     }
     void Start()
     {
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
+        //gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
+        tshirtRenderer.color = runnerColor;
         visuals = GetComponentInChildren<RunnerVisuals>();
         nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
         laneWobblePhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
@@ -186,6 +213,7 @@ public class Runner : MonoBehaviour
         if (UnityEngine.Random.value > assignedCheat.chance) return; // rolled to run clean this race
 
         activeCheat = new ActiveCheat { config = assignedCheat };
+        activeCheat.resolvedCheatLap = Mathf.Clamp(assignedCheat.cheatOnLap - 1, 0, Mathf.Max(totalLaps - 1, 0));
 
         if (assignedCheat.type == CheatType.ShortcutCut)
         {
@@ -278,12 +306,18 @@ public class Runner : MonoBehaviour
                 activeShortcut.shortcutProgress = 1f;
                 activeShortcut.isShortcutActive = false;
                 t = activeShortcut.shortcutEndT; // rejoin the normal spline at the landing knot
+                if (t >= 1f) AdvanceLap(); // in case the cut lands past the finish line
             }
 
             finalPos = Vector3.Lerp(activeShortcut.shortcutStartPos, activeShortcut.shortcutEndPos, activeShortcut.shortcutProgress);
 
             Vector3 cutDir = (activeShortcut.shortcutEndPos - activeShortcut.shortcutStartPos).normalized;
             Vector3 perp = new Vector3(-cutDir.y, cutDir.x, 0f);
+            if (cutDir.sqrMagnitude > 0.0001f)
+            {
+                float angle = Mathf.Atan2(cutDir.y, cutDir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;
             finalPos += perp * (laneOffset + wobble);
@@ -293,11 +327,18 @@ public class Runner : MonoBehaviour
             float splineLength = mainSpline.CalculateLength();
             t += distance / splineLength;
 
-            if (t >= 1f) { t = 1f; hasFinished = true; }
+            if (t >= 1f) AdvanceLap();
 
             Vector3 centerPos = mainSpline.EvaluatePosition(t);
             Vector3 tangent = mainSpline.EvaluateTangent(t);
             Vector3 perpendicular = new Vector3(-tangent.y, tangent.x, 0f).normalized;
+
+            if (tangent.sqrMagnitude > 0.0001f)
+            {
+                float targetAngle = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg - 90f;
+                Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, deltaTime * rotationSmoothing);
+            }
 
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;
@@ -305,6 +346,25 @@ public class Runner : MonoBehaviour
         }
 
         transform.position = finalPos;
+    }
+
+    // Called whenever t crosses 1 (one full pass of mainSpline). On a looping track this
+    // wraps back around for another lap instead of finishing immediately; only once
+    // currentLap reaches totalLaps do we actually mark the runner finished. Requires
+    // mainSpline to be a CLOSED spline, or the wrap will visibly jump.
+    void AdvanceLap()
+    {
+        currentLap++;
+
+        if (currentLap >= totalLaps)
+        {
+            t = 1f;
+            hasFinished = true;
+        }
+        else
+        {
+            t -= 1f; // keep the overshoot so speed reads smoothly across the lap seam
+        }
     }
 
     // Returns the shortcut cheat while it's mid-cut, triggering it the moment we reach
@@ -315,7 +375,7 @@ public class Runner : MonoBehaviour
 
         if (activeCheat.isShortcutActive) return activeCheat;
 
-        if (!activeCheat.hasTriggered && t >= activeCheat.shortcutStartT)
+        if (!activeCheat.hasTriggered && currentLap == activeCheat.resolvedCheatLap && t >= activeCheat.shortcutStartT)
         {
             activeCheat.hasTriggered = true;
             activeCheat.isShortcutActive = true;
@@ -334,7 +394,7 @@ public class Runner : MonoBehaviour
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.SpeedBoost) return 1f;
 
-        if (!activeCheat.hasTriggered && t >= activeCheat.config.triggerProgress)
+        if (!activeCheat.hasTriggered && currentLap == activeCheat.resolvedCheatLap && t >= activeCheat.config.triggerProgress)
         {
             activeCheat.hasTriggered = true;
             activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
@@ -353,7 +413,7 @@ public class Runner : MonoBehaviour
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.DisappearBoost) return 1f;
 
-        if (!activeCheat.hasTriggered && t >= activeCheat.config.disappearTriggerProgress)
+        if (!activeCheat.hasTriggered && currentLap == activeCheat.resolvedCheatLap && t >= activeCheat.config.disappearTriggerProgress)
         {
             activeCheat.hasTriggered = true;
             activeCheat.isDisappeared = true;
@@ -384,7 +444,7 @@ public class Runner : MonoBehaviour
     void UpdateInjureCheck(List<Runner> allRunners)
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.Injure) return;
-        if (activeCheat.hasInjured || t < activeCheat.config.injureTriggerProgress) return;
+        if (activeCheat.hasInjured || currentLap != activeCheat.resolvedCheatLap || t < activeCheat.config.injureTriggerProgress) return;
 
         foreach (Runner other in allRunners)
         {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1817161153402369416}
   - component: {fileID: 8275564539481288197}
   - component: {fileID: 1115504895142233921}
+  - component: {fileID: 1114300973588437693}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1471723599
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
@@ -115,6 +116,20 @@ MonoBehaviour:
   burstThreshold: 0.2
   punchScaleAmount: 0.35
   punchDuration: 0.25
+--- !u!114 &1114300973588437693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3059088970992826082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75c31beb2173942a9264578dd0910d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 0.244
 --- !u!1 &7525229610047032324
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,10 +205,20 @@ MonoBehaviour:
   assignedCheat:
     type: 0
     chance: 1
+    cheatOnLap: 1
     shortcutFromKnot: 3
     shortcutSkipCount: 2
+    disappearTriggerProgress: 0.4
+    disappearDuration: 2
+    disappearBoostMultiplier: 2
+    injureTriggerProgress: 0.3
+    injureRange: 0.03
     triggerProgress: 0.3
     boostMultiplier: 2.5
     boostDuration: 1.5
+  totalLaps: 1
+  currentLap: 0
   t: 0
   hasFinished: 0
+  visuals: {fileID: 0}
+  isInjured: 0
