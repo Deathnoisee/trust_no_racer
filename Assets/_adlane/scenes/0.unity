@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 480038191}
   - component: {fileID: 480038190}
   - component: {fileID: 480038192}
+  - component: {fileID: 480038193}
   m_Layer: 5
   m_Name: notepad
   m_TagString: Untagged
@@ -500,6 +501,22 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
+--- !u!114 &480038193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480038188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49fd1a72e466049289c13974f79d820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NotepadController
+  notepadRect: {fileID: 480038189}
+  shownY: 0
+  hiddenY: -350
+  animationDuration: 0.5
 --- !u!1 &599568748
 GameObject:
   m_ObjectHideFlags: 0
