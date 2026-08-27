@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &622888643172622759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3099137198782187614}
+  - component: {fileID: 7825024621406664322}
+  m_Layer: 0
+  m_Name: RaceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3099137198782187614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622888643172622759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.53407, y: 5.38296, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7825024621406664322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622888643172622759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd9bf4d58e286484fbc39f97abe3651c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceManager
+  runnerPrefab: {fileID: 7525229610047032324, guid: c38396d921a81b3488ba225f55459b13, type: 3}
+  startPoint: {fileID: 0}
+  mainSpline: {fileID: 0}
+  runnerColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.40009844, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.8472252, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.5560055, a: 1}
+  - {r: 0, g: 0.7138033, b: 1, a: 1}
+  - {r: 0.23218822, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.4129192, b: 0, a: 1}
+  - {r: 0.5659276, g: 0, b: 1, a: 1}
+  runnersPerRow: 4
+  rowSpacing: 0.6
+  columnSpacing: 0.5
+  totalRacers: 8
+  cheaterCount: 2
+  laneSpread: 2

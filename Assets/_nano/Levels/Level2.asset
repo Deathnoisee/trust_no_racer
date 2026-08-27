@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd8a5c05db95c94db12f8b11fa4c548, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  totalRacers: 8
+  lapCount: 2
+  cheaterCheats:
+  - type: 2
+    chance: 1
+    cheatOnLap: 1
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0.5
+    disappearDuration: 3
+    disappearBoostMultiplier: 3
+    injureTriggerProgress: 0
+    injureRange: 0
+    triggerProgress: 0
+    boostMultiplier: 0
+    boostDuration: 0
+  - type: 1
+    chance: 1
+    cheatOnLap: 1
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0
+    disappearDuration: 0
+    disappearBoostMultiplier: 0
+    injureTriggerProgress: 0
+    injureRange: 0
+    triggerProgress: 0.75
+    boostMultiplier: 2
+    boostDuration: 4
+  - type: 3
+    chance: 1
+    cheatOnLap: 2
+    shortcutFromKnot: 0
+    shortcutSkipCount: 0
+    disappearTriggerProgress: 0
+    disappearDuration: 0
+    disappearBoostMultiplier: 0
+    injureTriggerProgress: 0.25
+    injureRange: 1
+    triggerProgress: 0.75
+    boostMultiplier: 2
+    boostDuration: 4
