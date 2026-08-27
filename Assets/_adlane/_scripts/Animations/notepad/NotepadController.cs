@@ -21,7 +21,7 @@ public class NotepadController : MonoBehaviour, IPointerClickHandler
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.N) && !notepadManager.NotepadInputField.isFocused)
         {
             ToggleNotepad();
         }

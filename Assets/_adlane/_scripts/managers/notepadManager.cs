@@ -3,7 +3,7 @@ using TMPro;
 
 public class NotepadManager : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField NotepadInputField;
+    public TMP_InputField NotepadInputField;
     public bool AnalysisPhase { get; private set; } = false;
     public bool IsOpen { get; private set; } = true;
 
