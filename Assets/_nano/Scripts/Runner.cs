@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
+using SmallHedge.SoundManager;
 
 public enum CheatType
 {
@@ -10,6 +11,21 @@ public enum CheatType
     DisappearBoost,
     Injure
 }
+[System.Serializable]
+public class KmSplit
+{
+    public int kmIndex;       // which km this is (0 = start to knot 1, etc.)
+    public float timeSeconds; // how long this km took
+    public float paceKmh;     // convenience: km/h for this split
+}
+[System.Serializable]
+public struct TrajectoryPoint
+{
+    public float time;
+    public Vector3 position;
+}
+
+
 
 [System.Serializable]
 public class CheatConfig
@@ -90,6 +106,19 @@ public class Runner : MonoBehaviour
     public float targetSpeedMultiplier = 1f;
     public float speedChangeSmoothing = 1.5f;
 
+    [Header("Pace Tracking")]
+    public List<KmSplit> kmSplits = new List<KmSplit>();
+
+    private float[] kmThresholdsT; // t value of each knot, precomputed once
+    private int nextKmIndex = 0;
+    private float lastKmCrossTime = 0f; // race time when the last km boundary was crossed
+
+    [Header("Trajectory Recording")]
+    public float trajectorySampleInterval = 1f; // seconds between recorded points
+    public List<TrajectoryPoint> trajectory = new List<TrajectoryPoint>();
+
+    private float nextTrajectorySampleTime = 0f;
+
     [Header("Pace Variation")]
     public float minPaceMultiplier = 0.7f;
     public float maxPaceMultiplier = 1.3f;
@@ -134,6 +163,7 @@ public class Runner : MonoBehaviour
 
     [Header("Cheater Data (hidden from player during race)")]
     public bool isCheater = false;
+    public bool isCheating = false; // true while a cheat is actively in effect (shortcut, speed boost, disappear, injure)
     [Tooltip("The single cheat this runner performs, assigned by RaceManager from the current " +
              "LevelConfig. A runner can only ever have one — never a list.")]
     public CheatConfig assignedCheat;
@@ -153,7 +183,7 @@ public class Runner : MonoBehaviour
 
     [HideInInspector] public float t = 0f;
     [HideInInspector] public bool hasFinished = false;
-
+    [HideInInspector] public bool hasStarted = false;
     public RunnerVisuals visuals;
 
     [HideInInspector] public bool isInjured = false;
@@ -178,6 +208,8 @@ public class Runner : MonoBehaviour
         preferredOffset = laneOffset;
         transform.position = worldPos;
     }
+
+
     public void Injure()
     {
         if (isInjured) return; // don't double-trigger
@@ -204,8 +236,61 @@ public class Runner : MonoBehaviour
         laneOffset = preferredOffset;
 
         BuildActiveCheat();
-    }
 
+        int knotCount = mainSpline.Spline.Count;
+        kmThresholdsT = new float[knotCount];
+        for (int i = 0; i < knotCount; i++)
+        {
+            kmThresholdsT[i] = SplineKnotUtils.GetKnotT(mainSpline, i);
+        }
+        lastKmCrossTime = Time.time;
+    }
+    void RecordTrajectorySample(Vector3 position)
+    {
+        if (Time.time >= nextTrajectorySampleTime)
+        {
+            trajectory.Add(new TrajectoryPoint
+            {
+                time = Time.time,
+                position = position
+            });
+            nextTrajectorySampleTime = Time.time + trajectorySampleInterval;
+        }
+    }
+    void CheckKmCrossing()
+    {
+        if (nextKmIndex >= kmThresholdsT.Length) return; // already passed the last knot
+
+        if (t >= kmThresholdsT[nextKmIndex])
+        {
+            float splitTime = Time.time - lastKmCrossTime;
+            float paceKmh = splitTime > 0f ? (3600f / splitTime) : 0f; // 1 km per splitTime seconds -> km/h
+
+            kmSplits.Add(new KmSplit
+            {
+                kmIndex = nextKmIndex,
+                timeSeconds = splitTime,
+                paceKmh = paceKmh
+            });
+
+            lastKmCrossTime = Time.time;
+            nextKmIndex++;
+        }
+    }
+    // call this right after a shortcut lands (t = activeShortcut.shortcutEndT)
+    void HandleKmSkipAfterShortcut()
+    {
+        while (nextKmIndex < kmThresholdsT.Length && t >= kmThresholdsT[nextKmIndex])
+        {
+            kmSplits.Add(new KmSplit
+            {
+                kmIndex = nextKmIndex,
+                timeSeconds = 0f,  // no real time recorded — this km was skipped
+                paceKmh = -1f      // sentinel value flagging "no data / suspicious"
+            });
+            nextKmIndex++;
+        }
+    }
     void BuildActiveCheat()
     {
         activeCheat = null;
@@ -282,6 +367,8 @@ public class Runner : MonoBehaviour
     {
         if (hasFinished || isInjured) return;
 
+        hasStarted = true;
+
         if (Time.time >= nextPaceChangeTime)
         {
             targetSpeedMultiplier = UnityEngine.Random.Range(minPaceMultiplier, maxPaceMultiplier);
@@ -326,6 +413,7 @@ public class Runner : MonoBehaviour
         {
             float splineLength = mainSpline.CalculateLength();
             t += distance / splineLength;
+            CheckKmCrossing();
 
             if (t >= 1f) AdvanceLap();
 
@@ -346,6 +434,7 @@ public class Runner : MonoBehaviour
         }
 
         transform.position = finalPos;
+        RecordTrajectorySample(finalPos);
     }
 
     // Called whenever t crosses 1 (one full pass of mainSpline). On a looping track this
@@ -360,6 +449,16 @@ public class Runner : MonoBehaviour
         {
             t = 1f;
             hasFinished = true;
+            CameraShake.instance.ShakeMedium();
+            SoundManager.PlaySound(SoundType.Win);
+            Debug.Log($"{runnerName} (bib {runnerBibNumber}) finished the race!");
+            Debug.Log($"Km splits for {runnerName}:");
+            foreach (KmSplit split in kmSplits)
+            {
+                Debug.Log($"Km {split.kmIndex + 1}: {split.timeSeconds:F2}s, pace {split.paceKmh:F2} km/h");
+            }
+
+
         }
         else
         {
@@ -382,9 +481,11 @@ public class Runner : MonoBehaviour
             activeCheat.shortcutProgress = 0f;
             activeCheat.shortcutStartPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, activeCheat.resolvedFromKnot);
             activeCheat.shortcutEndPos = SplineKnotUtils.GetKnotWorldPosition(mainSpline, activeCheat.resolvedToKnot);
+            isCheating = true;
             return activeCheat;
         }
 
+        isCheating = false;
         return null;
     }
 
@@ -398,6 +499,7 @@ public class Runner : MonoBehaviour
         {
             activeCheat.hasTriggered = true;
             activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
+
         }
 
         if (activeCheat.boostTimeRemaining > 0f)
@@ -418,6 +520,7 @@ public class Runner : MonoBehaviour
             activeCheat.hasTriggered = true;
             activeCheat.isDisappeared = true;
             activeCheat.disappearTimeRemaining = activeCheat.config.disappearDuration;
+
             SetVisible(false);
         }
 
@@ -454,6 +557,7 @@ public class Runner : MonoBehaviour
             {
                 other.Injure();
                 activeCheat.hasInjured = true; // this cheater can only injure once, ever
+
                 break;
             }
         }

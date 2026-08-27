@@ -5,26 +5,13 @@ namespace SmallHedge.SoundManager
 {
     public enum SoundType
     {
-        shoot,
-        click,
-        Music,
-        error,
-        right,
-        damage,
-        type,
-        popIn,
-        popOut,
-        alaram,
-        wakeUp,
-        Running,
-        yawn,
-        powerOn,
-        powerOff,
-        crying,
-        running,
-        loosing,
-        winning
 
+        Music,
+        Bump,
+        Ambiance,
+        Win,
+        PowerUp,
+        Run,
 
 
     }

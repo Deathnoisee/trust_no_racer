@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using SmallHedge.SoundManager;
 
 public class RunnerVisuals : MonoBehaviour
 {
@@ -22,10 +23,17 @@ public class RunnerVisuals : MonoBehaviour
     public float punchScaleAmount = 0.35f;
     public float punchDuration = 0.25f;
 
+    [Header("Cheat Activation Burst")]
+    public float cheatPunchScaleAmount = 0.7f; // bigger than your normal accel punch
+    public float cheatPunchDuration = 0.35f;
+    public Color cheatPunchFlashColor = Color.red; // optional visual tell
+    public float cheatFlashDuration = 0.15f;
+
     private float strideTimer = 0f;
     private float currentLean = 0f;
     private Vector3 baseScale;
     private float lastTargetSpeed;
+
 
     // DOTween drives this value only — stride math never touches it directly
     private Vector3 punchScaleOffset = Vector3.zero;
@@ -39,9 +47,12 @@ public class RunnerVisuals : MonoBehaviour
 
     void Update()
     {
+        if (runner.hasFinished)
+            return;
         float targetDelta = runner.targetSpeedMultiplier - lastTargetSpeed;
         if (targetDelta > burstThreshold)
         {
+            CameraShake.instance.ShakeSmall();
             TriggerBurstPunch();
         }
         lastTargetSpeed = runner.targetSpeedMultiplier;
@@ -66,12 +77,14 @@ public class RunnerVisuals : MonoBehaviour
         float targetLean = Mathf.Clamp(-steerDelta * maxLeanAngle, -maxLeanAngle, maxLeanAngle);
         currentLean = Mathf.Lerp(currentLean, targetLean, Time.deltaTime * leanSmoothing);
         transform.localRotation = Quaternion.Euler(0f, 0f, currentLean);
+
     }
 
     void TriggerBurstPunch()
     {
         punchTween?.Kill();
         punchScaleOffset = Vector3.zero;
+        SoundManager.PlaySound(SoundType.PowerUp);
 
         // DOTween animates punchScaleOffset itself (a plain Vector3 field),
         // NOT transform.localScale directly — that's what lets stride math
@@ -83,6 +96,31 @@ public class RunnerVisuals : MonoBehaviour
             punchDuration
         ).SetLoops(2, LoopType.Yoyo).SetEase(Ease.OutQuad);
     }
+
+    public void TriggerCheatBurst()
+    {
+        punchTween?.Kill();
+        punchScaleOffset = Vector3.zero;
+        SoundManager.PlaySound(SoundType.PowerUp);
+
+        punchTween = DOTween.To(
+            () => punchScaleOffset,
+            x => punchScaleOffset = x,
+            Vector3.one * cheatPunchScaleAmount,
+            cheatPunchDuration
+        ).SetLoops(2, LoopType.Yoyo).SetEase(Ease.OutBack); // OutBack gives a snappier "pop" than OutQuad
+
+        // optional: quick color flash for extra readability, since this is a bigger/rarer moment
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            Color original = sr.color;
+            sr.DOColor(cheatPunchFlashColor, cheatFlashDuration)
+              .SetLoops(2, LoopType.Yoyo)
+              .OnComplete(() => sr.color = original);
+        }
+    }
+
 
 
     // in RunnerVisuals.cs

@@ -115,6 +115,14 @@ MonoBehaviour:
   burstThreshold: 0.25
   punchScaleAmount: 0.35
   punchDuration: 0.25
+  cheatPunchScaleAmount: 0.7
+  cheatPunchDuration: 0.35
+  cheatPunchFlashColor: {r: 1, g: 0.81438315, b: 0, a: 1}
+  cheatFlashDuration: 0.15
+  footstepAudioSource: {fileID: 0}
+  baseFootstepVolume: 0.6
+  minSpeedMultiplierToPlay: 0.1
+  ownsFootstepAudio: 0
 --- !u!1 &1946862373942723753
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2443227286084593258}
   - component: {fileID: 2490389745739610099}
-  - component: {fileID: 3370039571479088113}
+  - component: {fileID: 2431050054351577353}
   m_Layer: 0
   m_Name: runnershirt
   m_TagString: Untagged
@@ -208,7 +216,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &3370039571479088113
+--- !u!114 &2431050054351577353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,6 +238,14 @@ MonoBehaviour:
   burstThreshold: 0.25
   punchScaleAmount: 0.35
   punchDuration: 0.25
+  cheatPunchScaleAmount: 0.7
+  cheatPunchDuration: 0.35
+  cheatPunchFlashColor: {r: 1, g: 0.81438315, b: 0, a: 1}
+  cheatFlashDuration: 0.15
+  footstepAudioSource: {fileID: 0}
+  baseFootstepVolume: 0.6
+  minSpeedMultiplierToPlay: 0.1
+  ownsFootstepAudio: 0
 --- !u!1 &3770240368811690680
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +299,9 @@ MonoBehaviour:
   currentSpeedMultiplier: 1
   targetSpeedMultiplier: 1
   speedChangeSmoothing: 1.5
+  kmSplits: []
+  trajectorySampleInterval: 1
+  trajectory: []
   minPaceMultiplier: 0.7
   maxPaceMultiplier: 1.3
   paceChangeIntervalMin: 3
@@ -320,8 +339,10 @@ MonoBehaviour:
   currentLap: 0
   t: 0
   hasFinished: 0
+  hasStarted: 0
   visuals: {fileID: 0}
   isInjured: 0
+  rotationSmoothing: 8
   tshirtRenderer: {fileID: 2490389745739610099}
 --- !u!1 &9210037883925541560
 GameObject:
