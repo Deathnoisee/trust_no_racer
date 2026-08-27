@@ -13,104 +13,34 @@ MonoBehaviour:
   m_Name: Sounds
   m_EditorClassIdentifier: 
   sounds:
-  - name: shoot
-    volume: 1
-    mixer: {fileID: 0}
-    sounds: []
-  - name: click
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 74551216c08406d468129faedcd431e3, type: 3}
-    - {fileID: 8300000, guid: c401050ca797d6a4695697bc061587f4, type: 3}
-    - {fileID: 8300000, guid: c56c3ffa6062bf44e97120eda5ff4f89, type: 3}
   - name: Music
+    volume: 0.7
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 4c9c9972a02628746bab0b57b6319059, type: 3}
+    - {fileID: 8300000, guid: 5752e593cbc9ca04da7c5834cd066b30, type: 3}
+    - {fileID: 8300000, guid: 21c417bc4251b8f4696b92e26ed20d64, type: 3}
+  - name: Bump
     volume: 1
     mixer: {fileID: 0}
     sounds:
-    - {fileID: 8300000, guid: 4774fb3c4502ba645923d3637ebf1144, type: 3}
-  - name: error
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: dc6e3727a2fe1fc42b633a7c2ea626ae, type: 3}
-    - {fileID: 8300000, guid: 584d018d315afb54297038acb54cab5a, type: 3}
-    - {fileID: 8300000, guid: 4cf776d4dbb297240ac7f77b05e1fc98, type: 3}
-    - {fileID: 8300000, guid: a0941bb171c2a1249bff27bf0c56ae2b, type: 3}
-  - name: right
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 7e4cc122579a6664c8b7324674355099, type: 3}
-  - name: damage
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: bce9ce3526c5bc84ca8adba3a1bfe577, type: 3}
-  - name: type
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 1e303bdf70c1e2e43a3e909fb127c457, type: 3}
-    - {fileID: 8300000, guid: 04c8b90edbc16664db836ae5b5093984, type: 3}
-  - name: popIn
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 59d6389e2329c35419dc54a6c7e44c6b, type: 3}
-    - {fileID: 8300000, guid: e422db3915660ab418a75b88ec06d977, type: 3}
-    - {fileID: 8300000, guid: da750e74fa9aca446b0c8047b65dd19f, type: 3}
-    - {fileID: 8300000, guid: 47b2942692cf7df488dd502d8875c0a7, type: 3}
-  - name: popOut
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 59d6389e2329c35419dc54a6c7e44c6b, type: 3}
-  - name: alaram
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: a9a9c531c823afb4a950c2c9f31e6874, type: 3}
-  - name: wakeUp
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 1ec16b226a14e674cb870b852fc5b374, type: 3}
-  - name: Running
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: ee22e89622517a143a124469ebafd56b, type: 3}
-  - name: yawn
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: b6275f3c0f19ced4bb93f045a18f624a, type: 3}
-  - name: powerOn
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 35e41242a023f474882e1b3ca85aeb0a, type: 3}
-  - name: powerOff
+    - {fileID: 8300000, guid: 08c56706a95a2114dac6a29d1527b570, type: 3}
+    - {fileID: 8300000, guid: 2175a9651b95b4349ab4dd304fa8f4bd, type: 3}
+  - name: Ambiance
     volume: 1
     mixer: {fileID: 0}
     sounds: []
-  - name: crying
+  - name: Win
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: da5e93f6c384ec34c8e20a9b66654c75, type: 3}
+  - name: PowerUp
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 7342af87f83917748bc1f31fd561b7b0, type: 3}
+  - name: Run
     volume: 1
     mixer: {fileID: 0}
     sounds: []
-  - name: running
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: ee22e89622517a143a124469ebafd56b, type: 3}
-  - name: loosing
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: b70c955052ad3b341b64a0757ef55066, type: 3}
-  - name: winning
-    volume: 1
-    mixer: {fileID: 0}
-    sounds:
-    - {fileID: 8300000, guid: 118e94f78afb67c4c80a043cfdfb403f, type: 3}

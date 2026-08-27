@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SmallHedge.SoundManager;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -25,6 +26,12 @@ public class RaceManager : MonoBehaviour
 
     public int currentLevelIndex = 0;
 
+    public GameObject startButton;
+
+    [Header("Sound")]
+    public float bumpSoundCooldown = 0.6f; // min time between bump sounds for the same pair
+    private Dictionary<(int, int), float> lastBumpTime = new Dictionary<(int, int), float>();
+
 
     public int cheaterCount = 0;
 
@@ -46,6 +53,7 @@ public class RaceManager : MonoBehaviour
     // same RaceManager instance can be reused for the whole game.
     public void LoadLevel(int levelIndex)
     {
+        startButton.SetActive(true);
         currentLevelIndex = levelIndex;
         raceStarted = false;
         raceEnded = false;
@@ -169,15 +177,23 @@ public class RaceManager : MonoBehaviour
     }
 
 
+    public void StartRace()
+    {
+        raceStarted = true;
+        startButton.SetActive(false);
+
+    }
+
+
     void Update()
     {
         if (raceEnded) return;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            raceStarted = true;
-            Debug.Log("Race started!");
-        }
+        /*
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                raceStarted = true;
+                Debug.Log("Race started!");
+            }*/
 
         if (!raceStarted) return;
 
@@ -214,9 +230,20 @@ public class RaceManager : MonoBehaviour
 
                     a.laneOffset = Mathf.Clamp(a.laneOffset + pushAmount, -maxLaneOffset, maxLaneOffset);
                     b.laneOffset = Mathf.Clamp(b.laneOffset - pushAmount, -maxLaneOffset, maxLaneOffset);
+                    TryPlayBumpSound(a.runnerBibNumber, b.runnerBibNumber);
                 }
             }
         }
+    }
+    void TryPlayBumpSound(int idA, int idB)
+    {
+        var key = idA < idB ? (idA, idB) : (idB, idA); // order-independent key
+
+        if (lastBumpTime.TryGetValue(key, out float lastTime) && Time.time - lastTime < bumpSoundCooldown)
+            return; // still on cooldown for this specific pair
+
+        lastBumpTime[key] = Time.time;
+        SoundManager.PlaySound(SoundType.Bump);
     }
 
     void CheckRaceEnd()

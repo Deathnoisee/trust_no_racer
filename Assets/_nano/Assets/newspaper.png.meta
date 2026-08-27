@@ -1,0 +1,762 @@
+fileFormatVersion: 2
+guid: ead83803696045e4aa3977cd80ed26e1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6879538022904502005
+    second: newspaper_0
+  - first:
+      213: -5304021391967617925
+    second: newspaper_1
+  - first:
+      213: 2142571664425025494
+    second: newspaper_2
+  - first:
+      213: 3666549369436585886
+    second: newspaper_3
+  - first:
+      213: 6079693433532104324
+    second: newspaper_4
+  - first:
+      213: 7503965800060509072
+    second: newspaper_5
+  - first:
+      213: 3822273699041570805
+    second: newspaper_6
+  - first:
+      213: 878044133208376032
+    second: newspaper_7
+  - first:
+      213: -3856171524922987499
+    second: newspaper_8
+  - first:
+      213: -1494797538900319796
+    second: newspaper_9
+  - first:
+      213: 9180507536846946161
+    second: newspaper_10
+  - first:
+      213: 4153699908844913263
+    second: newspaper_11
+  - first:
+      213: -184929791814972070
+    second: newspaper_12
+  - first:
+      213: 7368719635352200728
+    second: newspaper_13
+  - first:
+      213: 4225443285748516070
+    second: newspaper_14
+  - first:
+      213: -3970234034250554745
+    second: newspaper_15
+  - first:
+      213: -8453753554503486321
+    second: newspaper_16
+  - first:
+      213: 2641912266884205255
+    second: newspaper_17
+  - first:
+      213: 8294158328834401312
+    second: newspaper_18
+  - first:
+      213: 2542769412912987887
+    second: newspaper_19
+  - first:
+      213: 3463860701410869064
+    second: newspaper_20
+  - first:
+      213: -2183816011819893298
+    second: newspaper_21
+  - first:
+      213: -5913744936330180233
+    second: newspaper_22
+  - first:
+      213: -7429155562642811353
+    second: newspaper_23
+  - first:
+      213: -1634659179225880818
+    second: newspaper_24
+  - first:
+      213: -5135032873854920470
+    second: newspaper_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: newspaper_0
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 3830
+        width: 61
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f6140ae167097f50800000000000000
+      internalID: 6879538022904502005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_1
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 3867
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7c72ba55a45466b0800000000000000
+      internalID: -5304021391967617925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_2
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 3816
+        width: 58
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dffed3b391fbbd10800000000000000
+      internalID: 2142571664425025494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_3
+      rect:
+        serializedVersion: 2
+        x: 1521
+        y: 3830
+        width: 61
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f33bca93332e230800000000000000
+      internalID: 3666549369436585886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_4
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 3867
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48eb4f857f86f5450800000000000000
+      internalID: 6079693433532104324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_5
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 3707
+        width: 652
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b594f2321732860800000000000000
+      internalID: 7503965800060509072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_6
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 3730
+        width: 625
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ffe0b19da17b0530800000000000000
+      internalID: 3822273699041570805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_7
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 3789
+        width: 137
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e24001bc707f2c00800000000000000
+      internalID: 878044133208376032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_8
+      rect:
+        serializedVersion: 2
+        x: 1354
+        y: 3787
+        width: 142
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51c2dffcd602c7ac0800000000000000
+      internalID: -3856171524922987499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_9
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 3787
+        width: 142
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc1e7b2ee89614be0800000000000000
+      internalID: -1494797538900319796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_10
+      rect:
+        serializedVersion: 2
+        x: 1574
+        y: 3789
+        width: 137
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17ffe8fd6f6b76f70800000000000000
+      internalID: 9180507536846946161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_11
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 3660
+        width: 446
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6206425f08e4a930800000000000000
+      internalID: 4153699908844913263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_12
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 3676
+        width: 372
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5d4b7a855ffe6df0800000000000000
+      internalID: -184929791814972070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_13
+      rect:
+        serializedVersion: 2
+        x: 1328
+        y: 3666
+        width: 344
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8162d9a9773f24660800000000000000
+      internalID: 7368719635352200728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_14
+      rect:
+        serializedVersion: 2
+        x: 1697
+        y: 3660
+        width: 446
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e48991f74ac3aa30800000000000000
+      internalID: 4225443285748516070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_15
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 3061
+        width: 2542
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78264595e25e6e8c0800000000000000
+      internalID: -3970234034250554745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_16
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 3078
+        width: 14
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f84bf1d9eeb3eaa80800000000000000
+      internalID: -8453753554503486321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_17
+      rect:
+        serializedVersion: 2
+        x: 2424
+        y: 3078
+        width: 13
+        height: 592
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca41639535f9a420800000000000000
+      internalID: 2641912266884205255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_18
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 2932
+        width: 2532
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024a5054e05ca1370800000000000000
+      internalID: 8294158328834401312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_19
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 2547
+        width: 2540
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fee38621f4bb94320800000000000000
+      internalID: 2542769412912987887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_20
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 1143
+        width: 2550
+        height: 1386
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84fb703a4fa121030800000000000000
+      internalID: 3463860701410869064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_21
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 10
+        width: 840
+        height: 1074
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecd3aa858e681b1e0800000000000000
+      internalID: -2183816011819893298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_22
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 12
+        width: 840
+        height: 1072
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77946c110582eeda0800000000000000
+      internalID: -5913744936330180233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: newspaper_23
+      rect:
+        serializedVersion: 2
+        x: 1943
+        y: 10
+        width: 840
+        height: 1074
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 726de8b806656e890800000000000000
+      internalID: -7429155562642811353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 8e97a18c60349e7478ec51932012aa65
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      newspaper_0: 6879538022904502005
+      newspaper_1: -5304021391967617925
+      newspaper_10: 9180507536846946161
+      newspaper_11: 4153699908844913263
+      newspaper_12: -184929791814972070
+      newspaper_13: 7368719635352200728
+      newspaper_14: 4225443285748516070
+      newspaper_15: -3970234034250554745
+      newspaper_16: -8453753554503486321
+      newspaper_17: 2641912266884205255
+      newspaper_18: 8294158328834401312
+      newspaper_19: 2542769412912987887
+      newspaper_2: 2142571664425025494
+      newspaper_20: 3463860701410869064
+      newspaper_21: -2183816011819893298
+      newspaper_22: -5913744936330180233
+      newspaper_23: -7429155562642811353
+      newspaper_3: 3666549369436585886
+      newspaper_4: 6079693433532104324
+      newspaper_5: 7503965800060509072
+      newspaper_6: 3822273699041570805
+      newspaper_7: 878044133208376032
+      newspaper_8: -3856171524922987499
+      newspaper_9: -1494797538900319796
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
