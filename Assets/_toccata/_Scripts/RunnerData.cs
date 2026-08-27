@@ -23,7 +23,7 @@ public class RunnerData
     public Color shoesColor;
 
     [Header("Cheats")]
-    public CheatType cheatType;
+    public Cheatos cheatType;
     public bool cheatActivated = false;
 
     //[Header("Stats")]
@@ -41,6 +41,12 @@ public class RunnerData
     public Nationality runnerNationality;
 
     public List<string> runningHistory;
+
+
+    public bool isFakePersona;
+    public RunnerData fakePersona;
+
+    public bool isExtra;
 
 }
 

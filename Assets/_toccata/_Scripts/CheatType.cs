@@ -6,4 +6,6 @@ public enum Cheatos
     Doping,
     SwitchRunner,
     DisableGps,
+    IfnoMissmatch,
+
 }
