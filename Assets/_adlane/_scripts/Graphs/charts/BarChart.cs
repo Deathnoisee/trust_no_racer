@@ -12,6 +12,9 @@ public class BarChart : MonoBehaviour
     [SerializeField] private TMP_Text axisLabelPrefab;
     [SerializeField] private int yAxisTickCount = 5;
     [SerializeField] private float yAxisMinOffset = 10f;
+    [SerializeField] private float xLabelsOffset = 20f;
+    [SerializeField] private float yLabelsOffset = 10f;
+
 
     private List<ChartData> data;
     private List<Vector2> positions;
@@ -137,7 +140,7 @@ public class BarChart : MonoBehaviour
             rt.anchorMin = Vector2.zero;
             rt.anchorMax = Vector2.zero;
             rt.pivot = new Vector2(1f, 0.5f);
-            rt.anchoredPosition = new Vector2(-10f, y);
+            rt.anchoredPosition = new Vector2(-yLabelsOffset, y);
         }
     }
 
@@ -155,7 +158,7 @@ public class BarChart : MonoBehaviour
             rt.anchorMin = Vector2.zero;
             rt.anchorMax = Vector2.zero;
             rt.pivot = new Vector2(0.5f, 1f);
-            rt.anchoredPosition = new Vector2(positions[i].x, -10f);
+            rt.anchoredPosition = new Vector2(positions[i].x, -xLabelsOffset);
         }
     }
 
