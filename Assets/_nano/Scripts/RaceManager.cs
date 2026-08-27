@@ -6,17 +6,13 @@ public class RaceManager : MonoBehaviour
 {
     [Header("Setup")]
     public GameObject runnerPrefab;
-    public Transform startPoint;
-    public SplineContainer mainSpline;
+
+
+    [Header("Tracks (all tracks in the scene, active or not)")]
+    public TrackSetup[] allTracks;
 
     [Header("Colors")]
     public Color[] runnerColors;
-
-    [Header("Spawn Points")]
-
-    public Transform[] spawnPoints;
-
-
 
     [Header("Road")]
 
@@ -25,6 +21,8 @@ public class RaceManager : MonoBehaviour
     [Header("Levels")]
 
     public List<LevelConfig> levels = new List<LevelConfig>();
+
+
     public int currentLevelIndex = 0;
 
 
@@ -33,9 +31,10 @@ public class RaceManager : MonoBehaviour
     private bool raceStarted = false;
     private bool raceEnded = false;
     private List<Runner> racers = new List<Runner>();
+    private TrackSetup activeTrack;
 
     private LevelConfig CurrentLevel =>
-        (levels != null && currentLevelIndex >= 0 && currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
+          (levels != null && currentLevelIndex >= 0 && currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
 
     void Start()
     {
@@ -57,7 +56,29 @@ public class RaceManager : MonoBehaviour
         }
         racers.Clear();
 
+        ActivateTrackForCurrentLevel();
         SpawnRacers();
+    }
+
+    void ActivateTrackForCurrentLevel()
+    {
+        LevelConfig level = CurrentLevel;
+        string wantedTrackName = level != null ? level.trackName : null;
+
+        activeTrack = null;
+        foreach (TrackSetup track in allTracks)
+        {
+            bool shouldBeActive = (track.trackName == wantedTrackName);
+            track.SetActive(shouldBeActive);
+            if (shouldBeActive) activeTrack = track;
+        }
+
+        if (activeTrack == null && allTracks.Length > 0)
+        {
+            // fallback: no match found (e.g. empty trackName) — just use the first track
+            activeTrack = allTracks[0];
+            activeTrack.SetActive(true);
+        }
     }
 
     // Convenience for "next level" buttons/triggers. Does nothing (just logs) once
@@ -75,17 +96,21 @@ public class RaceManager : MonoBehaviour
         }
     }
 
+
+
     void SpawnRacers()
     {
+        if (activeTrack == null)
+        {
+            Debug.LogError("No active track set — can't spawn racers.");
+            return;
+        }
+
         LevelConfig level = CurrentLevel;
-        int racerCount = level != null ? level.totalRacers : 8; // default to 8 if no level config is set
+        int racerCount = level != null ? level.totalRacers : 8;
         List<CheatConfig> cheatsToAssign = level != null ? level.cheaterCheats : new List<CheatConfig>();
 
-        // one entry in cheatsToAssign = one cheater with exactly that cheat, so pick that many
-        // distinct racer slots up front and map each to its cheat.
         Dictionary<int, CheatConfig> cheatByRacerIndex = AssignCheatsToRacers(cheatsToAssign, racerCount);
-
-
 
         for (int i = 0; i < racerCount; i++)
         {
@@ -97,7 +122,7 @@ public class RaceManager : MonoBehaviour
             runner.runnerBibNumber = i;
             runner.runnerName = "Runner " + i;
             runner.runnerColor = runnerColors[i % runnerColors.Length];
-            runner.mainSpline = mainSpline;
+            runner.mainSpline = activeTrack.spline;
             runner.baseSpeed = Random.Range(3.5f, 4.5f);
             runner.roadHalfWidth = roadHalfWidth;
             runner.totalLaps = level != null ? level.lapCount : 1;
@@ -105,12 +130,10 @@ public class RaceManager : MonoBehaviour
             if (cheatByRacerIndex.TryGetValue(i, out CheatConfig cheat))
             {
                 runner.isCheater = true;
-                runner.assignedCheat = cheat; // exactly one — never a list
+                runner.assignedCheat = cheat;
             }
 
-            // convert the designated spawn position into (t, laneOffset) so the runner's
-            // very first Tick() continues smoothly from exactly where it was placed
-            SplineKnotUtils.GetNearestTAndLateralOffset(mainSpline, spawnPos, out float spawnT, out float spawnLateral);
+            SplineKnotUtils.GetNearestTAndLateralOffset(activeTrack.spline, spawnPos, out float spawnT, out float spawnLateral);
             runner.SetSpawn(spawnT, spawnLateral, spawnPos);
 
             racers.Add(runner);
@@ -138,13 +161,13 @@ public class RaceManager : MonoBehaviour
 
     Vector3 GetSpawnPosition(int index)
     {
-        if (spawnPoints != null && index < spawnPoints.Length && spawnPoints[index] != null)
+        if (activeTrack.spawnPoints != null && index < activeTrack.spawnPoints.Length && activeTrack.spawnPoints[index] != null)
         {
-            return spawnPoints[index].position;
+            return activeTrack.spawnPoints[index].position;
         }
-
-        return spawnPoints == null || spawnPoints.Length == 0 ? startPoint.position : startPoint.position;
+        return activeTrack.startPoint.position;
     }
+
 
     void Update()
     {
@@ -185,7 +208,7 @@ public class RaceManager : MonoBehaviour
                 {
                     float overlap = minDistance - dist;
 
-                    Vector3 tangentA = mainSpline.EvaluateTangent(a.t);
+                    Vector3 tangentA = activeTrack.spline.EvaluateTangent(a.t);
                     Vector3 perpA = new Vector3(-tangentA.y, tangentA.x, 0f).normalized;
                     float pushAmount = Vector3.Dot(delta.normalized, perpA) * overlap * 0.5f;
 

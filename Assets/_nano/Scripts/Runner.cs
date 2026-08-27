@@ -158,6 +158,12 @@ public class Runner : MonoBehaviour
 
     [HideInInspector] public bool isInjured = false;
 
+
+    [Header("Rotation")]
+    public float rotationSmoothing = 8f;
+
+
+    public SpriteRenderer tshirtRenderer;
     // Call this right after Instantiate (before Start runs, since Start is deferred to
     // just before the next Update) to place the runner at a designated spawn location
     // and have it continue running from there with no snap/teleport.
@@ -185,7 +191,8 @@ public class Runner : MonoBehaviour
     }
     void Start()
     {
-        gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
+        //gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
+        tshirtRenderer.color = runnerColor;
         visuals = GetComponentInChildren<RunnerVisuals>();
         nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
         laneWobblePhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
@@ -306,6 +313,11 @@ public class Runner : MonoBehaviour
 
             Vector3 cutDir = (activeShortcut.shortcutEndPos - activeShortcut.shortcutStartPos).normalized;
             Vector3 perp = new Vector3(-cutDir.y, cutDir.x, 0f);
+            if (cutDir.sqrMagnitude > 0.0001f)
+            {
+                float angle = Mathf.Atan2(cutDir.y, cutDir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;
             finalPos += perp * (laneOffset + wobble);
@@ -320,6 +332,13 @@ public class Runner : MonoBehaviour
             Vector3 centerPos = mainSpline.EvaluatePosition(t);
             Vector3 tangent = mainSpline.EvaluateTangent(t);
             Vector3 perpendicular = new Vector3(-tangent.y, tangent.x, 0f).normalized;
+
+            if (tangent.sqrMagnitude > 0.0001f)
+            {
+                float targetAngle = Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg - 90f;
+                Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, deltaTime * rotationSmoothing);
+            }
 
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;

@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelConfig", menuName = "Race/Level Config")]
 public class LevelConfig : ScriptableObject
 {
+
+    public string trackName;
     public int totalRacers = 8;
 
 

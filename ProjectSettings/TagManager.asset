@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Track
+    uniqueID: 917440801
+    locked: 0
   - name: Runner
     uniqueID: 2823243697
     locked: 0
