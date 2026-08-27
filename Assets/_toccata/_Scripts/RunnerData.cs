@@ -8,7 +8,7 @@ public class SpriteView
     public Sprite sideView;
 }
 
-
+[System.Serializable]
 public class RunnerData
 {
     [Header("Visuals")]
@@ -23,7 +23,7 @@ public class RunnerData
     public Color shoesColor;
 
     [Header("Cheats")]
-    public Cheatos cheatType;
+    public CheatType cheatType;
     public bool cheatActivated = false;
 
     //[Header("Stats")]
@@ -47,6 +47,12 @@ public class RunnerData
     public RunnerData fakePersona;
 
     public bool isExtra;
+
+
+    [Header("stats mn 3nd Nano")]
+    public List<KmSplit> kmSplits;
+    public List<TrajectoryPoint> trajectory;
+
 
 }
 

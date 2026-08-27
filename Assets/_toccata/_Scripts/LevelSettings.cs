@@ -13,5 +13,5 @@ public class LevelSettings : ScriptableObject
 public struct cheatAmount
 {
     public int amount;
-    public Cheatos cheatType;
+    public CheatType cheatType;
 }

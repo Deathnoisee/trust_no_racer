@@ -120,6 +120,8 @@ public class RaceManager : MonoBehaviour
 
         Dictionary<int, CheatConfig> cheatByRacerIndex = AssignCheatsToRacers(cheatsToAssign, racerCount);
 
+        RunnersGenerator.instance.EmptyList();
+
         for (int i = 0; i < racerCount; i++)
         {
             Vector3 spawnPos = GetSpawnPosition(i);
@@ -129,7 +131,8 @@ public class RaceManager : MonoBehaviour
 
             runner.runnerBibNumber = i;
             runner.runnerName = "Runner " + i;
-            runner.runnerColor = runnerColors[i % runnerColors.Length];
+            
+            
             runner.mainSpline = activeTrack.spline;
             runner.baseSpeed = Random.Range(3.5f, 4.5f);
             runner.roadHalfWidth = roadHalfWidth;
@@ -139,8 +142,13 @@ public class RaceManager : MonoBehaviour
             {
                 runner.isCheater = true;
                 runner.assignedCheat = cheat;
+                runner.runnerData = RunnersGenerator.instance.GeneratePerson(cheat.type);
             }
-
+            else
+            {
+                runner.runnerData = RunnersGenerator.instance.GeneratePerson(CheatType.None);
+            }
+            runner.runnerColor = runner.runnerData.shirtColor;
             SplineKnotUtils.GetNearestTAndLateralOffset(activeTrack.spline, spawnPos, out float spawnT, out float spawnLateral);
             runner.SetSpawn(spawnT, spawnLateral, spawnPos);
 

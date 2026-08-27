@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class RunnersGenerator : MonoBehaviour
 {
+    public static RunnersGenerator instance;
+
     public SpriteView[] possibleHairs;
     public SpriteView[] possibleFaces;
     public SpriteView[] possibleShoes;
@@ -15,7 +17,6 @@ public class RunnersGenerator : MonoBehaviour
 
     public int minAge = 18;
     public int maxAge = 40;
-
 
     public string[] possibleNames;
     public Nationality[] possibleNationalities;
@@ -34,21 +35,58 @@ public class RunnersGenerator : MonoBehaviour
     public List<LevelSettings> levelSettings;
     public int currentLevel = 0;
 
-
     public List<RunnerData> currentRunners = new List<RunnerData>();
 
     private int currentRunnerIndex = 0;
 
+    // Track unused shirt colors for the current generation batch
+    private List<Color> availableShirtColors = new List<Color>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
         UpdateGuidelinesUi();
     }
 
+    /// <summary>
+    /// Resets and fills the pool of available shirt colors.
+    /// </summary>
+    private void ResetShirtColorPool()
+    {
+        availableShirtColors = new List<Color>(possibleShirtColors);
+    }
+
+    /// <summary>
+    /// Pulls a unique shirt color from the pool. Falls back to a random color if exhausted.
+    /// </summary>
+    private Color GetUniqueShirtColor()
+    {
+        if (availableShirtColors == null || availableShirtColors.Count == 0)
+        {
+            Debug.LogWarning("Run out of unique shirt colors! Resetting pool or picking random.");
+            ResetShirtColorPool();
+
+            // If possibleShirtColors is empty in Inspector, default to white
+            if (availableShirtColors.Count == 0) return Color.white;
+        }
+
+        int index = UnityEngine.Random.Range(0, availableShirtColors.Count);
+        Color selectedColor = availableShirtColors[index];
+        availableShirtColors.RemoveAt(index);
+        return selectedColor;
+    }
+
     [ContextMenu("generate new list of ppl")]
     public void GenerateListOfParticipants()
     {
-        if (currentRunners.Count != 0) { 
+        ResetShirtColorPool(); // Reset pool before bulk generation
+
+        if (currentRunners.Count != 0)
+        {
             currentRunners.Clear();
         }
         for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
@@ -56,45 +94,82 @@ public class RunnersGenerator : MonoBehaviour
             Destroy(listOfParticipants.GetChild(i).gameObject);
         }
 
-        RunnerData runnerData = GeneratePerson(Cheatos.IfnoMissmatch);
+        RunnerData runnerData = GeneratePersonInternal(CheatType.InfoMismatch);
+
         currentRunners.Add(runnerData);
         GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
         TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
         textMesh.text = runnerData.runnerName;
 
-        for (int i = 0; i < 5; i++) {
-            runnerData = GeneratePerson(Cheatos.None);
+        for (int i = 0; i < 5; i++)
+        {
+            runnerData = GeneratePersonInternal(CheatType.None);
             currentRunners.Add(runnerData);
-            listItem = Instantiate(listOfParticipantsItemPrefab,listOfParticipants);
+            listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
             textMesh = listItem.GetComponent<TextMeshProUGUI>();
             textMesh.text = runnerData.runnerName;
-
         }
-
-        
-
     }
 
     public void PreviewNextRunner()
     {
         currentRunnerIndex++;
-        currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count -1);
+        currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
     }
+
     public void PreviewPreviousRunner()
     {
         currentRunnerIndex--;
-        currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count -1);
+        currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
     }
 
-
-
+    public void EmptyList()
+    {
+        if (currentRunners.Count != 0)
+        {
+            currentRunners.Clear();
+        }
+        for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
+        {
+            Destroy(listOfParticipants.GetChild(i).gameObject);
+        }
+        currentRunnerIndex = 0;
+        ResetShirtColorPool();
+    }
 
     [ContextMenu("generate person")]
-    public RunnerData GeneratePerson(Cheatos cheatos)
+    public RunnerData GeneratePersonContextMenu()
     {
-        // Create local object first to avoid recursion overwriting the class field
+        // When triggering context menu individually, ensure there's a color pool
+        if (availableShirtColors.Count == 0)
+        {
+            ResetShirtColorPool();
+        }
+
+        RunnerData runner = GeneratePersonInternal(CheatType.None);
+        currentRunners.Add(runner);
+
+        GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
+        TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
+        if (textMesh != null)
+        {
+            textMesh.text = runner.runnerName;
+        }
+
+        return runner;
+    }
+
+    public RunnerData GeneratePerson(CheatType cheatos)
+    {
+        return GeneratePersonInternal(cheatos);
+    }
+
+    private RunnerData GeneratePersonInternal(CheatType cheatos)
+    {
+        Color uniqueShirtColor = GetUniqueShirtColor();
+
         RunnerData newPerson = new RunnerData
         {
             runnerName = possibleNames[UnityEngine.Random.Range(0, possibleNames.Length)],
@@ -106,20 +181,20 @@ public class RunnersGenerator : MonoBehaviour
             shoes = possibleShoes[UnityEngine.Random.Range(0, possibleShoes.Length)],
             hairColor = possibleHairColors[UnityEngine.Random.Range(0, possibleHairColors.Length)],
             skinColor = possibleSkinColors[UnityEngine.Random.Range(0, possibleSkinColors.Length)],
-            shirtColor = possibleShirtColors[UnityEngine.Random.Range(0, possibleShirtColors.Length)],
-            shoesColor = possibleShirtColors[UnityEngine.Random.Range(0, possibleShirtColors.Length)],
+            shirtColor = uniqueShirtColor,
+            shoesColor = uniqueShirtColor,
             cheatType = cheatos,
             runnerID = UnityEngine.Random.Range(500, 9999)
         };
 
-        if (cheatos == Cheatos.IfnoMissmatch)
+        if (cheatos == CheatType.InfoMismatch)
         {
-            // Recursively generate fake data without touching newPerson until it's done
-            newPerson.fakePersona = GeneratePerson(Cheatos.None);
+            newPerson.fakePersona = GeneratePersonInternal(CheatType.None);
         }
 
         currentPerson = newPerson;
         personVisuals.DisplayPerson(currentPerson);
+
         return currentPerson;
     }
 
@@ -130,18 +205,15 @@ public class RunnersGenerator : MonoBehaviour
 
         if (isAllowed)
         {
-            // Add win logic / score points / grant entry
             print("Runner correctly approved!");
-
         }
         else
         {
-            // Player made a mistake approving an illegal runner
             print("Mistake! You approved a banned runner.");
             PenalizePlayer();
-
         }
     }
+
     [ContextMenu("reject runner")]
     public void RejectRunner()
     {
@@ -149,20 +221,15 @@ public class RunnersGenerator : MonoBehaviour
 
         if (!isAllowed)
         {
-            // Add win logic / score points / rejected properly
             print("Runner correctly rejected!");
-
         }
         else
         {
-            // Player made a mistake rejecting a valid runner
             print("Mistake! You rejected a valid runner.");
             PenalizePlayer();
-
         }
     }
 
-    // Helper method to keep your code clean and prevent duplicate logic
     private bool IsCurrentRunnerValid()
     {
         if (currentGuidelines != null)
@@ -180,7 +247,7 @@ public class RunnersGenerator : MonoBehaviour
             }
         }
 
-        return true; // Passed all checks
+        return true;
     }
 
     private void PenalizePlayer()
@@ -188,23 +255,18 @@ public class RunnersGenerator : MonoBehaviour
         print("YOU GOT IT WROOOOOOOOOOOONG");
     }
 
-
     [ContextMenu("Update guidelines")]
     public void UpdateGuidelinesUi()
     {
         if (currentGuidelines != null)
         {
             currentGuidelinesText.text = "";
-            for (int i = 0; i < currentGuidelines.bannedStuff.Length; i++) {
+            for (int i = 0; i < currentGuidelines.bannedStuff.Length; i++)
+            {
                 currentGuidelinesText.text += "-" + currentGuidelines.bannedStuff[i] + "\n";
-
-
             }
-
         }
-
     }
-
 
     [ContextMenu("Load Level 0")]
     public void LoadFirstLevel()
@@ -214,25 +276,21 @@ public class RunnersGenerator : MonoBehaviour
 
     public void LoadLevel(int levelIndex)
     {
-        // 1. Guard check for valid level index
         if (levelSettings == null || levelIndex < 0 || levelIndex >= levelSettings.Count)
         {
             Debug.LogWarning($"Level index {levelIndex} is out of bounds or levelSettings list is empty.");
             return;
         }
 
-        // 2. Set current level index and retrieve settings
         currentLevel = levelIndex;
         LevelSettings settings = levelSettings[currentLevel];
 
-        // 3. Update the guidelines for this level
         if (settings.guideLines != null)
         {
             currentGuidelines = settings.guideLines;
             UpdateGuidelinesUi();
         }
 
-        // 4. Clear current UI elements and runners list
         currentRunners.Clear();
         currentRunnerIndex = 0;
 
@@ -241,15 +299,16 @@ public class RunnersGenerator : MonoBehaviour
             Destroy(listOfParticipants.GetChild(i).gameObject);
         }
 
-        // 5. Generate runners defined by the level settings configuration
+        // Reset the shirt color pool once for the entire level generation pass
+        ResetShirtColorPool();
+
         foreach (cheatAmount cheatConfig in settings.runnerSettings)
         {
             for (int i = 0; i < cheatConfig.amount; i++)
             {
-                RunnerData newRunner = GeneratePerson(cheatConfig.cheatType);
+                RunnerData newRunner = GeneratePersonInternal(cheatConfig.cheatType);
                 currentRunners.Add(newRunner);
 
-                // Populate UI item
                 GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
                 TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
                 if (textMesh != null)
@@ -259,7 +318,6 @@ public class RunnersGenerator : MonoBehaviour
             }
         }
 
-        // 6. Display the initial runner if any were generated
         if (currentRunners.Count > 0)
         {
             currentPerson = currentRunners[0];

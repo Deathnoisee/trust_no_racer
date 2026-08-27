@@ -6,10 +6,12 @@ using SmallHedge.SoundManager;
 
 public enum CheatType
 {
+    None,
     ShortcutCut,
     SpeedBoost,
     DisappearBoost,
-    Injure
+    Injure,
+    InfoMismatch
 }
 [System.Serializable]
 public class KmSplit
@@ -92,6 +94,9 @@ public class ActiveCheat
 
 public class Runner : MonoBehaviour
 {
+
+    public RunnerData runnerData;
+
     [Header("Identity")]
     public int runnerBibNumber;
     public string runnerName;
@@ -457,7 +462,8 @@ public class Runner : MonoBehaviour
             {
                 Debug.Log($"Km {split.kmIndex + 1}: {split.timeSeconds:F2}s, pace {split.paceKmh:F2} km/h");
             }
-
+            runnerData.trajectory = trajectory;
+            runnerData.kmSplits = kmSplits;
 
         }
         else

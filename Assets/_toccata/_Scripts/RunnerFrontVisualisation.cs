@@ -66,7 +66,7 @@ public class RunnerFrontVisualisation : MonoBehaviour
         if (runnerNationality != null) runnerNationality.text = data.runnerNationality.ToString();
         if (runnerGender != null) runnerGender.text = data.gender.ToString();
 
-        if(data.cheatType == Cheatos.IfnoMissmatch)
+        if(data.cheatType == CheatType.InfoMismatch)
         {
             data = data.fakePersona;
         }
