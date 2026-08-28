@@ -1,16 +1,22 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class DrugsManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public List<solution> solutions = new List<solution>();
 
-    // Update is called once per frame
-    void Update()
+    public void SetupCorrectSolution( correctSolutionName)
     {
-        
+        foreach (var sol in solutions)
+        {
+            if (sol.name == correctSolutionName)
+            {
+                sol.isSolutionCorrect = true;
+
+            }
+            else
+            {
+                sol.isSolutionCorrect = false;
+            }
+        }
     }
 }
