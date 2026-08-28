@@ -5,7 +5,7 @@ using DG.Tweening;
 [RequireComponent(typeof(CanvasGroup))]
 public class solution : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
+    public RacePhase racePhaseSolution;
     public bool isSolutionCorrect = false;
     private RectTransform rectTransform;
     private Canvas canvas;

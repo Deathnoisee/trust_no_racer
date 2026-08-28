@@ -149,6 +149,7 @@ public class RaceManager : MonoBehaviour
                 runner.isCheater = true;
                 runner.assignedCheat = cheat;
                 runner.runnerData = RunnersGenerator.instance.GeneratePerson(cheat.type);
+                runner.runnerData.CheatTimePhase = cheat.boostPhase;
             }
             else
             {

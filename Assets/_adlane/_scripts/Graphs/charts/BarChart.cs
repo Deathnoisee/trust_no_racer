@@ -33,7 +33,7 @@ public class BarChart : MonoBehaviour
             float bNum = ExtractNumeric(b.label);
             return aNum.CompareTo(bNum);
         });
-        minVal = minValue - minValuesOffset;
+        if (minValue != 0) minVal = minValue - minValuesOffset;
         maxVal = maxValue + maxValuesOffset;
         data = newData;
         Redraw();

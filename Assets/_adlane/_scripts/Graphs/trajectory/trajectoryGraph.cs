@@ -34,6 +34,7 @@ public class trajectoryGraph : MaskableGraphic
     private float totalLength;
     private float drawProgress = 0f;
     private readonly List<GameObject> spawnedMarkers = new List<GameObject>();
+    [SerializeField] private Color coloooor = Color.white;
 
     protected override void Awake()
     {
@@ -255,7 +256,7 @@ public class trajectoryGraph : MaskableGraphic
 
         float halfWidth = width * 0.5f;
         UIVertex vert = UIVertex.simpleVert;
-        vert.color = color;
+        vert.color = coloooor;
 
         for (int i = 0; i < vertices.Count; i++)
         {

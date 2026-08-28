@@ -64,7 +64,7 @@ public class graphManager : MonoBehaviour
                     float paceKmh = split.paceKmh / valueNano;
                     if (minValue == -1f || paceKmh < minValue)
                     {
-                        minValue = paceKmh;
+                        minValue = Mathf.Max(0, paceKmh);
                     }
                     if (maxValue == -1f || paceKmh > maxValue)
                     {

@@ -53,6 +53,7 @@ public class RunnerData
     [Header("stats mn 3nd Nano")]
     public List<KmSplit> kmSplits;
     public List<TrajectoryPoint> trajectory;
+    public RacePhase CheatTimePhase;
 
 
 }
