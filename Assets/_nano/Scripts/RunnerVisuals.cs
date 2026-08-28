@@ -80,11 +80,13 @@ public class RunnerVisuals : MonoBehaviour
 
     }
 
+
     void TriggerBurstPunch()
     {
         punchTween?.Kill();
         punchScaleOffset = Vector3.zero;
         SoundManager.PlaySound(SoundType.PowerUp);
+        runner.TriggerTrail(0.3f); // optional trail effect for extra visual feedback
 
         // DOTween animates punchScaleOffset itself (a plain Vector3 field),
         // NOT transform.localScale directly — that's what lets stride math
