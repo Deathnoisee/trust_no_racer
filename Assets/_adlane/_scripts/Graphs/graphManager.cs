@@ -19,7 +19,7 @@ public class graphManager : MonoBehaviour
         lineChart.gameObject.SetActive(false);
         barChart.gameObject.SetActive(false);
         // trajectoryChart.gameObject.SetActive(false);
-        Time.timeScale *= 3f;
+        Time.timeScale *= 10f;
 
         if (RunnersGenerator.instance != null)
         {

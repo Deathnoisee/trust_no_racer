@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: 0ed3f0a254b2a9f85946dac8a82a0a76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5434214736923106557
+    second: whiteCharts_0
+  - first:
+      213: -2327332615670931942
+    second: whiteCharts_1
+  - first:
+      213: 5781596373559403347
+    second: whiteCharts_2
+  - first:
+      213: 2324905996321712573
+    second: whiteCharts_3
+  - first:
+      213: -6977511376085426157
+    second: whiteCharts_4
+  - first:
+      213: -4686698686652923517
+    second: whiteCharts_5
+  - first:
+      213: -8567966744371549870
+    second: whiteCharts_6
+  - first:
+      213: 242826987145128801
+    second: whiteCharts_7
+  - first:
+      213: 6137718788037254979
+    second: whiteCharts_8
+  - first:
+      213: -1982883287080345582
+    second: whiteCharts_9
+  - first:
+      213: -8562134273677548115
+    second: whiteCharts_10
+  - first:
+      213: -5949291273297246483
+    second: whiteCharts_11
+  - first:
+      213: -5331504108923999005
+    second: whiteCharts_12
+  - first:
+      213: 3486421805331419243
+    second: whiteCharts_13
+  - first:
+      213: -3219768152295641309
+    second: whiteCharts_14
+  - first:
+      213: -5949641074110867262
+    second: whiteCharts_15
+  - first:
+      213: -6858809060071809877
+    second: whiteCharts_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: whiteCharts_0
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1860
+        width: 2398
+        height: 1918
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfc9e73f2853a6b40800000000000000
+      internalID: 5434214736923106557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_1
+      rect:
+        serializedVersion: 2
+        x: 2741
+        y: 2372
+        width: 153
+        height: 1533
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ed0c81157a3bfd0800000000000000
+      internalID: -2327332615670931942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_2
+      rect:
+        serializedVersion: 2
+        x: 2985
+        y: 2366
+        width: 164
+        height: 1290
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 353e1b0054b5c3050800000000000000
+      internalID: 5781596373559403347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_3
+      rect:
+        serializedVersion: 2
+        x: 3246
+        y: 2364
+        width: 153
+        height: 1148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db96eee8fa9b34020800000000000000
+      internalID: 2324905996321712573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_4
+      rect:
+        serializedVersion: 2
+        x: 3501
+        y: 2369
+        width: 152
+        height: 773
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3106e243f56ea2f90800000000000000
+      internalID: -6977511376085426157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_5
+      rect:
+        serializedVersion: 2
+        x: 3747
+        y: 2358
+        width: 153
+        height: 532
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38143cc206085feb0800000000000000
+      internalID: -4686698686652923517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_6
+      rect:
+        serializedVersion: 2
+        x: 2999
+        y: 1990
+        width: 143
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 259af5a14a7781980800000000000000
+      internalID: -8567966744371549870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_7
+      rect:
+        serializedVersion: 2
+        x: 3250
+        y: 1990
+        width: 150
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16be9a6bbd1be5300800000000000000
+      internalID: 242826987145128801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_8
+      rect:
+        serializedVersion: 2
+        x: 3506
+        y: 1992
+        width: 142
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f933cf7be8d2550800000000000000
+      internalID: 6137718788037254979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_9
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 1469
+        width: 539
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210648af7226b74e0800000000000000
+      internalID: -1982883287080345582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_10
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1346
+        width: 1162
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5a0420e303d2980800000000000000
+      internalID: -8562134273677548115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_11
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1219
+        width: 783
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de649cd8b1fdf6da0800000000000000
+      internalID: -5949291273297246483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_12
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 1098
+        width: 281
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ecac0da241b206b0800000000000000
+      internalID: -5331504108923999005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tryLineChart
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 971
+        width: 113
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6094fbf822426030800000000000000
+      internalID: 3486421805331419243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_14
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 845
+        width: 114
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f6d4face51153d0800000000000000
+      internalID: -3219768152295641309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_15
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 721
+        width: 526
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c85c8437f0ae6da0800000000000000
+      internalID: -5949641074110867262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: whiteCharts_16
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 549
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bac5038df7d90d0a0800000000000000
+      internalID: -6858809060071809877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c3eadb7cd8e856dbfa84bf2fb68da64c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tryLineChart: 3486421805331419243
+      whiteCharts_0: 5434214736923106557
+      whiteCharts_1: -2327332615670931942
+      whiteCharts_10: -8562134273677548115
+      whiteCharts_11: -5949291273297246483
+      whiteCharts_12: -5331504108923999005
+      whiteCharts_14: -3219768152295641309
+      whiteCharts_15: -5949641074110867262
+      whiteCharts_16: -6858809060071809877
+      whiteCharts_2: 5781596373559403347
+      whiteCharts_3: 2324905996321712573
+      whiteCharts_4: -6977511376085426157
+      whiteCharts_5: -4686698686652923517
+      whiteCharts_6: -8567966744371549870
+      whiteCharts_7: 242826987145128801
+      whiteCharts_8: 6137718788037254979
+      whiteCharts_9: -1982883287080345582
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
