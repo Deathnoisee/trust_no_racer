@@ -40,13 +40,19 @@ public class RaceManager : MonoBehaviour
     private List<Runner> racers = new List<Runner>();
     private TrackSetup activeTrack;
 
+
+    public event System.Action OnRaceEnded;
+
     private LevelConfig CurrentLevel =>
           (levels != null && currentLevelIndex >= 0 && currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
+
+
 
     void Start()
     {
         LoadLevel(currentLevelIndex);
     }
+
 
     // Call this to (re)start the race manager on a given level — from a menu, a level-select
     // trigger, "next level" button, etc. Clears out the previous level's runners first, so the
@@ -131,8 +137,8 @@ public class RaceManager : MonoBehaviour
 
             runner.runnerBibNumber = i;
             runner.runnerName = "Runner " + i;
-            
-            
+
+
             runner.mainSpline = activeTrack.spline;
             runner.baseSpeed = Random.Range(3.5f, 4.5f);
             runner.roadHalfWidth = roadHalfWidth;
@@ -150,7 +156,7 @@ public class RaceManager : MonoBehaviour
             }
             runner.runnerColor = runner.runnerData.shirtColor;
             SplineKnotUtils.GetNearestTAndLateralOffset(activeTrack.spline, spawnPos, out float spawnT, out float spawnLateral);
-            runner.SetSpawn(spawnT, spawnLateral, spawnPos);
+            runner.SetSpawn(0f, spawnLateral, spawnPos);
 
             racers.Add(runner);
         }
@@ -263,5 +269,6 @@ public class RaceManager : MonoBehaviour
 
         raceEnded = true;
         Debug.Log("Race finished! All runners reached the end.");
+        OnRaceEnded?.Invoke();
     }
 }
