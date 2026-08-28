@@ -1,16 +1,29 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class DrugsManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public List<solution> solutions = new List<solution>();
+    public void Start()
     {
-        
+        RunnersGenerator.instance.analysePlayer += SetupCorrectSolution;
+    }
+    public void OnDisable()
+    {
+        RunnersGenerator.instance.analysePlayer -= SetupCorrectSolution;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetupCorrectSolution(RunnerData runnerData)
     {
-        
+        foreach (var sol in solutions)
+        {
+            if (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution)
+            {
+                sol.isSolutionCorrect = true;
+            }
+            else
+            {
+                sol.isSolutionCorrect = false;
+            }
+        }
     }
 }

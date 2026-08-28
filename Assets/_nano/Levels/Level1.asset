@@ -21,37 +21,37 @@ MonoBehaviour:
     cheatOnLap: 2
     shortcutFromKnot: 3
     shortcutSkipCount: 3
-    disappearTriggerProgress: 0.4
+    boostPhase: 1
+    boostMultiplier: 2
+    boostDuration: 3
+    disappearPhase: 1
     disappearDuration: 2
     disappearBoostMultiplier: 2
     injureTriggerProgress: 0.3
     injureRange: 0.03
-    triggerProgress: 0.25
-    boostMultiplier: 2
-    boostDuration: 3
-  - type: 1
+  - type: 2
     chance: 1
     cheatOnLap: 2
     shortcutFromKnot: 2
     shortcutSkipCount: 2
-    disappearTriggerProgress: 0.4
+    boostPhase: 0
+    boostMultiplier: 2
+    boostDuration: 2.5
+    disappearPhase: 1
     disappearDuration: 2
     disappearBoostMultiplier: 2
     injureTriggerProgress: 0.3
     injureRange: 0.03
-    triggerProgress: 0.75
-    boostMultiplier: 2
-    boostDuration: 3
   - type: 5
     chance: 1
     cheatOnLap: 2
     shortcutFromKnot: 2
     shortcutSkipCount: 2
-    disappearTriggerProgress: 0.4
+    boostPhase: 1
+    boostMultiplier: 2
+    boostDuration: 3
+    disappearPhase: 1
     disappearDuration: 2
     disappearBoostMultiplier: 2
     injureTriggerProgress: 0.3
     injureRange: 0.03
-    triggerProgress: 0.75
-    boostMultiplier: 2
-    boostDuration: 3

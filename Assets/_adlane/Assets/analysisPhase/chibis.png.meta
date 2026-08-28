@@ -1,0 +1,1625 @@
+fileFormatVersion: 2
+guid: afc90ea1727db6e5d9c983f2c9226756
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4083465319412196285
+    second: chibis_0
+  - first:
+      213: -1149929002588086960
+    second: chibis_1
+  - first:
+      213: -5449354878305378114
+    second: chibis_2
+  - first:
+      213: 12250747030894669
+    second: chibis_3
+  - first:
+      213: -8165466580371511223
+    second: chibis_4
+  - first:
+      213: 1535742083397551910
+    second: chibis_5
+  - first:
+      213: 6908138723669750149
+    second: chibis_6
+  - first:
+      213: 6354244572274732982
+    second: chibis_7
+  - first:
+      213: 4987664107208616531
+    second: chibis_8
+  - first:
+      213: 5036953166639964686
+    second: chibis_9
+  - first:
+      213: -8256178138074642058
+    second: chibis_10
+  - first:
+      213: -5479624901268528698
+    second: chibis_11
+  - first:
+      213: -3645176184455802569
+    second: chibis_12
+  - first:
+      213: 766921988565820606
+    second: chibis_13
+  - first:
+      213: 4360050689617026234
+    second: chibis_14
+  - first:
+      213: 1233373947619188404
+    second: chibis_15
+  - first:
+      213: -816356190838089069
+    second: chibis_16
+  - first:
+      213: -7783342674498363786
+    second: chibis_17
+  - first:
+      213: -5801009086994084940
+    second: chibis_18
+  - first:
+      213: -7171779309446714589
+    second: chibis_19
+  - first:
+      213: 3061508044385774214
+    second: chibis_20
+  - first:
+      213: -3552900044016462484
+    second: chibis_21
+  - first:
+      213: -8969964078989822633
+    second: chibis_22
+  - first:
+      213: -7418717857064477728
+    second: chibis_23
+  - first:
+      213: -2450214827300200812
+    second: chibis_24
+  - first:
+      213: -3581341951586087336
+    second: chibis_25
+  - first:
+      213: 9095403717066550172
+    second: chibis_26
+  - first:
+      213: -6314329965146127782
+    second: chibis_27
+  - first:
+      213: -4311015960143610668
+    second: chibis_28
+  - first:
+      213: 308648327936741909
+    second: chibis_29
+  - first:
+      213: 2736171607412400826
+    second: chibis_30
+  - first:
+      213: -3349897197131036509
+    second: chibis_31
+  - first:
+      213: -9156566085259767438
+    second: chibis_32
+  - first:
+      213: -4464013280690795261
+    second: chibis_33
+  - first:
+      213: -9142267729587383415
+    second: chibis_34
+  - first:
+      213: -9103899643238195796
+    second: chibis_35
+  - first:
+      213: -8737479441432320350
+    second: chibis_36
+  - first:
+      213: -8990160744055215713
+    second: chibis_37
+  - first:
+      213: -8965579242151248652
+    second: chibis_38
+  - first:
+      213: -2148327345581265506
+    second: chibis_39
+  - first:
+      213: 3257790338029169577
+    second: chibis_40
+  - first:
+      213: 7874173020220010863
+    second: chibis_41
+  - first:
+      213: -3721941208906361883
+    second: chibis_42
+  - first:
+      213: 5089495432467476794
+    second: chibis_43
+  - first:
+      213: -9025584252571185353
+    second: chibis_44
+  - first:
+      213: 5545307290728219793
+    second: chibis_45
+  - first:
+      213: 5954035649995372060
+    second: chibis_46
+  - first:
+      213: 1156913688686466660
+    second: chibis_47
+  - first:
+      213: 7920971769073757305
+    second: chibis_48
+  - first:
+      213: 6283727341254952802
+    second: chibis_49
+  - first:
+      213: 3843628079186373695
+    second: chibis_50
+  - first:
+      213: 8028778288266237090
+    second: chibis_51
+  - first:
+      213: 4036259643396055742
+    second: chibis_52
+  - first:
+      213: -1521667549570507345
+    second: chibis_53
+  - first:
+      213: 4167285684616465275
+    second: chibis_54
+  - first:
+      213: 6717537732551932728
+    second: chibis_55
+  - first:
+      213: -4597535081176743178
+    second: chibis_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: chibis_0
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 1502
+        width: 463
+        height: 1471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34c1fc75ded9457c0800000000000000
+      internalID: -4083465319412196285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_1
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 2713
+        width: 427
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05d51db2aa1aa00f0800000000000000
+      internalID: -1149929002588086960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_2
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 2698
+        width: 522
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb0e09f2c900064b0800000000000000
+      internalID: -5449354878305378114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_3
+      rect:
+        serializedVersion: 2
+        x: 2257
+        y: 2644
+        width: 506
+        height: 393
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4872015df58b2000800000000000000
+      internalID: 12250747030894669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_4
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 2325
+        width: 450
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 948e1ab586f6eae80800000000000000
+      internalID: -8165466580371511223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_5
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 2553
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6278783c94d005510800000000000000
+      internalID: 1535742083397551910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_6
+      rect:
+        serializedVersion: 2
+        x: 1579
+        y: 2146
+        width: 496
+        height: 461
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 581b47b7193aedf50800000000000000
+      internalID: 6908138723669750149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_7
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 2302
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bfa362b5cfce2850800000000000000
+      internalID: 6354244572274732982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_8
+      rect:
+        serializedVersion: 2
+        x: 2273
+        y: 2174
+        width: 500
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35aa229641eb73540800000000000000
+      internalID: 4987664107208616531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_9
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 1711
+        width: 468
+        height: 513
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e02aad7d73ad6e540800000000000000
+      internalID: 5036953166639964686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_10
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 1742
+        width: 440
+        height: 303
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67907bdf9b92c6d80800000000000000
+      internalID: -8256178138074642058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_11
+      rect:
+        serializedVersion: 2
+        x: 2285
+        y: 1957
+        width: 13
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c121814f2674f3b0800000000000000
+      internalID: -5479624901268528698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_12
+      rect:
+        serializedVersion: 2
+        x: 2471
+        y: 1966
+        width: 41
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7315ccdb29bb96dc0800000000000000
+      internalID: -3645176184455802569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_13
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1938
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb4e6ea3c77a4aa00800000000000000
+      internalID: 766921988565820606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_14
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 1831
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abcd15d6003028c30800000000000000
+      internalID: 4360050689617026234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_15
+      rect:
+        serializedVersion: 2
+        x: 2962
+        y: 1817
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be10171213dd1110800000000000000
+      internalID: 1233373947619188404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_16
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 1632
+        width: 89
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39a97e2ae58bba4f0800000000000000
+      internalID: -816356190838089069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_17
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 1627
+        width: 88
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ed26153130cf390800000000000000
+      internalID: -7783342674498363786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_18
+      rect:
+        serializedVersion: 2
+        x: 2296
+        y: 1635
+        width: 79
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb87ee68fcae7fa0800000000000000
+      internalID: -5801009086994084940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_19
+      rect:
+        serializedVersion: 2
+        x: 2434
+        y: 1634
+        width: 79
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32baeec37b8b87c90800000000000000
+      internalID: -7171779309446714589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_20
+      rect:
+        serializedVersion: 2
+        x: 2643
+        y: 1632
+        width: 94
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68a6d968859ac7a20800000000000000
+      internalID: 3061508044385774214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_21
+      rect:
+        serializedVersion: 2
+        x: 2776
+        y: 1632
+        width: 93
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c65dde9eb3091bec0800000000000000
+      internalID: -3552900044016462484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_22
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 1596
+        width: 94
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7553ccfe139448380800000000000000
+      internalID: -8969964078989822633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_23
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 1597
+        width: 102
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb13d04a6b6b0990800000000000000
+      internalID: -7418717857064477728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_24
+      rect:
+        serializedVersion: 2
+        x: 1487
+        y: 1615
+        width: 90
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e506ba8961ffdd0800000000000000
+      internalID: -2450214827300200812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_25
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 1614
+        width: 94
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ec18448748c4ec0800000000000000
+      internalID: -3581341951586087336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_26
+      rect:
+        serializedVersion: 2
+        x: 2641
+        y: 1571
+        width: 94
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9be48cbd7d593e70800000000000000
+      internalID: 9095403717066550172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_27
+      rect:
+        serializedVersion: 2
+        x: 2778
+        y: 1571
+        width: 94
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a524cd8f95efe58a0800000000000000
+      internalID: -6314329965146127782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_28
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 1538
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dcb99233d13c24c0800000000000000
+      internalID: -4311015960143610668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_29
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 1538
+        width: 80
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 512103bd40a884400800000000000000
+      internalID: 308648327936741909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_30
+      rect:
+        serializedVersion: 2
+        x: 1493
+        y: 1538
+        width: 79
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab263508495d8f520800000000000000
+      internalID: 2736171607412400826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_31
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 1539
+        width: 79
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a88dea6f36c281d0800000000000000
+      internalID: -3349897197131036509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_32
+      rect:
+        serializedVersion: 2
+        x: 1894
+        y: 1559
+        width: 95
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 271d3b5b8a75de080800000000000000
+      internalID: -9156566085259767438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_33
+      rect:
+        serializedVersion: 2
+        x: 2054
+        y: 1559
+        width: 89
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30d8cc39293ac02c0800000000000000
+      internalID: -4464013280690795261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_34
+      rect:
+        serializedVersion: 2
+        x: 2288
+        y: 1548
+        width: 84
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9835d6010f3202180800000000000000
+      internalID: -9142267729587383415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_35
+      rect:
+        serializedVersion: 2
+        x: 2440
+        y: 1564
+        width: 82
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cad5bfd428378a180800000000000000
+      internalID: -9103899643238195796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_36
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 1527
+        width: 53
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a6e52dbdbc3eb680800000000000000
+      internalID: -8737479441432320350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_37
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 1528
+        width: 49
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f996de86f688c3380800000000000000
+      internalID: -8990160744055215713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_38
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 1509
+        width: 26
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fc75f15e2dd39380800000000000000
+      internalID: -8965579242151248652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_39
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 1515
+        width: 27
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9dee5959ab9f22e0800000000000000
+      internalID: -2148327345581265506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_40
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 1512
+        width: 26
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abadea4d0ff53d20800000000000000
+      internalID: 3257790338029169577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_41
+      rect:
+        serializedVersion: 2
+        x: 1972
+        y: 1438
+        width: 91
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f61bd2a84aea64d60800000000000000
+      internalID: 7874173020220010863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_42
+      rect:
+        serializedVersion: 2
+        x: 2357
+        y: 1456
+        width: 90
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e39f30b032095cc0800000000000000
+      internalID: -3721941208906361883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_43
+      rect:
+        serializedVersion: 2
+        x: 2725
+        y: 1465
+        width: 70
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a31723a612581a640800000000000000
+      internalID: 5089495432467476794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_44
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 1396
+        width: 61
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73f822f11feaeb280800000000000000
+      internalID: -9025584252571185353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_45
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 1422
+        width: 97
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1944d32c993e4fc40800000000000000
+      internalID: 5545307290728219793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_46
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 217
+        width: 480
+        height: 1090
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c167cf9b0ebf0a250800000000000000
+      internalID: 5954035649995372060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_47
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 624
+        width: 428
+        height: 664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46691f9cede2e0010800000000000000
+      internalID: 1156913688686466660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_48
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 204
+        width: 488
+        height: 1110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ce98b5bd1fced60800000000000000
+      internalID: 7920971769073757305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_49
+      rect:
+        serializedVersion: 2
+        x: 2452
+        y: 577
+        width: 336
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26749e869b8443750800000000000000
+      internalID: 6283727341254952802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_50
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 210
+        width: 166
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3cee94af5f475530800000000000000
+      internalID: 3843628079186373695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_51
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 210
+        width: 166
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a45a7c9053fb6f60800000000000000
+      internalID: 8028778288266237090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_52
+      rect:
+        serializedVersion: 2
+        x: 2396
+        y: 230
+        width: 156
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb2edd9b2cca30830800000000000000
+      internalID: 4036259643396055742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_53
+      rect:
+        serializedVersion: 2
+        x: 2448
+        y: 464
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fad5c910d63f1eae0800000000000000
+      internalID: -1521667549570507345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_54
+      rect:
+        serializedVersion: 2
+        x: 2689
+        y: 230
+        width: 155
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7b822d304c25d930800000000000000
+      internalID: 4167285684616465275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_55
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 399
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b7a0a0afc793d50800000000000000
+      internalID: 6717537732551932728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chibis_56
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 399
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f24014d3364230c0800000000000000
+      internalID: -4597535081176743178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      chibis_0: -4083465319412196285
+      chibis_1: -1149929002588086960
+      chibis_10: -8256178138074642058
+      chibis_11: -5479624901268528698
+      chibis_12: -3645176184455802569
+      chibis_13: 766921988565820606
+      chibis_14: 4360050689617026234
+      chibis_15: 1233373947619188404
+      chibis_16: -816356190838089069
+      chibis_17: -7783342674498363786
+      chibis_18: -5801009086994084940
+      chibis_19: -7171779309446714589
+      chibis_2: -5449354878305378114
+      chibis_20: 3061508044385774214
+      chibis_21: -3552900044016462484
+      chibis_22: -8969964078989822633
+      chibis_23: -7418717857064477728
+      chibis_24: -2450214827300200812
+      chibis_25: -3581341951586087336
+      chibis_26: 9095403717066550172
+      chibis_27: -6314329965146127782
+      chibis_28: -4311015960143610668
+      chibis_29: 308648327936741909
+      chibis_3: 12250747030894669
+      chibis_30: 2736171607412400826
+      chibis_31: -3349897197131036509
+      chibis_32: -9156566085259767438
+      chibis_33: -4464013280690795261
+      chibis_34: -9142267729587383415
+      chibis_35: -9103899643238195796
+      chibis_36: -8737479441432320350
+      chibis_37: -8990160744055215713
+      chibis_38: -8965579242151248652
+      chibis_39: -2148327345581265506
+      chibis_4: -8165466580371511223
+      chibis_40: 3257790338029169577
+      chibis_41: 7874173020220010863
+      chibis_42: -3721941208906361883
+      chibis_43: 5089495432467476794
+      chibis_44: -9025584252571185353
+      chibis_45: 5545307290728219793
+      chibis_46: 5954035649995372060
+      chibis_47: 1156913688686466660
+      chibis_48: 7920971769073757305
+      chibis_49: 6283727341254952802
+      chibis_5: 1535742083397551910
+      chibis_50: 3843628079186373695
+      chibis_51: 8028778288266237090
+      chibis_52: 4036259643396055742
+      chibis_53: -1521667549570507345
+      chibis_54: 4167285684616465275
+      chibis_55: 6717537732551932728
+      chibis_56: -4597535081176743178
+      chibis_6: 6908138723669750149
+      chibis_7: 6354244572274732982
+      chibis_8: 4987664107208616531
+      chibis_9: 5036953166639964686
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

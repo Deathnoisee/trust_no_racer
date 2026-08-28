@@ -15,11 +15,17 @@ public class BarChart : MonoBehaviour
     [SerializeField] private float xLabelsOffset = 20f;
     [SerializeField] private float yLabelsOffset = 10f;
 
+    [SerializeField] private float minVal = 0f;
+    [SerializeField] private float maxVal = 100f;
+
+    [Header("Offsets")]
+    [SerializeField] private float minValuesOffset = 5f;
+    [SerializeField] private float maxValuesOffset = 5f;
 
     private List<ChartData> data;
     private List<Vector2> positions;
 
-    public void SetData(List<ChartData> newData)
+    public void SetData(List<ChartData> newData, float minValue, float maxValue)
     {
         newData.Sort((a, b) =>
         {
@@ -27,6 +33,8 @@ public class BarChart : MonoBehaviour
             float bNum = ExtractNumeric(b.label);
             return aNum.CompareTo(bNum);
         });
+        if (minValue != 0) minVal = minValue - minValuesOffset;
+        maxVal = maxValue + maxValuesOffset;
         data = newData;
         Redraw();
     }
@@ -45,17 +53,6 @@ public class BarChart : MonoBehaviour
         foreach (Transform child in chartArea) Destroy(child.gameObject);
 
         if (data == null || data.Count == 0) return;
-
-        float rawMin = float.MaxValue, rawMax = float.MinValue;
-        foreach (var point in data)
-        {
-            rawMin = Mathf.Min(rawMin, point.value);
-            rawMax = Mathf.Max(rawMax, point.value);
-        }
-        if (Mathf.Approximately(rawMin, rawMax)) rawMax = rawMin + 1f;
-
-        float minVal = rawMin - yAxisMinOffset;
-        float maxVal = rawMax;
 
         Vector2 areaSize = chartArea.rect.size;
         float barWidth = areaSize.x / data.Count * 0.8f;

@@ -26,18 +26,26 @@ public class TestChart : MonoBehaviour
             new ChartData { label = "5km", value = 135f, color = Color.red },
         };
 
-        manager.ShowData(RaceDataType.Pace, paceData);
-        manager.ShowData(RaceDataType.HeartRate, heartRateData);
+        // manager.ShowData(RaceDataType.Pace, paceData);
+        // manager.ShowData(RaceDataType.HeartRate, heartRateData);
 
-        List<Vector3> worldPoints = new List<Vector3>();
-        for (int i = 0; i < 40; i++)
+        if (RunnersGenerator.instance != null)
         {
-            float t = i / 39f;
-            worldPoints.Add(new Vector3(
-                t * 80f,                          // runs "forward" along the track
-                Mathf.Sin(t * Mathf.PI * 3f) * 10f + Mathf.Cos(t * Mathf.PI * 7f) * 3f,
-                0f));
+            RunnersGenerator.instance.analysePlayer += test;
         }
-        manager.ShowTrajectoryChart(worldPoints);
+    }
+    private void OnDisable()
+    {
+        if (RunnersGenerator.instance != null)
+        {
+            RunnersGenerator.instance.analysePlayer -= test;
+        }
+    }
+
+
+    public void test(RunnerData data)
+    {
+        
+        manager.ShowTrajectoryChart(RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex].trajectory);
     }
 }

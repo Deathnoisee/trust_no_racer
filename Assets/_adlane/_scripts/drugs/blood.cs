@@ -1,16 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+
 
 public class blood : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Image image;
+    public void ReceiveSolution(solution droppedSolution)
     {
-        
-    }
+        if (droppedSolution.isSolutionCorrect)
+        {
+            image = GetComponent<Image>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            image.DOColor(Color.green, 0.5f).OnComplete(() =>
+            {
+                Debug.Log("Correct solution!");
+            });
+        }
+        else
+        {
+            Destroy(droppedSolution.gameObject);
+            Debug.Log("Incorrect solution. Try again.");
+        }
+
+        Destroy(droppedSolution.gameObject);
     }
 }

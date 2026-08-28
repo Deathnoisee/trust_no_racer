@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Splines;
 using Unity.Mathematics;
 using SmallHedge.SoundManager;
+using System;
+using DG.Tweening;
 
 public enum CheatType
 {
@@ -12,6 +14,12 @@ public enum CheatType
     DisappearBoost,
     Injure,
     InfoMismatch
+}
+public enum RacePhase
+{
+    Early,
+    Mid,
+    Late
 }
 [System.Serializable]
 public class KmSplit
@@ -44,20 +52,23 @@ public class CheatConfig
     public int shortcutFromKnot = 3;
     public int shortcutSkipCount = 2;
 
+    [Header("Speed Boost settings")]
+    [Tooltip("Progress along the track (0-1) at which the boost kicks in.")]
+    public RacePhase boostPhase = RacePhase.Mid;
+    public float boostMultiplier = 2.5f;
+    public float boostDuration = 1.5f;
+
     [Header("Disappear Boost settings")]
-    [Range(0f, 1f)] public float disappearTriggerProgress = 0.4f;
+    public RacePhase disappearPhase = RacePhase.Mid;
     public float disappearDuration = 2f;
     public float disappearBoostMultiplier = 2f;
 
     [Header("Injure settings")]
-    [Range(0f, 1f)] public float injureTriggerProgress = 0.3f;
+    [Tooltip("Progress along the track (0-1) at which the injury kicks in.")]
+    [Range(0f, 1f)] public float injureTriggerProgress = 0.5f;
     public float injureRange = 0.03f; // how close in t counts as "close enough to injure"
 
-    [Header("Speed Boost settings")]
-    [Tooltip("Progress along the track (0-1) at which the boost kicks in.")]
-    [Range(0f, 1f)] public float triggerProgress = 0.3f;
-    public float boostMultiplier = 2.5f;
-    public float boostDuration = 1.5f;
+
 }
 
 // Runtime state for the single cheat a Runner has been assigned. Kept separate from
@@ -83,10 +94,12 @@ public class ActiveCheat
 
     // speed boost runtime
     public float boostTimeRemaining;
+    public float boostTriggerRaceProgress;
 
     // disappear boost runtime
     public float disappearTimeRemaining;
     public bool isDisappeared;
+    public float disappearTriggerRaceProgress;
 
     // injure runtime
     public bool hasInjured;
@@ -148,9 +161,6 @@ public class Runner : MonoBehaviour
     [Header("Racing Line - Corner Cutting")]
     [Tooltip("How far ahead in t to look when judging whether a corner is coming up.")]
     public float cornerLookahead = 0.03f;
-    [Tooltip("How strongly runners lean toward the inside of a corner, as a fraction of road half-width. " +
-             "NOTE: which side is 'inside' depends on your spline's winding direction — if runners hug " +
-             "the outside instead, flip the sign in ComputeCornerHugOffset().")]
     [Range(0f, 1f)] public float cornerHugStrength = 0.6f;
 
     [Header("Racing Line - Wander")]
@@ -160,24 +170,17 @@ public class Runner : MonoBehaviour
     private float wanderPhase;
 
     [Header("Road")]
-    [Tooltip("How far from the spline centerline the road extends on either side. Every lane " +
-             "target (preferred line, avoidance steering, overlap pushes) gets clamped to this, " +
-             "so a runner spawned or pushed off-road always works its way back onto the road " +
-             "instead of running a permanent off-road lane. Set by RaceManager per track.")]
     public float roadHalfWidth = 1.5f;
 
     [Header("Cheater Data (hidden from player during race)")]
     public bool isCheater = false;
     public bool isCheating = false; // true while a cheat is actively in effect (shortcut, speed boost, disappear, injure)
-    [Tooltip("The single cheat this runner performs, assigned by RaceManager from the current " +
-             "LevelConfig. A runner can only ever have one — never a list.")]
+
     public CheatConfig assignedCheat;
 
     private ActiveCheat activeCheat; // null if not a cheater, no cheat assigned, or the chance roll failed
 
     [Header("Laps")]
-    [Tooltip("How many times this runner must loop mainSpline before the race counts them as " +
-             "finished. Set by RaceManager from the current LevelConfig.")]
     public int totalLaps = 1;
     [HideInInspector] public int currentLap = 0;
 
@@ -189,13 +192,17 @@ public class Runner : MonoBehaviour
     [HideInInspector] public float t = 0f;
     [HideInInspector] public bool hasFinished = false;
     [HideInInspector] public bool hasStarted = false;
-    public RunnerVisuals visuals;
+    public RunnerVisuals[] visualsAll;
 
     [HideInInspector] public bool isInjured = false;
 
 
     [Header("Rotation")]
     public float rotationSmoothing = 8f;
+
+
+    public ParticleSystem burstTrail;
+    public float cheatTrailDuration = 0.3f;
 
 
     public SpriteRenderer tshirtRenderer;
@@ -215,6 +222,15 @@ public class Runner : MonoBehaviour
     }
 
 
+    public void TriggerTrail(float duration)
+    {
+        if (burstTrail == null) return;
+        var emission = burstTrail.emission;
+        emission.enabled = true;
+        if (!burstTrail.isPlaying) burstTrail.Play();
+        DOVirtual.DelayedCall(duration, () => emission.enabled = false);
+    }
+
     public void Injure()
     {
         if (isInjured) return; // don't double-trigger
@@ -224,13 +240,31 @@ public class Runner : MonoBehaviour
         currentSpeedMultiplier = 0f;
         targetSpeedMultiplier = 0f;
 
-        if (visuals != null) visuals.PlayInjuredDisappearAnimation();
+        TriggerInjuredDisappear();
+    }
+
+    void TriggerInjuredDisappear()
+    {
+        if (visualsAll == null) return;
+        foreach (RunnerVisuals v in visualsAll)
+        {
+            v.PlayInjuredDisappearAnimation();
+        }
+    }
+    void TriggerVisualCheatBurst()
+    {
+        if (visualsAll == null) return;
+        TriggerTrail(cheatTrailDuration);
+        foreach (RunnerVisuals v in visualsAll)
+        {
+            v.TriggerCheatBurst();
+        }
     }
     void Start()
     {
         //gameObject.GetComponentInChildren<SpriteRenderer>().color = runnerColor;
         tshirtRenderer.color = runnerColor;
-        visuals = GetComponentInChildren<RunnerVisuals>();
+        visualsAll = GetComponentsInChildren<RunnerVisuals>();
         nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
         laneWobblePhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
         wanderPhase = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
@@ -313,6 +347,14 @@ public class Runner : MonoBehaviour
             activeCheat.resolvedToKnot = Mathf.Clamp(assignedCheat.shortcutFromKnot + assignedCheat.shortcutSkipCount, 0, knotCount - 1);
             activeCheat.shortcutStartT = SplineKnotUtils.GetKnotT(mainSpline, activeCheat.resolvedFromKnot);
             activeCheat.shortcutEndT = SplineKnotUtils.GetKnotT(mainSpline, activeCheat.resolvedToKnot);
+        }
+        else if (assignedCheat.type == CheatType.SpeedBoost)
+        {
+            activeCheat.boostTriggerRaceProgress = RacePhaseUtils.GetTriggerRaceProgress(assignedCheat.boostPhase);
+        }
+        else if (assignedCheat.type == CheatType.DisappearBoost)
+        {
+            activeCheat.disappearTriggerRaceProgress = RacePhaseUtils.GetTriggerRaceProgress(assignedCheat.disappearPhase);
         }
     }
 
@@ -407,8 +449,9 @@ public class Runner : MonoBehaviour
             Vector3 perp = new Vector3(-cutDir.y, cutDir.x, 0f);
             if (cutDir.sqrMagnitude > 0.0001f)
             {
-                float angle = Mathf.Atan2(cutDir.y, cutDir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                float targetAngle = Mathf.Atan2(cutDir.y, cutDir.x) * Mathf.Rad2Deg - 90f;
+                Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, deltaTime * rotationSmoothing);
             }
             laneOffset = Mathf.Lerp(laneOffset, desiredLaneOffset, deltaTime * laneEaseSpeed);
             float wobble = Mathf.Sin(Time.time * laneWobbleSpeed + laneWobblePhase) * laneWobbleAmount;
@@ -501,10 +544,11 @@ public class Runner : MonoBehaviour
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.SpeedBoost) return 1f;
 
-        if (!activeCheat.hasTriggered && currentLap == activeCheat.resolvedCheatLap && t >= activeCheat.config.triggerProgress)
+        if (!activeCheat.hasTriggered && RaceProgress >= activeCheat.boostTriggerRaceProgress)
         {
             activeCheat.hasTriggered = true;
             activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
+            TriggerVisualCheatBurst();
 
         }
 
@@ -521,12 +565,12 @@ public class Runner : MonoBehaviour
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.DisappearBoost) return 1f;
 
-        if (!activeCheat.hasTriggered && currentLap == activeCheat.resolvedCheatLap && t >= activeCheat.config.disappearTriggerProgress)
+        if (!activeCheat.hasTriggered && RaceProgress >= activeCheat.disappearTriggerRaceProgress)
         {
             activeCheat.hasTriggered = true;
             activeCheat.isDisappeared = true;
             activeCheat.disappearTimeRemaining = activeCheat.config.disappearDuration;
-
+            TriggerVisualCheatBurst();
             SetVisible(false);
         }
 
@@ -567,6 +611,31 @@ public class Runner : MonoBehaviour
                 break;
             }
         }
+    }
+}
+
+public static class RacePhaseUtils
+{
+    // Returns a target RaceProgress (0-1 across the WHOLE race, all laps included)
+    // for a given phase, with a bit of randomness within that third so cheats don't
+    // all fire at exactly the same instant.
+    public static float GetTriggerRaceProgress(RacePhase phase)
+    {
+        float rangeStart, rangeEnd;
+        switch (phase)
+        {
+            case RacePhase.Early:
+                rangeStart = 0.05f; rangeEnd = 0.33f;
+                break;
+            case RacePhase.Mid:
+                rangeStart = 0.34f; rangeEnd = 0.66f;
+                break;
+            default: // Late
+                rangeStart = 0.67f; rangeEnd = 0.80f;
+                break;
+        }
+
+        return UnityEngine.Random.Range(rangeStart, rangeEnd);
     }
 }
 

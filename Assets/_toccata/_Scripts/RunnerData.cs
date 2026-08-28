@@ -33,6 +33,7 @@ public class RunnerData
 
     [Header("GeneralInfo")]
     public string runnerName;
+    public string runnerLastName = "";
     public float weight;
     public float height;
     public int age;
@@ -52,6 +53,7 @@ public class RunnerData
     [Header("stats mn 3nd Nano")]
     public List<KmSplit> kmSplits;
     public List<TrajectoryPoint> trajectory;
+    public RacePhase CheatTimePhase;
 
 
 }
