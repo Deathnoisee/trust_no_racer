@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RunnersGenerator : MonoBehaviour
@@ -29,15 +30,16 @@ public class RunnersGenerator : MonoBehaviour
     public LevelGuidelines currentGuidelines;
     public TextMeshProUGUI currentGuidelinesText;
 
-    public Transform listOfParticipants;
-    public GameObject listOfParticipantsItemPrefab;
+    // public Transform listOfParticipants;
+    // public GameObject listOfParticipantsItemPrefab;
 
     public List<LevelSettings> levelSettings;
     public int currentLevel = 0;
 
     public List<RunnerData> currentRunners = new List<RunnerData>();
 
-    private int currentRunnerIndex = 0;
+    public int currentRunnerIndex = 0;
+    public event Action<RunnerData> analysePlayer;
 
     // Track unused shirt colors for the current generation batch
     private List<Color> availableShirtColors = new List<Color>();
@@ -89,25 +91,25 @@ public class RunnersGenerator : MonoBehaviour
         {
             currentRunners.Clear();
         }
-        for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
-        {
-            Destroy(listOfParticipants.GetChild(i).gameObject);
-        }
+        // for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
+        // {
+        //     Destroy(listOfParticipants.GetChild(i).gameObject);
+        // }
 
         RunnerData runnerData = GeneratePersonInternal(CheatType.InfoMismatch);
 
         currentRunners.Add(runnerData);
-        GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
-        TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
-        textMesh.text = runnerData.runnerName;
+        // GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
+        // TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
+        // textMesh.text = runnerData.runnerName;
 
         for (int i = 0; i < 5; i++)
         {
             runnerData = GeneratePersonInternal(CheatType.None);
             currentRunners.Add(runnerData);
-            listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
-            textMesh = listItem.GetComponent<TextMeshProUGUI>();
-            textMesh.text = runnerData.runnerName;
+            // listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
+            // textMesh = listItem.GetComponent<TextMeshProUGUI>();
+            // textMesh.text = runnerData.runnerName;
         }
     }
 
@@ -116,6 +118,7 @@ public class RunnersGenerator : MonoBehaviour
         currentRunnerIndex++;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
+        analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
 
     public void PreviewPreviousRunner()
@@ -123,6 +126,7 @@ public class RunnersGenerator : MonoBehaviour
         currentRunnerIndex--;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
+        analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
 
     public void EmptyList()
@@ -131,10 +135,10 @@ public class RunnersGenerator : MonoBehaviour
         {
             currentRunners.Clear();
         }
-        for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
-        {
-            Destroy(listOfParticipants.GetChild(i).gameObject);
-        }
+        // for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
+        // {
+        //     Destroy(listOfParticipants.GetChild(i).gameObject);
+        // }
         currentRunnerIndex = 0;
         ResetShirtColorPool();
     }
@@ -151,12 +155,12 @@ public class RunnersGenerator : MonoBehaviour
         RunnerData runner = GeneratePersonInternal(CheatType.None);
         currentRunners.Add(runner);
 
-        GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
-        TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
-        if (textMesh != null)
-        {
-            textMesh.text = runner.runnerName;
-        }
+        // GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
+        // TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
+        // if (textMesh != null)
+        // {
+        //     textMesh.text = runner.runnerName;
+        // }
 
         return runner;
     }
@@ -166,7 +170,7 @@ public class RunnersGenerator : MonoBehaviour
         return GeneratePersonInternal(cheatos);
     }
 
-    private RunnerData GeneratePersonInternal(CheatType cheatos)
+    private RunnerData GeneratePersonInternal(CheatType cheatos, bool addToList = true)
     {
         Color uniqueShirtColor = GetUniqueShirtColor();
 
@@ -189,12 +193,13 @@ public class RunnersGenerator : MonoBehaviour
 
         if (cheatos == CheatType.InfoMismatch)
         {
-            newPerson.fakePersona = GeneratePersonInternal(CheatType.None);
+            newPerson.fakePersona = GeneratePersonInternal(CheatType.None, false);
         }
 
         currentPerson = newPerson;
         personVisuals.DisplayPerson(currentPerson);
-        currentRunners.Add(currentPerson);
+        if (addToList) currentRunners.Add(currentPerson);
+        
         return currentPerson;
     }
 
@@ -294,28 +299,28 @@ public class RunnersGenerator : MonoBehaviour
         currentRunners.Clear();
         currentRunnerIndex = 0;
 
-        for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
-        {
-            Destroy(listOfParticipants.GetChild(i).gameObject);
-        }
+        // for (int i = listOfParticipants.childCount - 1; i >= 0; i--)
+        // {
+        //     Destroy(listOfParticipants.GetChild(i).gameObject);
+        // }
 
         // Reset the shirt color pool once for the entire level generation pass
         ResetShirtColorPool();
 
         foreach (cheatAmount cheatConfig in settings.runnerSettings)
         {
-            for (int i = 0; i < cheatConfig.amount; i++)
-            {
-                RunnerData newRunner = GeneratePersonInternal(cheatConfig.cheatType);
-                currentRunners.Add(newRunner);
+            // for (int i = 0; i < cheatConfig.amount; i++)
+            // {
+            //     RunnerData newRunner = GeneratePersonInternal(cheatConfig.cheatType);
+            //     currentRunners.Add(newRunner);
 
-                GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
-                TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
-                if (textMesh != null)
-                {
-                    textMesh.text = newRunner.runnerName;
-                }
-            }
+            //     GameObject listItem = Instantiate(listOfParticipantsItemPrefab, listOfParticipants);
+            //     TextMeshProUGUI textMesh = listItem.GetComponent<TextMeshProUGUI>();
+            //     if (textMesh != null)
+            //     {
+            //         textMesh.text = newRunner.runnerName;
+            //     }
+            // }
         }
 
         if (currentRunners.Count > 0)

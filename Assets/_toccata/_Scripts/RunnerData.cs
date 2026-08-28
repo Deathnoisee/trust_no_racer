@@ -33,6 +33,7 @@ public class RunnerData
 
     [Header("GeneralInfo")]
     public string runnerName;
+    public string runnerLastName = "";
     public float weight;
     public float height;
     public int age;
