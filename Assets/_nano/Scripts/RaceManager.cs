@@ -268,7 +268,19 @@ public class RaceManager : MonoBehaviour
         }
 
         raceEnded = true;
+        // clear the list to avoid further updates
+        foreach (Runner runner in racers)
+        {
+            if (runner != null)
+            {
+                Destroy(runner.gameObject);
+            }
+        }
+        racers.Clear();
+
         Debug.Log("Race finished! All runners reached the end.");
         OnRaceEnded?.Invoke();
+
+
     }
 }

@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> Journals; // List of GameObjects representing each level, to be activated/deactivated as needed
 
+    public GameObject NextButton;
+    public GameObject LevelButton;
+
+    public GameObject TvScreen;
     private bool isTransitioning = false;
 
     void Awake()
@@ -45,9 +49,9 @@ public class GameManager : MonoBehaviour
 
     void HandleRaceEnded()
     {
-        // this is where you'd eventually branch into your Analyse Phase instead of
-        // going straight to the next race — for now, just chain to the next level
         Debug.Log("GameManager notified: race ended.");
+        NextButton.SetActive(true); // Show the Next
+
     }
 
     public void LoadJournal()
@@ -72,6 +76,7 @@ public class GameManager : MonoBehaviour
 
         if (isTransitioning) return;
         StartCoroutine(TransitionToJournal(journalIndex));
+        NextButton.SetActive(false); // Hide the Next button when transitioning to the journal
         // Deactivate all journals first
 
     }
@@ -91,18 +96,23 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(transitionInDuration);
         }
 
+        TvScreen.SetActive(false); // Hide the TV screen when transitioning to the journal
 
-        // Activate the selected journal
-        if (journalIndex >= 0 && journalIndex < Journals.Count)
-        {
-            Journals[journalIndex].SetActive(true);
-        }
+
 
         if (transitionObject != null)
         {
             yield return new WaitForSeconds(transitionOutDuration);
             transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionOut");
         }
+        // Activate the selected journal
+        if (journalIndex >= 0 && journalIndex < Journals.Count)
+        {
+            Journals[journalIndex].SetActive(true);
+        }
+
+        yield return new WaitForSeconds(0.5f); // Optional: wait a bit before transitioning out
+        LevelButton.SetActive(true); // Show the Next button after the journal is displayed
 
         isTransitioning = false;
     }
@@ -117,14 +127,18 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(transitionInDuration);
         }
 
-        raceManager.LoadLevel(levelIndex);
+
 
         if (transitionObject != null)
         {
             yield return new WaitForSeconds(transitionOutDuration);
             transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionOut");
-        }
 
+
+        }
+        TvScreen.SetActive(true); // Hide the TV screen when transitioning to the level
+        Journals.ForEach(journal => journal.SetActive(false)); // Deactivate all journals when transitioning to the level
+        raceManager.LoadLevel(levelIndex);
         isTransitioning = false;
     }
 
