@@ -3,10 +3,17 @@ using TMPro;
 
 public class ListImporter : MonoBehaviour
 {
+    public static ListImporter instance;
+
+    
     public GameObject listOfParticipantsItemPrefab;
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
-    [ContextMenu("Load List of Names")]
+
     public void loadListNames()
     {
         foreach (Transform child in transform)

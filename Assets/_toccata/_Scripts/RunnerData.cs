@@ -55,6 +55,19 @@ public class RunnerData
     public RacePhase CheatTimePhase;
 
 
+
+    [Header("Manager Booleans")]
+    public bool selectedAsCheater = false;
+
+    public bool trajectoryDone = false;
+
+    public bool earlyBbloodTestDone = false;
+    public bool midBbloodTestDone = false;
+    public bool latelBbloodTestDone = false;
+
+
+
+
 }
 
 
