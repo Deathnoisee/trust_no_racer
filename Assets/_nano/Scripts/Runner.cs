@@ -219,6 +219,7 @@ public class Runner : MonoBehaviour
         laneOffset = Mathf.Clamp(startLaneOffset, -roadHalfWidth, roadHalfWidth);
         preferredOffset = laneOffset;
         transform.position = worldPos;
+        tshirtRenderer.color = runnerColor;
     }
 
 

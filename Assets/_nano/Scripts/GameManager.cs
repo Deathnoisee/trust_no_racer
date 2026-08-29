@@ -2,7 +2,7 @@ using UnityEngine;
 using SmallHedge.SoundManager;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -36,6 +36,39 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+    public void StartGame(int levelIndex)
+    {
+        if (isTransitioning) return;
+        StartCoroutine(TransitionToGame(levelIndex));
+    
+    
+    }
+
+    IEnumerator TransitionToGame(int levelIndex)
+    {
+        if(isTransitioning) yield break; // Prevent multiple transitions at the same time
+        isTransitioning = true;
+        transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionIn");
+        yield return new WaitForSeconds(transitionInDuration);
+        SceneManager.LoadScene(levelIndex);
+        
+            }
+
+    void OnDisable()
+    {
+        if (raceManager != null)
+            raceManager.OnRaceEnded -= HandleRaceEnded;
+    }
+
+    void HandleRaceEnded()
+    {
+        Debug.Log("GameManager notified: race ended.");
+        NextButton.SetActive(true); // Show the Next
+
+    }
+
 
 
     public void GoToNextLevel()
