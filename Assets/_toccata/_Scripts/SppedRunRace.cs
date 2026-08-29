@@ -5,28 +5,33 @@ public class SppedRunRace : MonoBehaviour
 
     public bool speedRunRace = false;
     public float gameSpeed = 10;
+    private bool switchSpeed = false;
 
-    private void OnEnable()
-    {
-    }
-    private void OnDisable()
-    {
-        GameManager.instance.raceManager.OnRaceEnded -= RestoreNormalSpeed;
-    }
+
 
 
     private void Start()
     {
-        GameManager.instance.raceManager.OnRaceEnded += RestoreNormalSpeed;
         if (speedRunRace)
         {
             Time.timeScale = gameSpeed;
         }
     }
 
-    public void RestoreNormalSpeed()
+
+    public void SetSpeedRunRace()
     {
-        Time.timeScale = 1;
+        if (switchSpeed)
+        {
+            Time.timeScale = 1;
+            switchSpeed = false;
+        }
+        else
+        {
+            Time.timeScale = gameSpeed;
+            switchSpeed = true;
+        }
+
     }
 
 
