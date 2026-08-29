@@ -25,6 +25,10 @@ public class BarChart : MonoBehaviour
     private List<ChartData> data;
     private List<Vector2> positions;
 
+    private Sequence activeSequence;
+    // Track every RectTransform we spawn so we can kill their tweens before destroying
+    private List<RectTransform> spawnedRects = new List<RectTransform>();
+
     public void SetData(List<ChartData> newData, float minValue, float maxValue)
     {
         newData.Sort((a, b) =>
@@ -49,10 +53,26 @@ public class BarChart : MonoBehaviour
 
     public void Redraw()
     {
-        // Kill all tweens on chartArea and its children
-        chartArea.DOKill(true);
+        // 1. Kill the sequence first so no more AppendCallbacks fire
+        if (activeSequence != null && activeSequence.IsActive())
+        {
+            activeSequence.Kill();
+            activeSequence = null;
+        }
 
-        // Destroy all child GameObjects in chartArea
+        // 2. Kill tweens on every RectTransform we spawned, BEFORE destroying them.
+        //    This is the critical step — DOSizeDelta tweens outlive the sequence that
+        //    spawned them and will keep ticking against destroyed objects otherwise.
+        foreach (RectTransform rt in spawnedRects)
+        {
+            if (rt != null)
+            {
+                rt.DOKill();
+            }
+        }
+        spawnedRects.Clear();
+
+        // 3. Now it's safe to destroy children
         foreach (Transform child in chartArea)
         {
             Destroy(child.gameObject);
@@ -68,44 +88,41 @@ public class BarChart : MonoBehaviour
         for (int i = 0; i < data.Count; i++)
         {
             float x = slotWidth * i + slotWidth * 0.5f;
-            float y = (data[i].value - minVal) / (maxVal - minVal) * areaSize.y;
             positions.Add(new Vector2(x, 0));
         }
 
         DrawGridLines(minVal, maxVal);
-
-        // Draw axis labels
         DrawYAxisLabels(minVal, maxVal);
         DrawXAxisLabels();
 
-        // Animate bars
-        Sequence seq = DOTween.Sequence();
+        activeSequence = DOTween.Sequence();
+
         for (int i = 0; i < data.Count; i++)
         {
             int index = i;
-            seq.AppendCallback(() =>
+            activeSequence.AppendCallback(() =>
             {
                 GameObject bar = Instantiate(barPrefab, chartArea);
                 RectTransform rt = bar.GetComponent<RectTransform>();
                 Image img = bar.GetComponent<Image>();
                 img.color = data[index].color;
 
-                // Position and size
                 rt.anchorMin = Vector2.zero;
                 rt.anchorMax = Vector2.zero;
-                rt.pivot = new Vector2(0.5f, 0f); // bottom-center
+                rt.pivot = new Vector2(0.5f, 0f);
                 rt.anchoredPosition = positions[index];
-                rt.sizeDelta = new Vector2(barWidth, 0f); // start height 0
+                rt.sizeDelta = new Vector2(barWidth, 0f);
 
-                // Animate height
+                // Register before tweening so a future Redraw() can kill this tween
+                spawnedRects.Add(rt);
+
                 float targetHeight = (data[index].value - minVal) / (maxVal - minVal) * areaSize.y;
                 rt.DOSizeDelta(new Vector2(barWidth, targetHeight), 0.4f).SetEase(Ease.OutQuad);
             });
-            seq.AppendInterval(0.15f);
+            activeSequence.AppendInterval(0.15f);
         }
 
-        // Fade in axis labels after bars
-        seq.AppendCallback(() =>
+        activeSequence.AppendCallback(() =>
         {
             foreach (Transform child in chartArea)
             {
@@ -118,7 +135,7 @@ public class BarChart : MonoBehaviour
             }
         });
 
-        seq.Play();
+        activeSequence.Play();
     }
 
     private void DrawYAxisLabels(float minVal, float maxVal)
@@ -170,7 +187,6 @@ public class BarChart : MonoBehaviour
         float areaWidth = chartArea.rect.width;
         float areaHeight = chartArea.rect.height;
 
-        // Horizontal
         float step = (maxVal - minVal) / (yAxisTickCount - 1);
         for (int i = 0; i < yAxisTickCount; i++)
         {
@@ -180,7 +196,6 @@ public class BarChart : MonoBehaviour
             DrawLine(new Vector2(0, y), new Vector2(areaWidth, y), gridColor, 1f);
         }
 
-        // Vertical (aligned with data points)
         for (int i = 0; i < positions.Count; i++)
         {
             DrawLine(positions[i], new Vector2(positions[i].x, areaHeight), gridColor, 1f);
@@ -199,7 +214,7 @@ public class BarChart : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         rt.pivot = new Vector2(0f, 0.5f);
-        rt.sizeDelta = new Vector2(distance, thickness); // full size – will be overridden by tween
+        rt.sizeDelta = new Vector2(distance, thickness);
         rt.anchorMin = rt.anchorMax = Vector2.zero;
         rt.anchoredPosition = from;
         rt.localEulerAngles = new Vector3(0, 0, angle);

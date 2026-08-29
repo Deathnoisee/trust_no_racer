@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -77,6 +78,9 @@ public class RunnersGenerator : MonoBehaviour
     [Header("End of Level")]
     public GameObject ShowResultsScreen;
     private int selectedCheatersCount = 0;
+    private int selectedNoneCheatersCount = 0;
+
+
     private int totalCheatersCount = 0;
 
     private void Awake()
@@ -373,7 +377,6 @@ public class RunnersGenerator : MonoBehaviour
     {
         currentRunners[currentRunnerIndex].selectedAsCheater = true;
         cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
-        selectedCheatersCount++;
     }
 
 
@@ -601,26 +604,25 @@ public class RunnersGenerator : MonoBehaviour
         foreach (var runner in currentRunners)
         {
             totalCheatersCount += runner.cheatType != CheatType.None ? 1 : 0;
-            if (runner.selectedAsCheater && runner.cheatType != CheatType.None)
+            if (runner.selectedAsCheater)
             {
-                selectedCheatersCount++;
+                if (runner.cheatType != CheatType.None)
+                {
+                    selectedCheatersCount++;
+                }
+                else
+                {
+                    selectedNoneCheatersCount++;
+                }
+
             }
         }
 
-        if (selectedCheatersCount == totalCheatersCount)
-        {
-            print("YOU WIN");
-            ShowResultsScreen.SetActive(true);
-        }
-        else
-        {
-            print("YOU LOSE");
-            ShowResultsScreen.SetActive(true);
-        }
+        CountTotalScore();
     }
     private void CountTotalScore()
     {
-        float score = selectedCheatersCount/totalCheatersCount;
+        float score = (float)math.clamp((selectedCheatersCount - selectedNoneCheatersCount),0, totalCheatersCount) / (float)totalCheatersCount;
         if (score >= 0.99f)
         {
             print("3 stars");
@@ -648,6 +650,8 @@ public class RunnersGenerator : MonoBehaviour
         {
             print("YOU LOSE");
             ShowResultsScreen.SetActive(true);
+            ShowResultsScreen.GetComponent<StarsGenerator>().GenerateStars(0);
         }
+        ShowResultsScreen.GetComponent<StarsGenerator>().SetScore(totalCheatersCount, selectedCheatersCount, selectedNoneCheatersCount);
     }
 }
