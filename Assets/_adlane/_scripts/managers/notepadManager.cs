@@ -16,6 +16,7 @@ public class NotepadManager : MonoBehaviour
     {
         AnalysisPhase = true;
         NotepadInputField.interactable = false;
+        NotepadInputField.readOnly = true;
     }
 
     public void SetOpenState(bool open)
@@ -30,12 +31,18 @@ public class NotepadManager : MonoBehaviour
         }
 
         NotepadInputField.interactable = open;
-
+        NotepadInputField.readOnly = !open;
         if (open)
         {
             NotepadInputField.ActivateInputField();
             NotepadInputField.readOnly = false;
             NotepadInputField.Select();
+        }
+        else
+        {
+            NotepadInputField.DeactivateInputField();
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+            NotepadInputField.readOnly = true;
         }
     }
 

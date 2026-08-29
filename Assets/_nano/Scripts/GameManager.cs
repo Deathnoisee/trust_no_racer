@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(levelIndex));
         LevelButton.SetActive(false); // Hide the Level button when transitioning to the next level
+        
     }
 
     public void LoadJournal()

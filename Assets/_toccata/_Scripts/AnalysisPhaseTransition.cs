@@ -11,6 +11,7 @@ public class AnalysisPhaseTransition : MonoBehaviour
     [SerializeField] private float duration = 1.0f;
     [SerializeField] private float startOffscreenY = 1100f; // Height to drop from
 
+
     private Vector2 initialPosition;
     private void Start()
     {
@@ -54,8 +55,32 @@ public class AnalysisPhaseTransition : MonoBehaviour
         // Animate to initial position with a bounce effect
         canvasPanel.DOAnchorPos(initialPosition, duration)
             .SetEase(Ease.OutBounce);
-       
+    }
+    IEnumerator SlideDownAnimation()
+    {
+        if (canvasPanel == null) yield break;
 
+        // Wait a moment before starting
+        yield return new WaitForSeconds(0.5f);
+
+        // Start offscreen above its initial position
+        canvasPanel.anchoredPosition = initialPosition + new Vector2(0, startOffscreenY);
+        canvasPanel.gameObject.SetActive(true);
+
+        // Optional: load data before sliding in
+        ListImporter.instance.loadListNames();
+        RunnersGenerator.instance.InitializePhase();
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Smooth slide down to the target position
+        canvasPanel.DOAnchorPos(initialPosition, duration)
+            .SetEase(Ease.OutCubic);
+    }
+    public void NextButtonClicked()
+    {
+        // Start the slide down animation
+        StartCoroutine(SlideDownAnimation());
     }
 
 }

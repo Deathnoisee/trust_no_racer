@@ -5,14 +5,14 @@ using DG.Tweening;
 
 public class blood : MonoBehaviour
 {
-    [SerializeField] private Sprite GreenSprite;
+    [SerializeField] public Sprite GreenSprite;
     private Image image;
-    private Sprite originalSprite;
+    public Sprite originalSprite;
 
     private void Awake()
     {
         image = GetComponent<Image>();
-        originalSprite = image.sprite;
+        image.sprite = originalSprite;
     }
     public void ReceiveSolution(solution droppedSolution)
     {
@@ -27,8 +27,5 @@ public class blood : MonoBehaviour
         }
         droppedSolution.gameObject.SetActive(false);
     }
-    public void ResetBlood()
-    {
-        image.sprite = originalSprite;
-    }
+
 }

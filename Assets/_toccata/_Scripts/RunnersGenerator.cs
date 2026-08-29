@@ -112,7 +112,6 @@ public class RunnersGenerator : MonoBehaviour
         trajectoryObj.SetActive(false);
         tubesButton?.Invoke(currentRunners[currentRunnerIndex]);
         //show tubes
-
         tubesObj.SetActive(true);
 
     }

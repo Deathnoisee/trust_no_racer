@@ -159,12 +159,10 @@ public class graphManager : MonoBehaviour
                     if (split == null)
                     {
                         Debug.LogWarning("Found null split in kmSplits. Skipping.");
-
                         continue;
                     }
-                    if (split.kmIndex < 0)
+                    if (split.kmIndex <= 0)
                     {
-                        Debug.LogWarning($"Found split with negative kmIndex: {split.kmIndex}. Skipping.");
                         continue;
                     }
                     chartData.Add(new ChartData
@@ -172,8 +170,6 @@ public class graphManager : MonoBehaviour
                         label = split.kmIndex.ToString(),
                         value = split.paceKmh / valueNano,
                     });
-
-
                 }
                 break;
         }

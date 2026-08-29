@@ -1,15 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 public class DrugsManager : MonoBehaviour
 {
     public List<solution> solutions = new List<solution>();
     public blood bloodTarget;
-    private bool changedTarget = false;
-    public void Start()
-    {
-        RunnersGenerator.instance.analysePlayer += ChangeTarget;
-        RunnersGenerator.instance.tubesButton += SetupCorrectSolution;
-    }
+
     private void OnEnable()
     {
         if (RunnersGenerator.instance != null)
@@ -37,10 +33,15 @@ public class DrugsManager : MonoBehaviour
     {
         if (bloodTarget == null) return;
 
-        if (runnerData.drugTestCorrect) return;
+        // If this runner already had a correct drug test, show green sprite and skip reset
+        if (runnerData.drugTestCorrect)
+        {
+            bloodTarget.GetComponent<Image>().sprite = bloodTarget.GreenSprite; // you need to expose greenSprite in blood.cs
+            return;
+        }
 
-        
-        bloodTarget.ResetBlood();
+        // Reset to original sprite for a fresh test
+        bloodTarget.GetComponent<Image>().sprite = bloodTarget.originalSprite;
 
         foreach (var sol in solutions)
         {
@@ -48,17 +49,14 @@ public class DrugsManager : MonoBehaviour
             if (runnerData.earlyBloodTestDone && sol.racePhaseSolution == RacePhase.Early)
             {
                 sol.gameObject.SetActive(false);
-                continue;
             }
             else if (runnerData.midBloodTestDone && sol.racePhaseSolution == RacePhase.Mid)
             {
                 sol.gameObject.SetActive(false);
-                continue;
             }
             else if (runnerData.lateBloodTestDone && sol.racePhaseSolution == RacePhase.Late)
             {
                 sol.gameObject.SetActive(false);
-                continue;
             }
             else
             {
@@ -66,8 +64,7 @@ public class DrugsManager : MonoBehaviour
             }
 
             // Correctness
-            sol.isSolutionCorrect = (runnerData.cheatType == CheatType.SpeedBoost &&
-                                     runnerData.CheatTimePhase == sol.racePhaseSolution);
+            sol.isSolutionCorrect = (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution);
         }
     }
 }

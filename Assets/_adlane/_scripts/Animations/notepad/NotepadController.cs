@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NotepadController : MonoBehaviour, IPointerClickHandler
+public class NotepadController : MonoBehaviour
 {
     [SerializeField] private RectTransform notepadRect;
     [SerializeField] private float shownY = 0f;
@@ -27,10 +27,6 @@ public class NotepadController : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        ToggleNotepad();
-    }
 
     public void ToggleNotepad()
     {
