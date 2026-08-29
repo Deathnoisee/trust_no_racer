@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0a126dbe223777380aabca94b3fe7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::solution
-  racePhaseSolution: 0
+  racePhaseSolution: 2
   isSolutionCorrect: 0
 --- !u!225 &51861157
 CanvasGroup:
@@ -7215,7 +7215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5091894123299088058, guid: 3c28dde84b6bf6f56a378a3055602bfa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5170731143310931794, guid: 3c28dde84b6bf6f56a378a3055602bfa, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8478,7 +8478,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ac519029c57922c9177ba8c94996bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrugsManager
-  solutions: []
+  solutions:
+  - {fileID: 1265922533}
+  - {fileID: 2048396070}
+  - {fileID: 51861156}
 --- !u!1 &1950521907
 GameObject:
   m_ObjectHideFlags: 0
@@ -8963,7 +8966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0a126dbe223777380aabca94b3fe7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::solution
-  racePhaseSolution: 0
+  racePhaseSolution: 1
   isSolutionCorrect: 0
 --- !u!225 &2048396071
 CanvasGroup:

@@ -29,23 +29,23 @@ public class TestChart : MonoBehaviour
         // manager.ShowData(RaceDataType.Pace, paceData);
         // manager.ShowData(RaceDataType.HeartRate, heartRateData);
 
-        if (RunnersGenerator.instance != null)
-        {
-            RunnersGenerator.instance.analysePlayer += test;
-        }
+        // if (RunnersGenerator.instance != null)
+        // {
+        //     RunnersGenerator.instance.analysePlayer += test;
+        // }
     }
-    private void OnDisable()
-    {
-        if (RunnersGenerator.instance != null)
-        {
-            RunnersGenerator.instance.analysePlayer -= test;
-        }
-    }
+    // private void OnDisable()
+    // {
+    //     if (RunnersGenerator.instance != null)
+    //     {
+    //         RunnersGenerator.instance.analysePlayer -= test;
+    //     }
+    // }
 
 
-    public void test(RunnerData data)
-    {
+    // public void test(RunnerData data)
+    // {
         
-        manager.ShowTrajectoryChart(RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex].trajectory);
-    }
+    //     manager.ShowTrajectoryChart(RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex].trajectory);
+    // }
 }

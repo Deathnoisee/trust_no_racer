@@ -71,7 +71,7 @@ public class graphManager : MonoBehaviour
                         maxValue = paceKmh;
                     }
                 }
-                print($"minValue: {minValue}, maxValue: {maxValue}");
+
             }
         }
         ShowData(RaceDataType.Pace, runnerData);
@@ -113,12 +113,10 @@ public class graphManager : MonoBehaviour
             {
                 if (minValue == -1f)
                 {
-                    Debug.LogWarning("minValue is -1, setting to 0f");
                     minValue = 0f;
                 }
                 if (maxValue == -1f)
                 {
-                    Debug.LogWarning("maxValue is -1, setting to 100f");
                     maxValue = 100f;
                 }
             }
@@ -155,11 +153,18 @@ public class graphManager : MonoBehaviour
 
                         continue;
                     }
+                    if (split.kmIndex < 0)
+                    {
+                        Debug.LogWarning($"Found split with negative kmIndex: {split.kmIndex}. Skipping.");
+                        continue;
+                    }
                     chartData.Add(new ChartData
                     {
                         label = split.kmIndex.ToString(),
                         value = split.paceKmh / valueNano,
                     });
+                    Debug.LogWarning($"Adding chart data for kmIndex: {split.kmIndex}, paceKmh: {split.paceKmh}");
+
                 }
                 break;
         }

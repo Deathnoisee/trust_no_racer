@@ -52,6 +52,9 @@ public class solution : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 bloodTarget.ReceiveSolution(this);
                 droppedOnTarget = true;
             }
+            transform.SetParent(originalParent, true);
+            transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            rectTransform.DOAnchorPos(originalPosition, 0.3f).SetEase(Ease.OutQuad);
         }
 
         if (!droppedOnTarget)

@@ -33,8 +33,8 @@ public class BarChart : MonoBehaviour
             float bNum = ExtractNumeric(b.label);
             return aNum.CompareTo(bNum);
         });
-        if (minValue != 0) minVal = minValue - minValuesOffset;
-        maxVal = maxValue + maxValuesOffset;
+        minVal = 0f;
+        maxVal = maxValue + 5f;
         data = newData;
         Redraw();
     }
@@ -62,8 +62,7 @@ public class BarChart : MonoBehaviour
         for (int i = 0; i < data.Count; i++)
         {
             float x = slotWidth * i + slotWidth * 0.5f;
-            float normalized = (data[i].value - minVal) / (maxVal - minVal);
-            float y = normalized * areaSize.y;
+            float y = (data[i].value - minVal) / (maxVal - minVal) * areaSize.y;
             positions.Add(new Vector2(x, 0));
         }
 

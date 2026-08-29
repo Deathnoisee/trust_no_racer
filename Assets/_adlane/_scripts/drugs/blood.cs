@@ -19,10 +19,16 @@ public class blood : MonoBehaviour
         }
         else
         {
-            Destroy(droppedSolution.gameObject);
             Debug.Log("Incorrect solution. Try again.");
         }
-
-        Destroy(droppedSolution.gameObject);
+        droppedSolution.gameObject.SetActive(false);
+    }
+    public void ResetBlood()
+    {
+        if (image == null)
+        {
+            image = GetComponent<Image>();
+        }
+        image.color = Color.red;
     }
 }

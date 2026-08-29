@@ -41,6 +41,8 @@ public class RunnersGenerator : MonoBehaviour
 
     public int currentRunnerIndex = 0;
     public event Action<RunnerData> analysePlayer;
+    // public event Action<RunnerData> trajectoryButton;
+    public event Action<RunnerData> tubesButton;
 
     // Track unused shirt colors for the current generation batch
     private List<Color> availableShirtColors = new List<Color>();
@@ -65,7 +67,6 @@ public class RunnersGenerator : MonoBehaviour
     {
         //hide anything that was shown
         tubesObj.SetActive(false);
-
         //show trajectory
         trajectoryObj.SetActive(true);
 
@@ -75,7 +76,7 @@ public class RunnersGenerator : MonoBehaviour
     {
         //hide anything that was shown
         trajectoryObj.SetActive(false);
-
+        tubesButton?.Invoke(currentRunners[currentRunnerIndex]);
         //show tubes
 
         tubesObj.SetActive(true);
