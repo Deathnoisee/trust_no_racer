@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> Journals; // List of GameObjects representing each level, to be activated/deactivated as needed
 
+
+    public int currentJournalIndex = 0; // Track the current journal index
+
     public GameObject NextButton;
     public GameObject LevelButton;
 
@@ -54,10 +57,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void LoadJournal()
-    {
 
-    }
 
     public void GoToNextLevel()
     {
@@ -73,12 +73,12 @@ public class GameManager : MonoBehaviour
         LevelButton.SetActive(false); // Hide the Level button when transitioning to the next level
     }
 
-    public void LoadJournal(int journalIndex)
+    public void LoadJournal()
     {
 
         if (isTransitioning) return;
         SoundManager.StopMusic(); // Stop the music when transitioning to the journal
-        StartCoroutine(TransitionToJournal(journalIndex));
+        StartCoroutine(TransitionToJournal(currentJournalIndex));
         NextButton.SetActive(false); // Hide the Next button when transitioning to the journal
         // Deactivate all journals first
 
@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         LevelButton.SetActive(true); // Show the Next button after the journal is displayed
 
         isTransitioning = false;
+        currentJournalIndex++; // Increment the current journal index for the next transition
     }
 
     IEnumerator TransitionToLevel(int levelIndex)
@@ -140,6 +141,8 @@ public class GameManager : MonoBehaviour
 
 
         }
+
+
         TvScreen.SetActive(true); // Hide the TV screen when transitioning to the level
         Journals.ForEach(journal => journal.SetActive(false)); // Deactivate all journals when transitioning to the level
         raceManager.LoadLevel(levelIndex);

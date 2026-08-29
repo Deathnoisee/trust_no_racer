@@ -41,6 +41,8 @@ public class RaceManager : MonoBehaviour
     private TrackSetup activeTrack;
 
 
+    private Transform cameraStartPosition;
+
     public event System.Action OnRaceEnded;
 
     private LevelConfig CurrentLevel =>
@@ -50,6 +52,8 @@ public class RaceManager : MonoBehaviour
 
     void Start()
     {
+        cameraStartPosition = Camera.main.transform;
+
         LoadLevel(currentLevelIndex);
     }
 
@@ -196,7 +200,7 @@ public class RaceManager : MonoBehaviour
     {
 
         Camera.main.GetComponent<EdgeScrollCamera>().enabled = false; // Disable edge scrolling when the race starts
-        Camera.main.transform.position = Vector3.zero; // Center camera on the start point
+        Camera.main.transform.position = new Vector3(0, 0, -10); // Reset camera position to the center of the track
         SoundManager.StopMusic();
         SoundManager.StopAmbiance();
         SoundManager.PlaySound(SoundType.Music, null, 1f);
