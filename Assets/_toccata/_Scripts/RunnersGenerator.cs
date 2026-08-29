@@ -20,6 +20,7 @@ public class RunnersGenerator : MonoBehaviour
     public int maxAge = 40;
 
     public string[] possibleNames;
+    public string[] possibleLastNames;
     public Nationality[] possibleNationalities;
     public Gender[] possibleGender;
 
@@ -44,6 +45,10 @@ public class RunnersGenerator : MonoBehaviour
     // Track unused shirt colors for the current generation batch
     private List<Color> availableShirtColors = new List<Color>();
 
+    // Track unused names and last names for the current generation batch
+    private List<string> availableNames = new List<string>();
+    private List<string> availableLastNames = new List<string>();
+
     private void Awake()
     {
         instance = this;
@@ -54,12 +59,53 @@ public class RunnersGenerator : MonoBehaviour
         UpdateGuidelinesUi();
     }
 
+    [SerializeField] GameObject trajectoryObj;
+    [SerializeField] GameObject tubesObj;
+    public void ShowTrajectory()
+    {
+        //hide anything that was shown
+        tubesObj.SetActive(false);
+
+        //show trajectory
+        trajectoryObj.SetActive(true);
+
+    }
+
+    public void ShowTubes()
+    {
+        //hide anything that was shown
+        trajectoryObj.SetActive(false);
+
+        //show tubes
+
+        tubesObj.SetActive(true);
+    }
+
+
+
+
     /// <summary>
     /// Resets and fills the pool of available shirt colors.
     /// </summary>
     private void ResetShirtColorPool()
     {
         availableShirtColors = new List<Color>(possibleShirtColors);
+    }
+
+    /// <summary>
+    /// Resets and fills the pool of available first names.
+    /// </summary>
+    private void ResetNamePool()
+    {
+        availableNames = new List<string>(possibleNames);
+    }
+
+    /// <summary>
+    /// Resets and fills the pool of available last names.
+    /// </summary>
+    private void ResetLastNamePool()
+    {
+        availableLastNames = new List<string>(possibleLastNames);
     }
 
     /// <summary>
@@ -82,10 +128,50 @@ public class RunnersGenerator : MonoBehaviour
         return selectedColor;
     }
 
+    /// <summary>
+    /// Pulls a unique first name from the pool. Falls back to a random name if exhausted.
+    /// </summary>
+    private string GetUniqueName()
+    {
+        if (availableNames == null || availableNames.Count == 0)
+        {
+            Debug.LogWarning("Run out of unique names! Resetting pool or picking random.");
+            ResetNamePool();
+
+            if (availableNames.Count == 0) return "Unknown";
+        }
+
+        int index = UnityEngine.Random.Range(0, availableNames.Count);
+        string selectedName = availableNames[index];
+        availableNames.RemoveAt(index);
+        return selectedName;
+    }
+
+    /// <summary>
+    /// Pulls a unique last name from the pool. Falls back to a random last name if exhausted.
+    /// </summary>
+    private string GetUniqueLastName()
+    {
+        if (availableLastNames == null || availableLastNames.Count == 0)
+        {
+            Debug.LogWarning("Run out of unique last names! Resetting pool or picking random.");
+            ResetLastNamePool();
+
+            if (availableLastNames.Count == 0) return "Unknown";
+        }
+
+        int index = UnityEngine.Random.Range(0, availableLastNames.Count);
+        string selectedLastName = availableLastNames[index];
+        availableLastNames.RemoveAt(index);
+        return selectedLastName;
+    }
+
     [ContextMenu("generate new list of ppl")]
     public void GenerateListOfParticipants()
     {
         ResetShirtColorPool(); // Reset pool before bulk generation
+        ResetNamePool();
+        ResetLastNamePool();
 
         if (currentRunners.Count != 0)
         {
@@ -141,6 +227,8 @@ public class RunnersGenerator : MonoBehaviour
         // }
         currentRunnerIndex = 0;
         ResetShirtColorPool();
+        ResetNamePool();
+        ResetLastNamePool();
     }
 
     [ContextMenu("generate person")]
@@ -150,6 +238,16 @@ public class RunnersGenerator : MonoBehaviour
         if (availableShirtColors.Count == 0)
         {
             ResetShirtColorPool();
+        }
+
+        if (availableNames.Count == 0)
+        {
+            ResetNamePool();
+        }
+
+        if (availableLastNames.Count == 0)
+        {
+            ResetLastNamePool();
         }
 
         RunnerData runner = GeneratePersonInternal(CheatType.None);
@@ -173,10 +271,13 @@ public class RunnersGenerator : MonoBehaviour
     private RunnerData GeneratePersonInternal(CheatType cheatos, bool addToList = true)
     {
         Color uniqueShirtColor = GetUniqueShirtColor();
+        string uniqueName = GetUniqueName();
+        string uniqueLastName = GetUniqueLastName();
 
         RunnerData newPerson = new RunnerData
         {
-            runnerName = possibleNames[UnityEngine.Random.Range(0, possibleNames.Length)],
+            runnerName = uniqueName,
+            runnerLastName = uniqueLastName,
             runnerNationality = possibleNationalities[UnityEngine.Random.Range(0, possibleNationalities.Length)],
             gender = possibleGender[UnityEngine.Random.Range(0, possibleGender.Length)],
             age = UnityEngine.Random.Range(minAge, maxAge),
@@ -188,6 +289,7 @@ public class RunnersGenerator : MonoBehaviour
             shirtColor = uniqueShirtColor,
             shoesColor = uniqueShirtColor,
             cheatType = cheatos,
+            face = possibleFaces[UnityEngine.Random.Range(0, possibleFaces.Length)],
             runnerID = UnityEngine.Random.Range(500, 9999)
         };
 
@@ -199,7 +301,7 @@ public class RunnersGenerator : MonoBehaviour
         currentPerson = newPerson;
         personVisuals.DisplayPerson(currentPerson);
         if (addToList) currentRunners.Add(currentPerson);
-        
+
         return currentPerson;
     }
 
@@ -304,8 +406,10 @@ public class RunnersGenerator : MonoBehaviour
         //     Destroy(listOfParticipants.GetChild(i).gameObject);
         // }
 
-        // Reset the shirt color pool once for the entire level generation pass
+        // Reset the shirt color, name, and last name pools once for the entire level generation pass
         ResetShirtColorPool();
+        ResetNamePool();
+        ResetLastNamePool();
 
         foreach (cheatAmount cheatConfig in settings.runnerSettings)
         {

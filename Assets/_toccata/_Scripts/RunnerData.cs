@@ -13,8 +13,7 @@ public class RunnerData
 {
     [Header("Visuals")]
     public SpriteView hair;
-    public SpriteView eyes;
-    public SpriteView mouth;
+    public SpriteView face;
     public SpriteView shoes;
 
     public Color hairColor;
