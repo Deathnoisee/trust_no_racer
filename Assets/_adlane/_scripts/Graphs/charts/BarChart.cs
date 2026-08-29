@@ -183,7 +183,7 @@ public class BarChart : MonoBehaviour
 
     private void DrawGridLines(float minVal, float maxVal)
     {
-        Color gridColor = new Color(1, 1, 1, 0.05f);
+        Color gridColor = new Color(0, 0, 0, 0.5f);
         float areaWidth = chartArea.rect.width;
         float areaHeight = chartArea.rect.height;
 
