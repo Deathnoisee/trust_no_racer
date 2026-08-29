@@ -23,6 +23,7 @@ public class graphManager : MonoBehaviour
 
         if (RunnersGenerator.instance != null)
         {
+            RunnersGenerator.instance.analyseTrajectory += ShowData;
             RunnersGenerator.instance.analysePlayer += HandleAnalysePlayer;
         }
     }
@@ -31,6 +32,7 @@ public class graphManager : MonoBehaviour
     {
         if (RunnersGenerator.instance != null)
         {
+            RunnersGenerator.instance.analyseTrajectory -= ShowData;
             RunnersGenerator.instance.analysePlayer -= HandleAnalysePlayer;
         }
     }
@@ -93,16 +95,11 @@ public class graphManager : MonoBehaviour
                 ShowBarChart(data);
                 break;
             case RaceDataType.Trajectory:
-                ShowLineChart(data);
+                TrajectoryShow(incomingData);
                 break;
         }
     }
 
-    private void ShowLineChart(List<ChartData> data)
-    {
-        lineChart.gameObject.SetActive(true);
-        lineChart.SetData(data);
-    }
 
     private void ShowBarChart(List<ChartData> data)
     {
@@ -123,7 +120,7 @@ public class graphManager : MonoBehaviour
         }
         barChart.SetData(data, minValue, maxValue);
     }
-    public void ShowTrajectoryChart(List<TrajectoryPoint> data)
+    private void ShowTrajectoryChart(List<TrajectoryPoint> data)
     {
         trajectoryChart.gameObject.SetActive(true);
         List<Vector3> worldPoints = new List<Vector3>();
@@ -133,6 +130,11 @@ public class graphManager : MonoBehaviour
         }
 
         trajectoryChart.SetWorldPoints(worldPoints);
+    }
+    private void TrajectoryShow(RunnerData data)
+    {
+
+        ShowTrajectoryChart(RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex].trajectory);
     }
     private List<ChartData> convertData(RaceDataType type, RunnerData data)
     {
