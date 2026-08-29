@@ -10,41 +10,49 @@ public class DrugsManager : MonoBehaviour
         RunnersGenerator.instance.analysePlayer += ChangeTarget;
         RunnersGenerator.instance.tubesButton += SetupCorrectSolution;
     }
-    public void OnEnable()
+    private void OnEnable()
     {
-        RunnersGenerator.instance.analysePlayer += ChangeTarget;
-        RunnersGenerator.instance.tubesButton += SetupCorrectSolution;
-    }
-    public void OnDisable()
-    {
-        RunnersGenerator.instance.analysePlayer -= ChangeTarget;
-        RunnersGenerator.instance.tubesButton -= SetupCorrectSolution;
-    }
-    private void ChangeTarget(RunnerData runnerData)
-    {
-        changedTarget = true;
+        if (RunnersGenerator.instance != null)
+        {
+            RunnersGenerator.instance.analysePlayer += ChangeTarget;
+            RunnersGenerator.instance.tubesButton += SetupCorrectSolution;
+        }
     }
 
+    private void OnDisable()
+    {
+        if (RunnersGenerator.instance != null)
+        {
+            RunnersGenerator.instance.analysePlayer -= ChangeTarget;
+            RunnersGenerator.instance.tubesButton -= SetupCorrectSolution;
+        }
+    }
+
+    private void ChangeTarget(RunnerData runnerData)
+    {
+        SetupCorrectSolution(runnerData);
+    }
 
     private void SetupCorrectSolution(RunnerData runnerData)
     {
+        if (bloodTarget == null) return;
+
         bloodTarget.ResetBlood();
-        changedTarget = false;
+
         foreach (var sol in solutions)
         {
-            RunnerData currentRunner = RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex];
-            //Appearence
-            if (currentRunner.earlyBloodTestDone && sol.racePhaseSolution == RacePhase.Early)
+            // Use the passed runnerData directly
+            if (runnerData.earlyBloodTestDone && sol.racePhaseSolution == RacePhase.Early)
             {
                 sol.gameObject.SetActive(false);
                 continue;
             }
-            else if (currentRunner.midBloodTestDone && sol.racePhaseSolution == RacePhase.Mid)
+            else if (runnerData.midBloodTestDone && sol.racePhaseSolution == RacePhase.Mid)
             {
                 sol.gameObject.SetActive(false);
                 continue;
             }
-            else if (currentRunner.lateBloodTestDone && sol.racePhaseSolution == RacePhase.Late)
+            else if (runnerData.lateBloodTestDone && sol.racePhaseSolution == RacePhase.Late)
             {
                 sol.gameObject.SetActive(false);
                 continue;
@@ -54,16 +62,10 @@ public class DrugsManager : MonoBehaviour
                 sol.gameObject.SetActive(true);
             }
 
-            //Correctness
-            if (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution)
-            {
-                sol.isSolutionCorrect = true;
-            }
-            else
-            {
-                sol.isSolutionCorrect = false;
-            }
+            // Correctness
+            sol.isSolutionCorrect = (runnerData.cheatType == CheatType.SpeedBoost &&
+                                     runnerData.CheatTimePhase == sol.racePhaseSolution);
         }
     }
-
 }
+

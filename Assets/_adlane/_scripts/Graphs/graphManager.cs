@@ -39,7 +39,6 @@ public class graphManager : MonoBehaviour
 
     private void HandleAnalysePlayer(RunnerData runnerData)
     {
-        Debug.LogWarning("Received runner data for analysis: ");
         if (minValue == -1f && maxValue == -1f)
         {
             if (RunnersGenerator.instance == null)

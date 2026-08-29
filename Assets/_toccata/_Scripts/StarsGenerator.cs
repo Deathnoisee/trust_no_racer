@@ -1,58 +1,107 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
-
 
 public class StarsGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject starPrefab;
-    [SerializeField] private Transform starsParent;
-    [SerializeField] private int totalStars = 3;
-    [SerializeField] private float popDuration = 0.5f;
-    [SerializeField] private float delayBetweenStars = 0.2f;
-    [SerializeField] private Ease popEase = Ease.OutBounce;
+    [Header("Settings")]
+    [SerializeField] private float animationDuration = 0.6f;
+    [SerializeField] private float delayBetweenStars = 0.25f;
+    [SerializeField] private Ease moveEase = Ease.OutBack;
 
+    [Header("Spawn Offset")]
+    [Tooltip("Local position offset relative to each empty star where the filled star begins.")]
+    [SerializeField] private Vector3 spawnOffset = new Vector3(0, 500f, 0);
+    [Tooltip("Starting scale when spawned before animating to Vector3.one")]
+    [SerializeField] private Vector3 startScale = Vector3.one * 1.5f;
+
+    [Header("Prefabs & Slots")]
+    [SerializeField] private GameObject starPrefab;
+    [SerializeField] private Transform[] emptyStarSlots;
+
+    [SerializeField] TextMeshProUGUI textTmp;
     public void GenerateStars(int earnedStars)
     {
-        // Clear existing stars (if any)
-        foreach (Transform child in starsParent)
+        // 1. Clear any previously generated child stars
+        foreach (Transform slot in emptyStarSlots)
         {
-            Destroy(child.gameObject);
+            if (slot == null) continue;
+
+            // Kill any active tweens on the slot's children before destroying
+            foreach (Transform child in slot)
+            {
+                child.DOKill();
+                Destroy(child.gameObject);
+            }
         }
 
-        // Create a sequence for the animation
+        // Clamp earnedStars to available slots limit
+        int starsToAnimate = Mathf.Min(earnedStars, emptyStarSlots.Length);
+
+        // 2. Build DOTween Sequence
         Sequence seq = DOTween.Sequence();
 
-        for (int i = 0; i < totalStars; i++)
+        for (int i = 0; i < starsToAnimate; i++)
         {
-            int index = i; // capture for closure
+            int index = i; // Closure capture
+
             seq.AppendCallback(() =>
             {
-                GameObject star = Instantiate(starPrefab, starsParent);
+                Transform targetSlot = emptyStarSlots[index];
+                if (targetSlot == null) return;
 
-                // Start invisible and small
-                star.transform.localScale = Vector3.zero;
+                // Instantiate filled star directly inside the target empty star slot
+                GameObject star = Instantiate(starPrefab, targetSlot);
 
-                // Determine if star should be active (earned) or inactive (empty)
-                bool isEarned = index < earnedStars;
-
-                if (isEarned)
+                // Set initial transform states (Spawned far away with offset)
+                RectTransform starRect = star.GetComponent<RectTransform>();
+                if (starRect != null)
                 {
-                    // Pop-in animation for earned star
-                    star.transform.DOScale(Vector3.one, popDuration)
-                        .SetEase(popEase)
-                        .SetDelay(0.1f); // subtle delay per star
+                    starRect.anchoredPosition = spawnOffset;
+                    starRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    starRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    starRect.localRotation = Quaternion.Euler(0, 0, 180f); // Optional starting spin tilt
+                    starRect.localScale = startScale;
                 }
                 else
                 {
-                    // For unearned stars, just show a smaller scale or dim
-                    star.transform.DOScale(Vector3.one * 0.6f, popDuration * 0.5f)
-                        .SetEase(Ease.OutQuad);
+                    star.transform.localPosition = spawnOffset;
+                    star.transform.localRotation = Quaternion.Euler(0, 0, 180f);
+                    star.transform.localScale = startScale;
                 }
+
+                // Create inner concurrent tween group for position, rotation, and scale
+                Sequence starTween = DOTween.Sequence();
+
+                if (starRect != null)
+                {
+                    starTween.Join(starRect.DOAnchorPos(Vector2.zero, animationDuration).SetEase(moveEase));
+                }
+                else
+                {
+                    starTween.Join(star.transform.DOLocalMove(Vector3.zero, animationDuration).SetEase(moveEase));
+                }
+
+                starTween.Join(star.transform.DOLocalRotate(Vector3.zero, animationDuration).SetEase(moveEase));
+                starTween.Join(star.transform.DOScale(Vector3.one, animationDuration).SetEase(Ease.OutQuad));
             });
 
+            // Wait before firing the next star animation
             seq.AppendInterval(delayBetweenStars);
         }
 
         seq.Play();
     }
+
+    public void SetScore(int totalCheaters , int selectedCheaters , int selectedNoneCheaters)
+    {
+        textTmp.text = "you got " + selectedCheaters + " out of " + totalCheaters + " cheaters and mistook " + selectedNoneCheaters + " none cheaters.";
+    }
+
+
+
+
+
+
+
 }
