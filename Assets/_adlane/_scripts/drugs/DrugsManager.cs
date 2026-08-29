@@ -33,38 +33,44 @@ public class DrugsManager : MonoBehaviour
     {
         if (bloodTarget == null) return;
 
-        // If this runner already had a correct drug test, show green sprite and skip reset
+        // If this runner already had a correct drug test, show green sprite and hide all solutions
         if (runnerData.drugTestCorrect)
         {
-            bloodTarget.GetComponent<Image>().sprite = bloodTarget.GreenSprite; // you need to expose greenSprite in blood.cs
+            bloodTarget.GetComponent<Image>().sprite = bloodTarget.GreenSprite;
+            HideAllSolutions();
             return;
         }
 
-        // Reset to original sprite for a fresh test
+        // If this runner already attempted a test (even incorrect), keep original sprite and hide all solutions
+        if (runnerData.earlyBloodTestDone || runnerData.midBloodTestDone || runnerData.lateBloodTestDone)
+        {
+            bloodTarget.GetComponent<Image>().sprite = bloodTarget.originalSprite;
+            HideAllSolutions();
+            return;
+        }
+
+        // Fresh runner: reset sprite and show only unused solutions
         bloodTarget.GetComponent<Image>().sprite = bloodTarget.originalSprite;
 
         foreach (var sol in solutions)
         {
-            // Use the passed runnerData directly
-            if (runnerData.earlyBloodTestDone && sol.racePhaseSolution == RacePhase.Early)
-            {
-                sol.gameObject.SetActive(false);
-            }
-            else if (runnerData.midBloodTestDone && sol.racePhaseSolution == RacePhase.Mid)
-            {
-                sol.gameObject.SetActive(false);
-            }
-            else if (runnerData.lateBloodTestDone && sol.racePhaseSolution == RacePhase.Late)
-            {
-                sol.gameObject.SetActive(false);
-            }
-            else
-            {
-                sol.gameObject.SetActive(true);
-            }
+            bool phaseDone = (sol.racePhaseSolution == RacePhase.Early && runnerData.earlyBloodTestDone) ||
+                             (sol.racePhaseSolution == RacePhase.Mid && runnerData.midBloodTestDone) ||
+                             (sol.racePhaseSolution == RacePhase.Late && runnerData.lateBloodTestDone);
+
+            sol.gameObject.SetActive(!phaseDone);
 
             // Correctness
-            sol.isSolutionCorrect = (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution);
+            sol.isSolutionCorrect = (runnerData.cheatType == CheatType.SpeedBoost &&
+                                     runnerData.CheatTimePhase == sol.racePhaseSolution);
+        }
+    }
+
+    private void HideAllSolutions()
+    {
+        foreach (var sol in solutions)
+        {
+            sol.gameObject.SetActive(false);
         }
     }
 }
