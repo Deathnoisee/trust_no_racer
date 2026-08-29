@@ -35,6 +35,7 @@ public class AnalysisPhaseTransition : MonoBehaviour
     [ContextMenu("Show Analysis Phase")]
     public void SlideDownWithBounce()
     {
+        print("GOT RACE ENDED EVENT NOOOOOOOOOOOW");
         StartCoroutine(DoAnimation());
     }
 

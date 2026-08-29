@@ -600,6 +600,9 @@ public class RunnersGenerator : MonoBehaviour
 
     public void ConfirmCheaters()
     {
+        totalCheatersCount = 0;
+        selectedCheatersCount = 0;
+        selectedNoneCheatersCount = 0;
         foreach (var runner in currentRunners)
         {
             totalCheatersCount += runner.cheatType != CheatType.None ? 1 : 0;
