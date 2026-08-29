@@ -193,6 +193,12 @@ public class RaceManager : MonoBehaviour
 
     public void StartRace()
     {
+
+        Camera.main.GetComponent<EdgeScrollCamera>().enabled = false; // Disable edge scrolling when the race starts
+        Camera.main.transform.position = Vector3.zero; // Center camera on the start point
+        SoundManager.StopMusic();
+        SoundManager.StopAmbiance();
+        SoundManager.PlaySound(SoundType.Music, null, 1f);
         raceStarted = true;
         startButton.SetActive(false);
 
@@ -277,6 +283,11 @@ public class RaceManager : MonoBehaviour
             }
         }
         racers.Clear();
+        Camera.main.GetComponent<EdgeScrollCamera>().enabled = true; // Re-enable edge scrolling after the race ends
+        SoundManager.StopMusic();
+        SoundManager.PlayMusic(SoundType.Jazz, 1f);
+        SoundManager.StartAmbiance(SoundType.Ambient, 1f);
+
 
         Debug.Log("Race finished! All runners reached the end.");
         OnRaceEnded?.Invoke();

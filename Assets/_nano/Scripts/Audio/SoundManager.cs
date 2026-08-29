@@ -9,10 +9,12 @@ namespace SmallHedge.SoundManager
     public class SoundManager : MonoBehaviour
     {
         [SerializeField] private SoundsSO SO;
+        [SerializeField] private AudioSource ambianceSource; // separate source — assign in Inspector
+
         private static SoundManager instance = null;
         private AudioSource audioSource;
         private SoundType? currentMusic = null;
-        private AudioClip lastPlayedClip = null; // tracks last clip to avoid immediate repeats
+        private AudioClip lastPlayedClip = null;
 
         public bool isMainMenu = false;
 
@@ -29,28 +31,32 @@ namespace SmallHedge.SoundManager
         {
             if (!isMainMenu)
             {
-
+                // StartCoroutine(StartMusic());
+                StartAmbiance(SoundType.Ambient, 0.5f);
                 StartCoroutine(StartMusic());
-
-            }
-            
-        }
-
-        private void Update()
-        {
-            if (currentMusic != null && !audioSource.isPlaying)
-            {
-                PlayMusic(currentMusic.Value, audioSource);
             }
         }
 
         IEnumerator StartMusic()
         {
             yield return new WaitForSeconds(0.1f);
-            PlayMusic(SoundType.Music, audioSource, 0.2f); // Start with a lower volume
+            PlayMusicInternal(SoundType.Jazz, audioSource, 0.2f);
         }
 
-        private void PlayMusic(SoundType sound, AudioSource source, float volume = 1)
+        private void Update()
+        {
+            if (currentMusic != null && !audioSource.isPlaying)
+            {
+                PlayMusicInternal(currentMusic.Value, audioSource);
+            }
+        }
+        public static void PlayMusic(SoundType sound, float volume = 1f)
+        {
+            if (instance == null) return;
+            instance.PlayMusicInternal(sound, instance.audioSource, volume);
+        }
+
+        private void PlayMusicInternal(SoundType sound, AudioSource source, float volume = 1)
         {
             currentMusic = sound;
             SoundList soundList = SO.sounds[(int)sound];
@@ -62,10 +68,9 @@ namespace SmallHedge.SoundManager
             source.outputAudioMixerGroup = soundList.mixer;
             source.clip = randomClip;
             source.volume = volume * soundList.volume;
-            source.loop = false; // No looping — Update() picks a new one once this ends
+            source.loop = false;
             source.Play();
         }
-
         private AudioClip GetRandomClipExcludingLast(AudioClip[] clips)
         {
             if (clips.Length <= 1)
@@ -110,6 +115,36 @@ namespace SmallHedge.SoundManager
                 instance.audioSource.outputAudioMixerGroup = soundList.mixer;
                 instance.audioSource.PlayOneShot(randomClip, volume * soundList.volume);
             }
+        }
+
+        // ---- Ambiance (works like music, but loops and runs independently) ----
+
+        public static void StartAmbiance(SoundType sound, float volume = 1)
+        {
+            if (instance == null || instance.ambianceSource == null) return;
+
+            SoundList soundList = instance.SO.sounds[(int)sound];
+            AudioClip[] clips = soundList.sounds;
+            AudioClip chosenClip = clips[UnityEngine.Random.Range(0, clips.Length)];
+
+            instance.ambianceSource.outputAudioMixerGroup = soundList.mixer;
+            instance.ambianceSource.clip = chosenClip;
+            instance.ambianceSource.volume = volume * soundList.volume;
+            instance.ambianceSource.loop = true; // ambiance loops continuously, unlike music
+            instance.ambianceSource.Play();
+        }
+
+        public static void StopAmbiance()
+        {
+            if (instance != null && instance.ambianceSource != null && instance.ambianceSource.isPlaying)
+            {
+                instance.ambianceSource.Stop();
+            }
+        }
+
+        public static bool IsAmbiancePlaying()
+        {
+            return instance != null && instance.ambianceSource != null && instance.ambianceSource.isPlaying;
         }
     }
 
