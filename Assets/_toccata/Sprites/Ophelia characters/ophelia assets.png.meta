@@ -1,0 +1,737 @@
+fileFormatVersion: 2
+guid: 68e514f8399f41144a90c86de454a106
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1530028144485060816
+    second: ophelia assets_0
+  - first:
+      213: 6213618367442814249
+    second: ophelia assets_1
+  - first:
+      213: 206439576180549899
+    second: ophelia assets_2
+  - first:
+      213: 280328231424169837
+    second: ophelia assets_3
+  - first:
+      213: -6694889334827703380
+    second: ophelia assets_4
+  - first:
+      213: -2550143625376491502
+    second: ophelia assets_5
+  - first:
+      213: -5454971301042564372
+    second: ophelia assets_6
+  - first:
+      213: -4213048950823611756
+    second: ophelia assets_7
+  - first:
+      213: -6463794645718945198
+    second: ophelia assets_8
+  - first:
+      213: -7589493973875642724
+    second: ophelia assets_9
+  - first:
+      213: 2485845091368728402
+    second: ophelia assets_10
+  - first:
+      213: -1759960988505390854
+    second: ophelia assets_11
+  - first:
+      213: -6070798287372245876
+    second: ophelia assets_12
+  - first:
+      213: -8400650230220135342
+    second: ophelia assets_13
+  - first:
+      213: -3497546419050146250
+    second: ophelia assets_14
+  - first:
+      213: -2042073548208678131
+    second: ophelia assets_15
+  - first:
+      213: 9179364887286999905
+    second: ophelia assets_16
+  - first:
+      213: 5221286506136451660
+    second: ophelia assets_17
+  - first:
+      213: 3553304883782338733
+    second: ophelia assets_18
+  - first:
+      213: -2439292883736756083
+    second: ophelia assets_19
+  - first:
+      213: 4983070479248595309
+    second: ophelia assets_20
+  - first:
+      213: 3439048924172935265
+    second: ophelia assets_21
+  - first:
+      213: -2625146021326781154
+    second: ophelia assets_22
+  - first:
+      213: 8067315426278442704
+    second: ophelia assets_23
+  - first:
+      213: 2217980112958711159
+    second: ophelia assets_24
+  - first:
+      213: -2639358649059494760
+    second: ophelia assets_25
+  - first:
+      213: -8264343038853814989
+    second: ophelia assets_26
+  - first:
+      213: 1503130756199356044
+    second: ophelia assets_27
+  - first:
+      213: -2485064014698580517
+    second: ophelia assets_28
+  - first:
+      213: -6295361632440304263
+    second: ophelia assets_29
+  - first:
+      213: -8163243492548787939
+    second: ophelia assets_30
+  - first:
+      213: 8959129637706806739
+    second: ophelia assets_31
+  - first:
+      213: -1255493189640535602
+    second: ophelia assets_32
+  - first:
+      213: 3010147025071408313
+    second: ophelia assets_33
+  - first:
+      213: -7319492214654868407
+    second: ophelia assets_34
+  - first:
+      213: 8512018362052086603
+    second: ophelia assets_35
+  - first:
+      213: 2372917472636708079
+    second: ophelia assets_36
+  - first:
+      213: -7818901234255139102
+    second: ophelia assets_37
+  - first:
+      213: 7908163645948825028
+    second: ophelia assets_38
+  - first:
+      213: 2781483843791549561
+    second: ophelia assets_39
+  - first:
+      213: -1022703746915414664
+    second: ophelia assets_40
+  - first:
+      213: -4828452539048610354
+    second: ophelia assets_41
+  - first:
+      213: -7474236796542604447
+    second: ophelia assets_42
+  - first:
+      213: 8438349617928567151
+    second: ophelia assets_43
+  - first:
+      213: 2436413804858607296
+    second: ophelia assets_44
+  - first:
+      213: -5598253338696895411
+    second: ophelia assets_45
+  - first:
+      213: 5697625548549070902
+    second: ophelia assets_46
+  - first:
+      213: 1259405667892283380
+    second: ophelia assets_47
+  - first:
+      213: -7170320885888337463
+    second: ophelia assets_48
+  - first:
+      213: 5190444535421285058
+    second: ophelia assets_49
+  - first:
+      213: 9182768121686131943
+    second: ophelia assets_50
+  - first:
+      213: -1522311337458538849
+    second: ophelia assets_51
+  - first:
+      213: -324898993037098710
+    second: ophelia assets_52
+  - first:
+      213: 474849633131650727
+    second: ophelia assets_53
+  - first:
+      213: 7006561303066914860
+    second: ophelia assets_54
+  - first:
+      213: -8255639698653617508
+    second: ophelia assets_55
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ophelia assets_0
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1494
+        width: 742
+        height: 1481
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03f2e9f428f34cae0800000000000000
+      internalID: -1530028144485060816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_1
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 2506
+        width: 550
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9258549ebf43b3650800000000000000
+      internalID: 6213618367442814249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_2
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 2508
+        width: 550
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b09e2d563bb6dd200800000000000000
+      internalID: 206439576180549899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_3
+      rect:
+        serializedVersion: 2
+        x: 3002
+        y: 2557
+        width: 530
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d671d8e8a0de3e300800000000000000
+      internalID: 280328231424169837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_4
+      rect:
+        serializedVersion: 2
+        x: 3603
+        y: 2518
+        width: 550
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca32b0bfe99f613a0800000000000000
+      internalID: -6694889334827703380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_6
+      rect:
+        serializedVersion: 2
+        x: 4210
+        y: 2544
+        width: 521
+        height: 517
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce2586dd08c0c44b0800000000000000
+      internalID: -5454971301042564372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_8
+      rect:
+        serializedVersion: 2
+        x: 2244
+        y: 1966
+        width: 560
+        height: 560
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252b9d0340dfb46a0800000000000000
+      internalID: -6463794645718945198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_9
+      rect:
+        serializedVersion: 2
+        x: 3018
+        y: 1978
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9eac2e0173bca690800000000000000
+      internalID: -7589493973875642724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_10
+      rect:
+        serializedVersion: 2
+        x: 3763
+        y: 1928
+        width: 518
+        height: 550
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2577ea5a0fe7f7220800000000000000
+      internalID: 2485845091368728402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_12
+      rect:
+        serializedVersion: 2
+        x: 2671
+        y: 1529
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c84a0224f1130cba0800000000000000
+      internalID: -6070798287372245876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_13
+      rect:
+        serializedVersion: 2
+        x: 3415
+        y: 1544
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 254ec69cf15ea6b80800000000000000
+      internalID: -8400650230220135342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_14
+      rect:
+        serializedVersion: 2
+        x: 3058
+        y: 1533
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636931b0018367fc0800000000000000
+      internalID: -3497546419050146250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_20
+      rect:
+        serializedVersion: 2
+        x: 1817
+        y: 1491
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d69195e033c672540800000000000000
+      internalID: 4983070479248595309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_21
+      rect:
+        serializedVersion: 2
+        x: 2260
+        y: 1507
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 160648296c4f9bf20800000000000000
+      internalID: 3439048924172935265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_45
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 156
+        width: 742
+        height: 1228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d44b350df320f42b0800000000000000
+      internalID: -5598253338696895411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_11
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 155
+        width: 742
+        height: 1228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b525b4b9752b144b016daac54a2bde
+      internalID: -1759960988505390854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_15
+      rect:
+        serializedVersion: 2
+        x: 2316
+        y: 160
+        width: 742
+        height: 1228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a40e3d29f879dd46aa14170d040b135
+      internalID: -2042073548208678131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ophelia assets_16
+      rect:
+        serializedVersion: 2
+        x: 3012
+        y: 160
+        width: 742
+        height: 1228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d08c396ba37334428194d4949c78572
+      internalID: 9179364887286999905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 43c9c34e209c735458a07efbe742700b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ophelia assets_0: -1530028144485060816
+      ophelia assets_1: 6213618367442814249
+      ophelia assets_10: 2485845091368728402
+      ophelia assets_11: -1759960988505390854
+      ophelia assets_12: -6070798287372245876
+      ophelia assets_13: -8400650230220135342
+      ophelia assets_14: -3497546419050146250
+      ophelia assets_15: -2042073548208678131
+      ophelia assets_16: 9179364887286999905
+      ophelia assets_17: 5221286506136451660
+      ophelia assets_18: 3553304883782338733
+      ophelia assets_19: -2439292883736756083
+      ophelia assets_2: 206439576180549899
+      ophelia assets_20: 4983070479248595309
+      ophelia assets_21: 3439048924172935265
+      ophelia assets_22: -2625146021326781154
+      ophelia assets_23: 8067315426278442704
+      ophelia assets_24: 2217980112958711159
+      ophelia assets_25: -2639358649059494760
+      ophelia assets_26: -8264343038853814989
+      ophelia assets_27: 1503130756199356044
+      ophelia assets_28: -2485064014698580517
+      ophelia assets_29: -6295361632440304263
+      ophelia assets_3: 280328231424169837
+      ophelia assets_30: -8163243492548787939
+      ophelia assets_31: 8959129637706806739
+      ophelia assets_32: -1255493189640535602
+      ophelia assets_33: 3010147025071408313
+      ophelia assets_34: -7319492214654868407
+      ophelia assets_35: 8512018362052086603
+      ophelia assets_36: 2372917472636708079
+      ophelia assets_37: -7818901234255139102
+      ophelia assets_38: 7908163645948825028
+      ophelia assets_39: 2781483843791549561
+      ophelia assets_4: -6694889334827703380
+      ophelia assets_40: -1022703746915414664
+      ophelia assets_41: -4828452539048610354
+      ophelia assets_42: -7474236796542604447
+      ophelia assets_43: 8438349617928567151
+      ophelia assets_44: 2436413804858607296
+      ophelia assets_45: -5598253338696895411
+      ophelia assets_46: 5697625548549070902
+      ophelia assets_47: 1259405667892283380
+      ophelia assets_48: -7170320885888337463
+      ophelia assets_49: 5190444535421285058
+      ophelia assets_5: -2550143625376491502
+      ophelia assets_50: 9182768121686131943
+      ophelia assets_51: -1522311337458538849
+      ophelia assets_52: -324898993037098710
+      ophelia assets_53: 474849633131650727
+      ophelia assets_54: 7006561303066914860
+      ophelia assets_55: -8255639698653617508
+      ophelia assets_6: -5454971301042564372
+      ophelia assets_7: -4213048950823611756
+      ophelia assets_8: -6463794645718945198
+      ophelia assets_9: -7589493973875642724
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

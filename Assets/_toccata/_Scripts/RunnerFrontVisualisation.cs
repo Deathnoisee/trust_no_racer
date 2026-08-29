@@ -25,6 +25,7 @@ public class RunnerFrontVisualisation : MonoBehaviour
     [Header("Text Info")]
     public TextMeshProUGUI runnerId;
     public TextMeshProUGUI runnerName;
+    public TextMeshProUGUI runnerLastName;
     public TextMeshProUGUI runnerAge;
     public TextMeshProUGUI runnerGender;
     public TextMeshProUGUI runnerNationality;
@@ -44,6 +45,7 @@ public class RunnerFrontVisualisation : MonoBehaviour
 
         if (idCardHair != null && data.hair != null) idCardHair.sprite = data.hair.frontView;
         if (idCardShoes != null && data.shoes != null) idCardShoes.sprite = data.shoes.frontView;
+        if (idCardFace != null && data.face != null) idCardFace.sprite = data.face.frontView;
 
         // Apply Hair & Shoe Colors
         if (idCardHair != null) idCardHair.color = data.hairColor;
@@ -62,6 +64,7 @@ public class RunnerFrontVisualisation : MonoBehaviour
         // ---------------------------------------------------------
         if (runnerId != null) runnerId.text = data.runnerID.ToString();
         if (runnerName != null) runnerName.text = data.runnerName;
+        if(runnerLastName!= null) runnerLastName.text = data.runnerLastName;
         if (runnerAge != null) runnerAge.text = data.age.ToString();
         if (runnerNationality != null) runnerNationality.text = data.runnerNationality.ToString();
         if (runnerGender != null) runnerGender.text = data.gender.ToString();
@@ -76,6 +79,7 @@ public class RunnerFrontVisualisation : MonoBehaviour
         // Apply Sprites
         if (hairRenderer != null && data.hair != null) hairRenderer.sprite = data.hair.frontView;
         if (shoeRenderer != null && data.shoes != null) shoeRenderer.sprite = data.shoes.frontView;
+        if (faceRenderer != null) faceRenderer.sprite = data.face.frontView;
 
         // Apply Hair & Shoe Colors
         if (hairRenderer != null) hairRenderer.color = data.hairColor;
@@ -86,7 +90,6 @@ public class RunnerFrontVisualisation : MonoBehaviour
         if (armsShirtRenderer != null) armsShirtRenderer.color = data.shirtColor;
 
         if (headRenderer != null) headRenderer.color = data.skinColor;
-        if (faceRenderer != null) faceRenderer.color = data.skinColor;
         if (armsRenderer != null) armsRenderer.color = data.skinColor;
 
     }

@@ -21,7 +21,7 @@ public class ListImporter : MonoBehaviour
             if (textMesh != null)
             {
                 textMesh.text = "";
-                textMesh.text = newRunner.runnerName;
+                textMesh.text = "- "+newRunner.runnerName;
                 textMesh.text += " " + newRunner.runnerLastName;
             }
         }
