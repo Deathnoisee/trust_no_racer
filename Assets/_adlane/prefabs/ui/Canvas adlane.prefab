@@ -2335,8 +2335,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7817398734822623610}
-  - {fileID: 7201318606461866539}
   - {fileID: 4279951063010594298}
+  - {fileID: 7201318606461866539}
   m_Father: {fileID: 2099930771054345031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7155,6 +7155,7 @@ MonoBehaviour:
   varCheckLeft: 0
   lieDetectorLeft: 0
   currentLevel: {fileID: 0}
+  ShowResultsScreen: {fileID: 0}
   trajectoryObj: {fileID: 2361348622758070494}
   tubesObj: {fileID: 5091894123299088058}
 --- !u!1 &5635629222465574117

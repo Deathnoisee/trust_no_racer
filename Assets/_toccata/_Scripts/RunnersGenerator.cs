@@ -5,6 +5,12 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// TODO: Add score and win condition / lose condition
+// - click on confirm cheaters
+// - count the cheaters selected and compare with the actual cheaters in the level
+// - show a win or lose screen based on the result before load journal scene
+// - then restart level or load journal scene
+
 public class RunnersGenerator : MonoBehaviour
 {
     public static RunnersGenerator instance;
@@ -67,6 +73,11 @@ public class RunnersGenerator : MonoBehaviour
     public int lieDetectorLeft = 0;
 
     public LevelSettings currentLevel;
+
+    [Header("End of Level")]
+    public GameObject ShowResultsScreen;
+    private int selectedCheatersCount = 0;
+    private int totalCheatersCount = 0;
 
     private void Awake()
     {
@@ -362,6 +373,7 @@ public class RunnersGenerator : MonoBehaviour
     {
         currentRunners[currentRunnerIndex].selectedAsCheater = true;
         cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+        selectedCheatersCount++;
     }
 
 
@@ -581,6 +593,61 @@ public class RunnersGenerator : MonoBehaviour
         {
             currentPerson = currentRunners[0];
             personVisuals.DisplayPerson(currentPerson);
+        }
+    }
+
+    public void ConfirmCheaters()
+    {
+        foreach (var runner in currentRunners)
+        {
+            totalCheatersCount += runner.cheatType != CheatType.None ? 1 : 0;
+            if (runner.selectedAsCheater && runner.cheatType != CheatType.None)
+            {
+                selectedCheatersCount++;
+            }
+        }
+
+        if (selectedCheatersCount == totalCheatersCount)
+        {
+            print("YOU WIN");
+            ShowResultsScreen.SetActive(true);
+        }
+        else
+        {
+            print("YOU LOSE");
+            ShowResultsScreen.SetActive(true);
+        }
+    }
+    private void CountTotalScore()
+    {
+        float score = selectedCheatersCount/totalCheatersCount;
+        if (score >= 0.99f)
+        {
+            print("3 stars");
+            //TODO: feed the script 3 stars
+            ShowResultsScreen.SetActive(true);
+            ShowResultsScreen.GetComponent<StarsGenerator>().GenerateStars(3);
+
+        }
+        else if (score >= 0.66f)
+        {
+            print("2 stars");
+            //TODO: feed the script 2 stars
+            ShowResultsScreen.SetActive(true);
+            ShowResultsScreen.GetComponent<StarsGenerator>().GenerateStars(2);
+
+        }
+        else if (score >= 0.33f)
+        {
+            print("1 star");
+            
+            ShowResultsScreen.SetActive(true);
+            ShowResultsScreen.GetComponent<StarsGenerator>().GenerateStars(1);
+        }
+        else
+        {
+            print("YOU LOSE");
+            ShowResultsScreen.SetActive(true);
         }
     }
 }
