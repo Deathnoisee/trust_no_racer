@@ -7215,7 +7215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5091894123299088058, guid: 3c28dde84b6bf6f56a378a3055602bfa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5170731143310931794, guid: 3c28dde84b6bf6f56a378a3055602bfa, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8482,6 +8482,7 @@ MonoBehaviour:
   - {fileID: 1265922533}
   - {fileID: 2048396070}
   - {fileID: 51861156}
+  bloodTarget: {fileID: 499392570}
 --- !u!1 &1950521907
 GameObject:
   m_ObjectHideFlags: 0
