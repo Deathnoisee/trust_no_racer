@@ -19,7 +19,7 @@ public class graphManager : MonoBehaviour
         lineChart.gameObject.SetActive(false);
         barChart.gameObject.SetActive(false);
         // trajectoryChart.gameObject.SetActive(false);
-        Time.timeScale *= 10f;
+
 
         if (RunnersGenerator.instance != null)
         {
@@ -165,7 +165,7 @@ public class graphManager : MonoBehaviour
                         label = split.kmIndex.ToString(),
                         value = split.paceKmh / valueNano,
                     });
-                    Debug.LogWarning($"Adding chart data for kmIndex: {split.kmIndex}, paceKmh: {split.paceKmh}");
+
 
                 }
                 break;

@@ -35,7 +35,7 @@ public class RunnersGenerator : MonoBehaviour
     // public GameObject listOfParticipantsItemPrefab;
 
     public List<LevelSettings> levelSettings;
-    public int currentLevel = 0;
+    public int currentLevelIndex = 0;
 
     public List<RunnerData> currentRunners = new List<RunnerData>();
 
@@ -52,6 +52,22 @@ public class RunnersGenerator : MonoBehaviour
     private List<string> availableNames = new List<string>();
     private List<string> availableLastNames = new List<string>();
 
+    [Header("Cheating Detection")]
+
+    [SerializeField] GameObject cheatLebel;
+
+    [SerializeField] TestOptionButton drugBtn;
+    [SerializeField] TestOptionButton trajectoryBtn;
+    [SerializeField] TestOptionButton varCheckBtn;
+    [SerializeField] TestOptionButton lieDetectorBtn;
+
+    public int drugTestsLeft = 0;
+    public int trajectoryTestsLeft = 0;
+    public int varCheckLeft = 0;
+    public int lieDetectorLeft = 0;
+
+    LevelSettings currentLevel;
+
     private void Awake()
     {
         instance = this;
@@ -60,6 +76,7 @@ public class RunnersGenerator : MonoBehaviour
     private void Start()
     {
         UpdateGuidelinesUi();
+        currentLevel = levelSettings[currentLevelIndex];
     }
 
     [SerializeField] GameObject trajectoryObj;
@@ -202,11 +219,71 @@ public class RunnersGenerator : MonoBehaviour
         }
     }
 
+    public void InitializePhase()
+    {
+        PreviewCurrentRunner();
+        cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+
+        // 1. Assign remaining counts from current level settings
+        drugTestsLeft = currentLevel.drugTests;
+        trajectoryTestsLeft = currentLevel.trajectoryTests;
+        varCheckLeft = currentLevel.varCheck;
+        lieDetectorLeft = currentLevel.lieDetection;
+        UpdateTestButtons(true);
+
+
+    }
+
+    public void UpdateTestButtons(bool lockAtZero)
+    {
+        // Helper method to keep code clean and eliminate repetitive logic
+        void UpdateButton(TestOptionButton button, int testsLeft, int maxTests)
+        {
+            // If max is 0, the level doesn't support this test at all
+            if (maxTests <= 0)
+            {
+                button.SetAsLocked();
+                return;
+            }
+
+            // If lockAtZero is true and we've run out, lock it; otherwise keep it open to display 0/Max
+            if (testsLeft <= 0 && lockAtZero)
+            {
+                button.SetAsLocked();
+            }
+            else
+            {
+                button.SetAsOpen();
+                button.SetAmount(testsLeft, maxTests);
+            }
+        }
+
+        UpdateButton(drugBtn, drugTestsLeft, currentLevel.drugTests);
+        UpdateButton(trajectoryBtn, trajectoryTestsLeft, currentLevel.trajectoryTests);
+        UpdateButton(varCheckBtn, varCheckLeft, currentLevel.varCheck);
+        UpdateButton(lieDetectorBtn, lieDetectorLeft, currentLevel.lieDetection);
+    }
+
+
+
+    public void PreviewCurrentRunner()
+    {
+        personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
+
+        cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+
+
+        analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
+    }
+
+
     public void PreviewNextRunner()
     {
         currentRunnerIndex++;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
+        cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+
         analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
 
@@ -215,8 +292,16 @@ public class RunnersGenerator : MonoBehaviour
         currentRunnerIndex--;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
+        cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
         analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
+
+    public void SetCurrentRunnerAsCheater()
+    {
+        currentRunners[currentRunnerIndex].selectedAsCheater = true;
+        cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+    }
+
 
     public void EmptyList()
     {
@@ -392,8 +477,8 @@ public class RunnersGenerator : MonoBehaviour
             return;
         }
 
-        currentLevel = levelIndex;
-        LevelSettings settings = levelSettings[currentLevel];
+        currentLevelIndex = levelIndex;
+        LevelSettings settings = levelSettings[currentLevelIndex];
 
         if (settings.guideLines != null)
         {
