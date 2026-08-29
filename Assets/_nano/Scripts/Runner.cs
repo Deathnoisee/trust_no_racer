@@ -128,7 +128,7 @@ public class Runner : MonoBehaviour
     public List<KmSplit> kmSplits = new List<KmSplit>();
 
     private float[] kmThresholdsT; // t value of each knot, precomputed once
-    private int nextKmIndex = 0;
+    private int nextKmIndex = 1;
     private float lastKmCrossTime = 0f; // race time when the last km boundary was crossed
 
     [Header("Trajectory Recording")]
@@ -296,40 +296,41 @@ public class Runner : MonoBehaviour
             nextTrajectorySampleTime = Time.time + trajectorySampleInterval;
         }
     }
-    void CheckKmCrossing()
+   void CheckKmCrossing()
+{
+    if (nextKmIndex >= kmThresholdsT.Length) return;
+
+    if (t >= kmThresholdsT[nextKmIndex])
     {
-        if (nextKmIndex >= kmThresholdsT.Length) return; // already passed the last knot
+        float splitTime = Time.time - lastKmCrossTime;
+        float paceKmh = splitTime > 0f ? (3600f / splitTime) : 0f;
 
-        if (t >= kmThresholdsT[nextKmIndex])
+        kmSplits.Add(new KmSplit
         {
-            float splitTime = Time.time - lastKmCrossTime;
-            float paceKmh = splitTime > 0f ? (3600f / splitTime) : 0f; // 1 km per splitTime seconds -> km/h
+            kmIndex = nextKmIndex - 1, // first real split becomes kmIndex 0 → prints as "Km 1"
+            timeSeconds = splitTime,
+            paceKmh = paceKmh
+        });
 
-            kmSplits.Add(new KmSplit
-            {
-                kmIndex = nextKmIndex,
-                timeSeconds = splitTime,
-                paceKmh = paceKmh
-            });
-
-            lastKmCrossTime = Time.time;
-            nextKmIndex++;
-        }
+        lastKmCrossTime = Time.time;
+        nextKmIndex++;
     }
+}
     // call this right after a shortcut lands (t = activeShortcut.shortcutEndT)
     void HandleKmSkipAfterShortcut()
+{
+    while (nextKmIndex < kmThresholdsT.Length && t >= kmThresholdsT[nextKmIndex])
     {
-        while (nextKmIndex < kmThresholdsT.Length && t >= kmThresholdsT[nextKmIndex])
+        kmSplits.Add(new KmSplit
         {
-            kmSplits.Add(new KmSplit
-            {
-                kmIndex = nextKmIndex,
-                timeSeconds = 0f,  // no real time recorded — this km was skipped
-                paceKmh = -1f      // sentinel value flagging "no data / suspicious"
-            });
-            nextKmIndex++;
-        }
+            kmIndex = nextKmIndex - 1,
+            timeSeconds = 0f,
+            paceKmh = -1f // sentinel: no real data, flags this km as suspicious/skipped
+        });
+        nextKmIndex++;
     }
+    lastKmCrossTime = Time.time; // reset so the next genuine split's timer starts fresh
+}
     void BuildActiveCheat()
     {
         activeCheat = null;
@@ -439,7 +440,9 @@ public class Runner : MonoBehaviour
             {
                 activeShortcut.shortcutProgress = 1f;
                 activeShortcut.isShortcutActive = false;
-                t = activeShortcut.shortcutEndT; // rejoin the normal spline at the landing knot
+                t = activeShortcut.shortcutEndT; 
+                HandleKmSkipAfterShortcut();
+                // rejoin the normal spline at the landing knot
                 if (t >= 1f) AdvanceLap(); // in case the cut lands past the finish line
             }
 
