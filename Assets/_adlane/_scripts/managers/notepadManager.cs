@@ -6,7 +6,12 @@ public class NotepadManager : MonoBehaviour
     public TMP_InputField NotepadInputField;
     public bool AnalysisPhase { get; private set; } = false;
     public bool IsOpen { get; private set; } = true;
+    public RaceManager raceManager;
 
+    private void OnEnable()
+    {
+        raceManager.OnRaceEnded += SwitchAnalysisPhase;
+    }
     public void SwitchAnalysisPhase()
     {
         AnalysisPhase = true;

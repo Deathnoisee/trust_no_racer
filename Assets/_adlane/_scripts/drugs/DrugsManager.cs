@@ -37,6 +37,9 @@ public class DrugsManager : MonoBehaviour
     {
         if (bloodTarget == null) return;
 
+        if (runnerData.drugTestCorrect) return;
+
+        
         bloodTarget.ResetBlood();
 
         foreach (var sol in solutions)

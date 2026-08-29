@@ -64,6 +64,7 @@ public class RunnerData
     public bool earlyBloodTestDone = false;
     public bool midBloodTestDone = false;
     public bool lateBloodTestDone = false;
+    public bool drugTestCorrect = false;
 
     public bool varCheckDone = false;
     public bool lieCheckDone = false;

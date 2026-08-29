@@ -19,6 +19,7 @@ public class blood : MonoBehaviour
         if (droppedSolution.isSolutionCorrect)
         {
             image.sprite = GreenSprite;
+            RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex].drugTestCorrect = true;
         }
         else
         {

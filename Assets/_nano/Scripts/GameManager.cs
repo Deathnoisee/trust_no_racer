@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
 
     public int currentJournalIndex = 0; // Track the current journal index
 
-    public GameObject NextButton;
-    public GameObject LevelButton;
+    public GameObject LevelButton; 
 
     public GameObject TvScreen;
     private bool isTransitioning = false;
@@ -38,32 +37,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        if (raceManager != null)
-            raceManager.OnRaceEnded += HandleRaceEnded;
-    }
-
-    void OnDisable()
-    {
-        if (raceManager != null)
-            raceManager.OnRaceEnded -= HandleRaceEnded;
-    }
-
-    void HandleRaceEnded()
-    {
-        Debug.Log("GameManager notified: race ended.");
-        NextButton.SetActive(true); // Show the Next
-
-    }
-
-
 
     public void GoToNextLevel()
     {
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex + 1));
-        LevelButton.SetActive(false); // Hide the Level button when transitioning to the next level
     }
 
     public void GoToLevel(int levelIndex)
@@ -79,10 +57,14 @@ public class GameManager : MonoBehaviour
         if (isTransitioning) return;
         SoundManager.StopMusic(); // Stop the music when transitioning to the journal
         StartCoroutine(TransitionToJournal(currentJournalIndex));
-        NextButton.SetActive(false); // Hide the Next button when transitioning to the journal
-        
+
         // Deactivate all journals first
 
+    }
+    public void RestartLevel()
+    {
+        if (isTransitioning) return;
+        StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex));
     }
 
     IEnumerator TransitionToJournal(int journalIndex)
