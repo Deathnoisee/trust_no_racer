@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         SoundManager.StopMusic(); // Stop the music when transitioning to the journal
         StartCoroutine(TransitionToJournal(currentJournalIndex));
         NextButton.SetActive(false); // Hide the Next button when transitioning to the journal
+        
         // Deactivate all journals first
 
     }
