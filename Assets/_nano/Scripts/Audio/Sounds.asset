@@ -26,10 +26,6 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 08c56706a95a2114dac6a29d1527b570, type: 3}
     - {fileID: 8300000, guid: 2175a9651b95b4349ab4dd304fa8f4bd, type: 3}
-  - name: Ambiance
-    volume: 1
-    mixer: {fileID: 0}
-    sounds: []
   - name: Win
     volume: 1
     mixer: {fileID: 0}
@@ -44,3 +40,23 @@ MonoBehaviour:
     volume: 1
     mixer: {fileID: 0}
     sounds: []
+  - name: Journal
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 5187546a2ce9342498cb3d6f166bfbd2, type: 3}
+  - name: Click
+    volume: 1
+    mixer: {fileID: 0}
+    sounds: []
+  - name: Ambient
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 4939910e2dc62e041a2b07c8e9f9cf89, type: 3}
+  - name: Jazz
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: d7d2b287e5b96004ea84ab9b110150d3, type: 3}
+    - {fileID: 8300000, guid: ec68bcfa1fcb2984e9e187ba829054e9, type: 3}

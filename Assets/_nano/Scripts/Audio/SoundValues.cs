@@ -8,10 +8,15 @@ namespace SmallHedge.SoundManager
 
         Music,
         Bump,
-        Ambiance,
         Win,
         PowerUp,
         Run,
+        Journal,
+        Click,
+        Ambient,
+
+        Jazz,
+
 
 
     }

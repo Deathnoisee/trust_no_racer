@@ -590,8 +590,13 @@ public class Runner : MonoBehaviour
 
     void SetVisible(bool visible)
     {
-        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        if (sr != null) sr.enabled = visible;
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (sr != null)
+                sr.enabled = visible;
+        }
+
+
     }
 
     void UpdateInjureCheck(List<Runner> allRunners)
