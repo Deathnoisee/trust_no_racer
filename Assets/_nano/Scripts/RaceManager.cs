@@ -283,7 +283,6 @@ public class RaceManager : MonoBehaviour
             }
         }
         racers.Clear();
-        Camera.main.GetComponent<EdgeScrollCamera>().enabled = true; // Re-enable edge scrolling after the race ends
         SoundManager.StopMusic();
         SoundManager.PlayMusic(SoundType.Jazz, 1f);
         SoundManager.StartAmbiance(SoundType.Ambient, 1f);

@@ -43,7 +43,8 @@ MonoBehaviour:
   - name: Journal
     volume: 1
     mixer: {fileID: 0}
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: 5187546a2ce9342498cb3d6f166bfbd2, type: 3}
   - name: Click
     volume: 1
     mixer: {fileID: 0}

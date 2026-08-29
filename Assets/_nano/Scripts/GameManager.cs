@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using SmallHedge.SoundManager;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -63,18 +63,21 @@ public class GameManager : MonoBehaviour
     {
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex + 1));
+        LevelButton.SetActive(false); // Hide the Level button when transitioning to the next level
     }
 
     public void GoToLevel(int levelIndex)
     {
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(levelIndex));
+        LevelButton.SetActive(false); // Hide the Level button when transitioning to the next level
     }
 
     public void LoadJournal(int journalIndex)
     {
 
         if (isTransitioning) return;
+        SoundManager.StopMusic(); // Stop the music when transitioning to the journal
         StartCoroutine(TransitionToJournal(journalIndex));
         NextButton.SetActive(false); // Hide the Next button when transitioning to the journal
         // Deactivate all journals first
@@ -104,6 +107,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(transitionOutDuration);
             transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionOut");
+            yield return new WaitForSeconds(transitionOutDuration + 0.5f);
         }
         // Activate the selected journal
         if (journalIndex >= 0 && journalIndex < Journals.Count)
@@ -111,7 +115,7 @@ public class GameManager : MonoBehaviour
             Journals[journalIndex].SetActive(true);
         }
 
-        yield return new WaitForSeconds(0.5f); // Optional: wait a bit before transitioning out
+        yield return new WaitForSeconds(1f); // Optional: wait a bit before transitioning out
         LevelButton.SetActive(true); // Show the Next button after the journal is displayed
 
         isTransitioning = false;
@@ -131,7 +135,7 @@ public class GameManager : MonoBehaviour
 
         if (transitionObject != null)
         {
-            yield return new WaitForSeconds(transitionOutDuration);
+            yield return new WaitForSeconds(transitionOutDuration); // Optional: wait a bit before transitioning out
             transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionOut");
 
 
