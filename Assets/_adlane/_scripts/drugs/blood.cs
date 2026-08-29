@@ -5,17 +5,20 @@ using DG.Tweening;
 
 public class blood : MonoBehaviour
 {
+    [SerializeField] private Sprite GreenSprite;
     private Image image;
+    private Sprite originalSprite;
+
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+        originalSprite = image.sprite;
+    }
     public void ReceiveSolution(solution droppedSolution)
     {
         if (droppedSolution.isSolutionCorrect)
         {
-            image = GetComponent<Image>();
-
-            image.DOColor(Color.green, 0.5f).OnComplete(() =>
-            {
-                Debug.Log("Correct solution!");
-            });
+            image.sprite = GreenSprite;
         }
         else
         {
@@ -25,10 +28,6 @@ public class blood : MonoBehaviour
     }
     public void ResetBlood()
     {
-        if (image == null)
-        {
-            image = GetComponent<Image>();
-        }
-        image.color = Color.red;
+        image.sprite = originalSprite;
     }
 }
