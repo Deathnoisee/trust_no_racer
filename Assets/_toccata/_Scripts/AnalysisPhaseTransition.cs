@@ -12,7 +12,7 @@ public class AnalysisPhaseTransition : MonoBehaviour
     [SerializeField] private float startOffscreenY = 1100f; // Height to drop from
 
     private Vector2 initialPosition;
-    private void OnEnable()
+    private void Start()
     {
         GameManager.instance.raceManager.OnRaceEnded += SlideDownWithBounce;
     }

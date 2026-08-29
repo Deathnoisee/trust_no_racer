@@ -25,27 +25,42 @@ public class DrugsManager : MonoBehaviour
         changedTarget = true;
     }
 
-    private void ShowTrajectory(RunnerData runnerData)
-    {
-        foreach (var sol in solutions)
-        {
-            sol.gameObject.SetActive(false);
-        }
-    }
+
     private void SetupCorrectSolution(RunnerData runnerData)
     {
         bloodTarget.ResetBlood();
         changedTarget = false;
         foreach (var sol in solutions)
         {
-            if (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution)
+            RunnerData currentRunner = RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex];
+            //Appearence
+            if (currentRunner.earlyBloodTestDone && sol.racePhaseSolution == RacePhase.Early)
             {
-                sol.gameObject.SetActive(true);
-                sol.isSolutionCorrect = true;
+                sol.gameObject.SetActive(false);
+                continue;
+            }
+            else if (currentRunner.midBloodTestDone && sol.racePhaseSolution == RacePhase.Mid)
+            {
+                sol.gameObject.SetActive(false);
+                continue;
+            }
+            else if (currentRunner.lateBloodTestDone && sol.racePhaseSolution == RacePhase.Late)
+            {
+                sol.gameObject.SetActive(false);
+                continue;
             }
             else
             {
                 sol.gameObject.SetActive(true);
+            }
+
+            //Correctness
+            if (runnerData.cheatType == CheatType.SpeedBoost && runnerData.CheatTimePhase == sol.racePhaseSolution)
+            {
+                sol.isSolutionCorrect = true;
+            }
+            else
+            {
                 sol.isSolutionCorrect = false;
             }
         }

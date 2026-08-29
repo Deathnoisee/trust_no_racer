@@ -49,8 +49,14 @@ public class BarChart : MonoBehaviour
 
     public void Redraw()
     {
-        transform.DOKill();
-        foreach (Transform child in chartArea) Destroy(child.gameObject);
+        // Kill all tweens on chartArea and its children
+        chartArea.DOKill(true);
+
+        // Destroy all child GameObjects in chartArea
+        foreach (Transform child in chartArea)
+        {
+            Destroy(child.gameObject);
+        }
 
         if (data == null || data.Count == 0) return;
 

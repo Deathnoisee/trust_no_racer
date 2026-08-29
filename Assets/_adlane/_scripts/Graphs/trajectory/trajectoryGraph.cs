@@ -36,11 +36,11 @@ public class trajectoryGraph : MaskableGraphic
     private readonly List<GameObject> spawnedMarkers = new List<GameObject>();
     [SerializeField] private Color coloooor = Color.white;
 
+    private Tween drawTween; // <-- add this field
+
     protected override void Awake()
     {
         // base.Awake();
-        // SetupRectTransform();
-        // chartArea.gameObject.SetActive(true);
     }
     protected override void OnEnable()
     {
@@ -76,7 +76,8 @@ public class trajectoryGraph : MaskableGraphic
 
     public void SetWorldPoints(List<Vector3> worldPositions)
     {
-        SetupRectTransform(); // Ensure correct size before calculating
+        Clear(); // <-- reset everything before building new path
+        SetupRectTransform();
 
         Camera cam = worldCamera != null ? worldCamera : Camera.main;
         if (cam == null)
@@ -102,17 +103,18 @@ public class trajectoryGraph : MaskableGraphic
 
     public void SetLocalPoints(List<Vector2> localPoints)
     {
+        Clear(); // <-- reset everything before building new path
         SetupRectTransform();
         BuildPath(new List<Vector2>(localPoints));
     }
 
     public void PlayDrawAnimation()
     {
-        KillTweens();
+        KillTweens(); // kills drawTween and marker tweens
         drawProgress = 0f;
         SetVerticesDirty();
 
-        DOTween.To(() => drawProgress, x =>
+        drawTween = DOTween.To(() => drawProgress, x =>
         {
             drawProgress = x;
             SetVerticesDirty();
@@ -341,7 +343,11 @@ public class trajectoryGraph : MaskableGraphic
 
     private void KillTweens()
     {
-        DOTween.Kill(this);
+        if (drawTween != null)
+        {
+            drawTween.Kill();
+            drawTween = null;
+        }
         foreach (var marker in spawnedMarkers)
         {
             if (marker != null)

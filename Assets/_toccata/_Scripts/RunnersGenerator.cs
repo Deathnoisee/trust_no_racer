@@ -56,17 +56,17 @@ public class RunnersGenerator : MonoBehaviour
 
     [SerializeField] GameObject cheatLebel;
 
-    [SerializeField] TestOptionButton drugBtn;
-    [SerializeField] TestOptionButton trajectoryBtn;
-    [SerializeField] TestOptionButton varCheckBtn;
-    [SerializeField] TestOptionButton lieDetectorBtn;
+    [SerializeField] public TestOptionButton drugBtn;
+    [SerializeField] public TestOptionButton trajectoryBtn;
+    [SerializeField] public TestOptionButton varCheckBtn;
+    [SerializeField] public TestOptionButton lieDetectorBtn;
 
     public int drugTestsLeft = 0;
     public int trajectoryTestsLeft = 0;
     public int varCheckLeft = 0;
     public int lieDetectorLeft = 0;
 
-    LevelSettings currentLevel;
+    public LevelSettings currentLevel;
 
     private void Awake()
     {
@@ -99,7 +99,17 @@ public class RunnersGenerator : MonoBehaviour
         //show tubes
 
         tubesObj.SetActive(true);
+
     }
+
+    public void HideTrajectoryAndTubes()
+    {
+
+        trajectoryObj.SetActive(false);
+        tubesObj.SetActive(false);
+    }
+
+
 
 
 
@@ -239,7 +249,6 @@ public class RunnersGenerator : MonoBehaviour
         // Helper method to keep code clean and eliminate repetitive logic
         void UpdateButton(TestOptionButton button, int testsLeft, int maxTests)
         {
-            // If max is 0, the level doesn't support this test at all
             if (maxTests <= 0)
             {
                 button.SetAsLocked();
@@ -255,6 +264,53 @@ public class RunnersGenerator : MonoBehaviour
             {
                 button.SetAsOpen();
                 button.SetAmount(testsLeft, maxTests);
+                if (testsLeft <= 0)
+                {
+                    if (button == drugBtn)
+                    {
+                        if (!currentRunners[currentRunnerIndex].earlyBloodTestDone && !currentRunners[currentRunnerIndex].midBloodTestDone && !currentRunners[currentRunnerIndex].lateBloodTestDone)
+                        {
+                            button.SetAsNoMoreUses();
+                        }
+                        else
+                        {
+                            button.AlreadyUsed();
+                        }
+                    }
+                    else if (button == trajectoryBtn)
+                    {
+                        if (!currentRunners[currentRunnerIndex].trajectoryDone)
+                        {
+                            button.SetAsNoMoreUses();
+                        }
+                        else
+                        {
+                            button.AlreadyUsed();
+                        }
+                    }
+                    else if (button == varCheckBtn)
+                    {
+                        if (!currentRunners[currentRunnerIndex].varCheckDone)
+                        {
+                            button.SetAsNoMoreUses();
+                        }
+                        else
+                        {
+                            button.AlreadyUsed();
+                        }
+                    }
+                    else if (button == lieDetectorBtn)
+                    {
+                        if (!currentRunners[currentRunnerIndex].lieCheckDone)
+                        {
+                            button.SetAsNoMoreUses();
+                        }
+                        else
+                        {
+                            button.AlreadyUsed();
+                        }
+                    }
+                }
             }
         }
 
@@ -283,6 +339,9 @@ public class RunnersGenerator : MonoBehaviour
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
         cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+        HideTrajectoryAndTubes();
+        UpdateTestButtons(false);
+
 
         analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
@@ -293,6 +352,9 @@ public class RunnersGenerator : MonoBehaviour
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
         cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
+        HideTrajectoryAndTubes();
+        UpdateTestButtons(false);
+
         analysePlayer?.Invoke(currentRunners[currentRunnerIndex]);
     }
 

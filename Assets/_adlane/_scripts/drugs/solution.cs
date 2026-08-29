@@ -42,15 +42,31 @@ public class solution : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
-
+        RunnerData currentRunner = RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex];
         bool droppedOnTarget = false;
         if (eventData.pointerCurrentRaycast.gameObject != null)
         {
             blood bloodTarget = eventData.pointerCurrentRaycast.gameObject.GetComponent<blood>();
             if (bloodTarget != null)
             {
+
+                RunnersGenerator.instance.drugTestsLeft--;
+                RunnersGenerator.instance.UpdateTestButtons(false);
+
                 bloodTarget.ReceiveSolution(this);
                 droppedOnTarget = true;
+                if (racePhaseSolution == RacePhase.Early)
+                {
+                    currentRunner.earlyBloodTestDone = true;
+                }
+                else if (racePhaseSolution == RacePhase.Mid)
+                {
+                    currentRunner.midBloodTestDone = true;
+                }
+                else if (racePhaseSolution == RacePhase.Late)
+                {
+                    currentRunner.lateBloodTestDone = true;
+                }
             }
             transform.SetParent(originalParent, true);
             transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);

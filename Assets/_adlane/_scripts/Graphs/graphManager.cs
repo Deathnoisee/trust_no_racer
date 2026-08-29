@@ -95,7 +95,15 @@ public class graphManager : MonoBehaviour
                 ShowBarChart(data);
                 break;
             case RaceDataType.Trajectory:
+                RunnerData currentRunner = RunnersGenerator.instance.currentRunners[RunnersGenerator.instance.currentRunnerIndex];
+                if (!currentRunner.trajectoryDone)
+                {
+                    RunnersGenerator.instance.trajectoryTestsLeft--;
+                    currentRunner.trajectoryDone = true;
+                }
                 TrajectoryShow(incomingData);
+                RunnersGenerator.instance.UpdateTestButtons(false);
+
                 break;
         }
     }
