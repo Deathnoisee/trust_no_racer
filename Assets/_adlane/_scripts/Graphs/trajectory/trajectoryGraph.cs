@@ -47,11 +47,13 @@ public class trajectoryGraph : MaskableGraphic
         base.OnEnable();
         SetupRectTransform();
         chartArea.gameObject.SetActive(true);
+        RunnersGenerator.instance.clearTrajectory += Clear;
     }
     protected override void OnDisable()
     {
         base.OnDisable();
         chartArea.gameObject.SetActive(false);
+        RunnersGenerator.instance.clearTrajectory -= Clear;
     }
 
     private void SetupRectTransform()
