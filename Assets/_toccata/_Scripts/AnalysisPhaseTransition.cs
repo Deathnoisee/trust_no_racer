@@ -1,6 +1,7 @@
-using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Device;
 
 public class AnalysisPhaseTransition : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class AnalysisPhaseTransition : MonoBehaviour
     [SerializeField] private float duration = 1.0f;
     [SerializeField] private float startOffscreenY = 1100f; // Height to drop from
 
+    [SerializeField] GameObject StarsPanel;
 
     private Vector2 initialPosition;
     private void Start()
@@ -46,6 +48,8 @@ public class AnalysisPhaseTransition : MonoBehaviour
         // Start offscreen directly above its initial position
         canvasPanel.anchoredPosition = initialPosition + new Vector2(0, startOffscreenY);
         canvasPanel.gameObject.SetActive(true);
+        StarsPanel.SetActive(false);
+
 
         ListImporter.instance.loadListNames();
         RunnersGenerator.instance.InitializePhase();
@@ -56,6 +60,9 @@ public class AnalysisPhaseTransition : MonoBehaviour
         // Animate to initial position with a bounce effect
         canvasPanel.DOAnchorPos(initialPosition, duration)
             .SetEase(Ease.OutBounce);
+
+
+        GameManager.instance.TvScreen.SetActive(false);
     }
     IEnumerator SlideDownAnimation()
     {

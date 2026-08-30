@@ -11,12 +11,16 @@ public class NotepadManager : MonoBehaviour
     private void OnEnable()
     {
         raceManager.OnRaceEnded += SwitchAnalysisPhase;
+        NotepadInputField.text = "";
+        NotepadInputField.interactable = true;
+        AnalysisPhase = false;
     }
     public void SwitchAnalysisPhase()
     {
         AnalysisPhase = true;
         NotepadInputField.interactable = false;
         NotepadInputField.readOnly = true;
+
     }
 
     public void SetOpenState(bool open)

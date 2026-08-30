@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject LevelButton; 
 
     public GameObject TvScreen;
+    public GameObject analysisPhase;
+    public GameObject notePad;
+
     private bool isTransitioning = false;
 
     void Awake()
@@ -65,7 +68,6 @@ public class GameManager : MonoBehaviour
     void HandleRaceEnded()
     {
         Debug.Log("GameManager notified: race ended.");
-        NextButton.SetActive(true); // Show the Next
 
     }
 
@@ -75,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex + 1));
+        LevelButton.SetActive(false);
     }
 
     public void GoToLevel(int levelIndex)
@@ -117,8 +120,8 @@ public class GameManager : MonoBehaviour
         }
 
         TvScreen.SetActive(false); // Hide the TV screen when transitioning to the journal
-
-
+        analysisPhase.SetActive(false);
+        notePad.SetActive(false);
 
         if (transitionObject != null)
         {
@@ -149,7 +152,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(transitionInDuration);
         }
 
-
+        notePad.SetActive(true);
+        
 
         if (transitionObject != null)
         {
