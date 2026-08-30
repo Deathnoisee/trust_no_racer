@@ -26,7 +26,7 @@ public class RaceManager : MonoBehaviour
 
     public int currentLevelIndex = 0;
 
-    public GameObject startButton;
+    
 
     [Header("Sound")]
     public float bumpSoundCooldown = 0.6f; // min time between bump sounds for the same pair
@@ -63,7 +63,7 @@ public class RaceManager : MonoBehaviour
     // same RaceManager instance can be reused for the whole game.
     public void LoadLevel(int levelIndex)
     {
-        startButton.SetActive(true);
+        
         currentLevelIndex = levelIndex;
         raceStarted = false;
         raceEnded = false;
@@ -205,7 +205,7 @@ public class RaceManager : MonoBehaviour
         SoundManager.StopAmbiance();
         SoundManager.PlaySound(SoundType.Music, null, 1f);
         raceStarted = true;
-        startButton.SetActive(false);
+    
 
     }
 

@@ -22,7 +22,7 @@ MonoBehaviour:
     shortcutFromKnot: 3
     shortcutSkipCount: 3
     boostPhase: 2
-    boostMultiplier: 2
+    boostMultiplier: 2.3
     boostDuration: 3
     disappearPhase: 1
     disappearDuration: 2
@@ -35,7 +35,7 @@ MonoBehaviour:
     shortcutFromKnot: 2
     shortcutSkipCount: 2
     boostPhase: 1
-    boostMultiplier: 2
+    boostMultiplier: 2.3
     boostDuration: 3
     disappearPhase: 1
     disappearDuration: 2
