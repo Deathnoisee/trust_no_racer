@@ -4,6 +4,8 @@ public class Button2D : MonoBehaviour
 {
    public enum ButtonState { Normal, Highlighted, Pressed }
 
+   public bool IsInteractable { get; set; } = true;
+
     [Header("Sprites")]
     public Sprite normalSprite;
     public Sprite highlightedSprite;
@@ -27,6 +29,11 @@ public class Button2D : MonoBehaviour
 
     void Update()
     {
+        if (!IsInteractable)
+        {
+            SetState(ButtonState.Normal);
+            return;
+        }
         Vector2 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
         bool overThisButton = (hit != null && hit.gameObject == gameObject);

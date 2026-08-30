@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using SmallHedge.SoundManager;
 
 // TODO: Add score and win condition / lose condition
 // - click on confirm cheaters
@@ -99,6 +100,8 @@ public class RunnersGenerator : MonoBehaviour
     public void ShowTrajectory()
     {
         //hide anything that was shown
+        SoundManager.PlaySound(SoundType.Drawing, null, 1f);
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         tubesObj.SetActive(false);
         trajectoryObj.SetActive(true);
         clearTrajectory?.Invoke();
@@ -121,6 +124,7 @@ public class RunnersGenerator : MonoBehaviour
     public void ShowTubes()
     {
         //hide anything that was shown
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         trajectoryObj.SetActive(false);
         tubesButton?.Invoke(currentRunners[currentRunnerIndex]);
         //show tubes
@@ -361,6 +365,7 @@ public class RunnersGenerator : MonoBehaviour
 
     public void PreviewNextRunner()
     {
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         currentRunnerIndex++;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
@@ -374,6 +379,7 @@ public class RunnersGenerator : MonoBehaviour
 
     public void PreviewPreviousRunner()
     {
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         currentRunnerIndex--;
         currentRunnerIndex = Math.Clamp(currentRunnerIndex, 0, currentRunners.Count - 1);
         personVisuals.DisplayPerson(currentRunners[currentRunnerIndex]);
@@ -386,6 +392,7 @@ public class RunnersGenerator : MonoBehaviour
 
     public void SetCurrentRunnerAsCheater()
     {
+        SoundManager.PlaySound(SoundType.Stamp, null, 1f);
         currentRunners[currentRunnerIndex].selectedAsCheater = true;
         cheatLebel.SetActive(currentRunners[currentRunnerIndex].selectedAsCheater);
     }

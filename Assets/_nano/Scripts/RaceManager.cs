@@ -9,6 +9,8 @@ public class RaceManager : MonoBehaviour
     public GameObject runnerPrefab;
 
 
+    public GameObject StartButton;
+
     [Header("Tracks (all tracks in the scene, active or not)")]
     public TrackSetup[] allTracks;
 
@@ -73,7 +75,7 @@ public class RaceManager : MonoBehaviour
             if (runner != null) Destroy(runner.gameObject);
         }
         racers.Clear();
-
+        // Enable the Start button for the new level
         ActivateTrackForCurrentLevel();
         SpawnRacers();
     }
@@ -205,7 +207,7 @@ public class RaceManager : MonoBehaviour
         SoundManager.StopAmbiance();
         SoundManager.PlaySound(SoundType.Music, null, 1f);
         raceStarted = true;
-    
+        StartButton.GetComponent<Button2D>().IsInteractable = false; 
 
     }
 
@@ -291,7 +293,7 @@ public class RaceManager : MonoBehaviour
         SoundManager.StopMusic();
         SoundManager.PlayMusic(SoundType.Jazz, 1f);
         SoundManager.StartAmbiance(SoundType.Ambient, 1f);
-
+        StartButton.GetComponent<Button2D>().IsInteractable = true; 
 
         Debug.Log("Race finished! All runners reached the end.");
         OnRaceEnded?.Invoke();
