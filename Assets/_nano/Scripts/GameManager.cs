@@ -2,7 +2,7 @@ using UnityEngine;
 using SmallHedge.SoundManager;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject LevelButton; 
 
     public GameObject TvScreen;
+    public GameObject analysisPhase;
+    public GameObject notePad;
+
     private bool isTransitioning = false;
 
     void Awake()
@@ -38,10 +41,43 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void StartGame(int levelIndex)
+    {
+        if (isTransitioning) return;
+        StartCoroutine(TransitionToGame(levelIndex));
+    
+    
+    }
+
+    IEnumerator TransitionToGame(int levelIndex)
+    {
+        if(isTransitioning) yield break; // Prevent multiple transitions at the same time
+        isTransitioning = true;
+        transitionObject.GetComponent<Animator>()?.SetTrigger("TransitionIn");
+        yield return new WaitForSeconds(transitionInDuration);
+        SceneManager.LoadScene(levelIndex);
+        
+            }
+
+    void OnDisable()
+    {
+        if (raceManager != null)
+            raceManager.OnRaceEnded -= HandleRaceEnded;
+    }
+
+    void HandleRaceEnded()
+    {
+        Debug.Log("GameManager notified: race ended.");
+
+    }
+
+
+
     public void GoToNextLevel()
     {
         if (isTransitioning) return;
         StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex + 1));
+        LevelButton.SetActive(false);
     }
 
     public void GoToLevel(int levelIndex)
@@ -84,8 +120,8 @@ public class GameManager : MonoBehaviour
         }
 
         TvScreen.SetActive(false); // Hide the TV screen when transitioning to the journal
-
-
+        analysisPhase.SetActive(false);
+        notePad.SetActive(false);
 
         if (transitionObject != null)
         {
@@ -116,7 +152,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(transitionInDuration);
         }
 
-
+        notePad.SetActive(true);
+        
 
         if (transitionObject != null)
         {

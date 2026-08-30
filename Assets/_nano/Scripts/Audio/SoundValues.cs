@@ -9,13 +9,22 @@ namespace SmallHedge.SoundManager
         Music,
         Bump,
         Win,
+        Loose,
+        PowerOn,
+
+        Correct,
         PowerUp,
-        Run,
+
+        Success,
+        
+        Wrong,
         Journal,
         Click,
         Ambient,
-
+        Stamp,
         Jazz,
+
+        Drawing,
 
 
 

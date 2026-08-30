@@ -1091,6 +1091,7 @@ RectTransform:
   - {fileID: 5431037544336153527}
   - {fileID: 3671863859503270645}
   - {fileID: 7810544161673432312}
+  - {fileID: 4459678981973273975}
   m_Father: {fileID: 3546466630636803054}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2856,7 +2857,6 @@ RectTransform:
   - {fileID: 6942910899422005545}
   - {fileID: 5127349957772099381}
   - {fileID: 98715149997328660}
-  - {fileID: 4459678981973273975}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6826,6 +6826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::blood
   GreenSprite: {fileID: -7521948209564591347, guid: d945ab97ce09d47a38912f88cdd4b1c9, type: 3}
+  originalSprite: {fileID: 0}
 --- !u!1 &5091894123299088058
 GameObject:
   m_ObjectHideFlags: 0
@@ -8616,7 +8617,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6324629152378009103}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8624,7 +8625,7 @@ RectTransform:
   - {fileID: 2177789675904647398}
   - {fileID: 769216397961422846}
   - {fileID: 5608689721352133966}
-  m_Father: {fileID: 3546466630636803054}
+  m_Father: {fileID: 2347450015448502420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9302,6 +9303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NotepadManager
   NotepadInputField: {fileID: 2076953788181260208}
+  raceManager: {fileID: 0}
 --- !u!1 &6873619885224959594
 GameObject:
   m_ObjectHideFlags: 0

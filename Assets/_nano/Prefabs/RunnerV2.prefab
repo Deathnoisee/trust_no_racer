@@ -288,10 +288,7 @@ MonoBehaviour:
     hair:
       frontView: {fileID: 0}
       sideView: {fileID: 0}
-    eyes:
-      frontView: {fileID: 0}
-      sideView: {fileID: 0}
-    mouth:
+    face:
       frontView: {fileID: 0}
       sideView: {fileID: 0}
     shoes:
@@ -304,6 +301,7 @@ MonoBehaviour:
     cheatType: 0
     cheatActivated: 0
     runnerName: 
+    runnerLastName: 
     weight: 0
     height: 0
     age: 0
@@ -315,6 +313,15 @@ MonoBehaviour:
     isExtra: 0
     kmSplits: []
     trajectory: []
+    CheatTimePhase: 0
+    selectedAsCheater: 0
+    trajectoryDone: 0
+    earlyBloodTestDone: 0
+    midBloodTestDone: 0
+    lateBloodTestDone: 0
+    drugTestCorrect: 0
+    varCheckDone: 0
+    lieCheckDone: 0
   runnerBibNumber: 0
   runnerName: 
   runnerColor: {r: 0, g: 0, b: 0, a: 0}
@@ -326,7 +333,7 @@ MonoBehaviour:
   kmSplits: []
   trajectorySampleInterval: 1
   trajectory: []
-  minPaceMultiplier: 0.7
+  minPaceMultiplier: 0.8
   maxPaceMultiplier: 1.3
   paceChangeIntervalMin: 3
   paceChangeIntervalMax: 7

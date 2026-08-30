@@ -219,6 +219,7 @@ public class Runner : MonoBehaviour
         laneOffset = Mathf.Clamp(startLaneOffset, -roadHalfWidth, roadHalfWidth);
         preferredOffset = laneOffset;
         transform.position = worldPos;
+        tshirtRenderer.color = runnerColor;
     }
 
 
@@ -543,27 +544,44 @@ public class Runner : MonoBehaviour
 
     // Triggers the speed boost once its progress threshold is reached, ticks it down,
     // and returns the multiplier to apply to movement this frame (1 = no boost active).
-    float UpdateSpeedBoost(float deltaTime)
+   float UpdateSpeedBoost(float deltaTime)
+{
+    if (activeCheat == null || activeCheat.config.type != CheatType.SpeedBoost) return 1f;
+
+    if (!activeCheat.hasTriggered && RaceProgress >= activeCheat.boostTriggerRaceProgress)
     {
-        if (activeCheat == null || activeCheat.config.type != CheatType.SpeedBoost) return 1f;
+        activeCheat.hasTriggered = true;
+        activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
+        TriggerVisualCheatBurst();
+    }
 
-        if (!activeCheat.hasTriggered && RaceProgress >= activeCheat.boostTriggerRaceProgress)
+    if (activeCheat.boostTimeRemaining > 0f)
+    {
+        activeCheat.boostTimeRemaining -= deltaTime;
+
+        // directly push the runner's actual speed multiplier up, not just a
+        // separate movement-only factor — so the boosted state IS the pace,
+        // not something layered invisibly on top of it
+        targetSpeedMultiplier = activeCheat.config.boostMultiplier;
+        currentSpeedMultiplier = activeCheat.config.boostMultiplier; // snap immediately, skip the lerp ease-in
+
+        // the moment this frame's countdown crosses zero, immediately snap pace
+        // back to a normal value instead of leaving it stuck high until the
+        // next scheduled pace re-roll happens to fire
+        if (activeCheat.boostTimeRemaining <= 0f)
         {
-            activeCheat.hasTriggered = true;
-            activeCheat.boostTimeRemaining = activeCheat.config.boostDuration;
-            TriggerVisualCheatBurst();
-
-        }
-
-        if (activeCheat.boostTimeRemaining > 0f)
-        {
-            activeCheat.boostTimeRemaining -= deltaTime;
-            return activeCheat.config.boostMultiplier;
+            targetSpeedMultiplier = UnityEngine.Random.Range(minPaceMultiplier, maxPaceMultiplier);
+            nextPaceChangeTime = Time.time + UnityEngine.Random.Range(paceChangeIntervalMin, paceChangeIntervalMax);
+            // currentSpeedMultiplier is intentionally left as-is here so it eases back
+            // down smoothly via the normal Lerp in Tick(), rather than snapping instantly —
+            // a hard drop right after a boost would look like the runner slammed on the brakes
         }
 
         return 1f;
     }
 
+    return 1f;
+}
     float UpdateDisappearBoost(float deltaTime)
     {
         if (activeCheat == null || activeCheat.config.type != CheatType.DisappearBoost) return 1f;
