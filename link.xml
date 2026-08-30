@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="Unity.Splines" preserve="all"/>
+  <assembly fullname="Unity.Mathematics" preserve="all"/>
+  <assembly fullname="UnityEngine.CoreModule" preserve="all"/>
+</linker>
