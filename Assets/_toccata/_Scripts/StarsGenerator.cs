@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StarsGenerator : MonoBehaviour
 {
@@ -19,9 +20,15 @@ public class StarsGenerator : MonoBehaviour
     [SerializeField] private GameObject starPrefab;
     [SerializeField] private Transform[] emptyStarSlots;
 
-    [SerializeField] TextMeshProUGUI textTmp;
+    [Header("UI Elements")]
+    [SerializeField] private GameObject nextLevelBtn;
+    [SerializeField] private TextMeshProUGUI textTmp;
+
     public void GenerateStars(int earnedStars)
     {
+        // Handle Next Level Button State
+        UpdateButtonState(earnedStars > 0);
+
         // 1. Clear any previously generated child stars
         foreach (Transform slot in emptyStarSlots)
         {
@@ -60,7 +67,7 @@ public class StarsGenerator : MonoBehaviour
                     starRect.anchoredPosition = spawnOffset;
                     starRect.anchorMin = new Vector2(0.5f, 0.5f);
                     starRect.anchorMax = new Vector2(0.5f, 0.5f);
-                    starRect.localRotation = Quaternion.Euler(0, 0, 180f); // Optional starting spin tilt
+                    starRect.localRotation = Quaternion.Euler(0, 0, 180f);
                     starRect.localScale = startScale;
                 }
                 else
@@ -93,15 +100,27 @@ public class StarsGenerator : MonoBehaviour
         seq.Play();
     }
 
-    public void SetScore(int totalCheaters , int selectedCheaters , int selectedNoneCheaters)
+    private void UpdateButtonState(bool isEnabled)
+    {
+        if (nextLevelBtn == null) return;
+
+        // Toggle interactivity
+        Button button = nextLevelBtn.GetComponent<Button>();
+        if (button != null)
+        {
+            button.interactable = isEnabled;
+        }
+
+        // Toggle visual color (Gray when disabled, White/Normal when enabled)
+        Image btnImage = nextLevelBtn.GetComponent<Image>();
+        if (btnImage != null)
+        {
+            btnImage.color = isEnabled ? Color.white : Color.gray;
+        }
+    }
+
+    public void SetScore(int totalCheaters, int selectedCheaters, int selectedNoneCheaters)
     {
         textTmp.text = "you got " + selectedCheaters + " out of " + totalCheaters + " cheaters and mistook " + selectedNoneCheaters + " none cheaters.";
     }
-
-
-
-
-
-
-
 }
