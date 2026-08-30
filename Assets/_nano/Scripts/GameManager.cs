@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     public void GoToNextLevel()
     {
         if (isTransitioning) return;
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         StartCoroutine(TransitionToLevel(raceManager.currentLevelIndex + 1));
         LevelButton.SetActive(false);
     }
@@ -91,6 +92,7 @@ public class GameManager : MonoBehaviour
     public void LoadJournal()
     {
 
+        SoundManager.PlaySound(SoundType.Click, null, 1f);
         if (isTransitioning) return;
         SoundManager.StopMusic(); // Stop the music when transitioning to the journal
         StartCoroutine(TransitionToJournal(currentJournalIndex));
@@ -168,6 +170,7 @@ public class GameManager : MonoBehaviour
         Journals.ForEach(journal => journal.SetActive(false)); // Deactivate all journals when transitioning to the level
         raceManager.LoadLevel(levelIndex);
         isTransitioning = false;
+        SoundManager.PlayMusic(SoundType.Jazz); // Start the music when transitioning to the level
     }
 
 }

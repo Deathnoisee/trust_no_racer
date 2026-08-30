@@ -182,6 +182,8 @@ public class Runner : MonoBehaviour
 
     [Header("Laps")]
     public int totalLaps = 1;
+
+    private int kmsPerLap;
     [HideInInspector] public int currentLap = 0;
 
     // Overall race completion, 0-1, across ALL laps (not just the current one around the
@@ -283,7 +285,9 @@ public class Runner : MonoBehaviour
         {
             kmThresholdsT[i] = SplineKnotUtils.GetKnotT(mainSpline, i);
         }
+        kmsPerLap = knotCount - 1;
         lastKmCrossTime = Time.time;
+        nextKmIndex = 1;
     }
     void RecordTrajectorySample(Vector3 position)
     {
@@ -297,7 +301,7 @@ public class Runner : MonoBehaviour
             nextTrajectorySampleTime = Time.time + trajectorySampleInterval;
         }
     }
-   void CheckKmCrossing()
+ void CheckKmCrossing()
 {
     if (nextKmIndex >= kmThresholdsT.Length) return;
 
@@ -306,9 +310,11 @@ public class Runner : MonoBehaviour
         float splitTime = Time.time - lastKmCrossTime;
         float paceKmh = splitTime > 0f ? (3600f / splitTime) : 0f;
 
+        int overallKmNumber = (currentLap * kmsPerLap) + nextKmIndex; // now 1-based directly
+
         kmSplits.Add(new KmSplit
         {
-            kmIndex = nextKmIndex - 1, // first real split becomes kmIndex 0 → prints as "Km 1"
+            kmIndex = overallKmNumber,
             timeSeconds = splitTime,
             paceKmh = paceKmh
         });
@@ -318,19 +324,21 @@ public class Runner : MonoBehaviour
     }
 }
     // call this right after a shortcut lands (t = activeShortcut.shortcutEndT)
-    void HandleKmSkipAfterShortcut()
+   void HandleKmSkipAfterShortcut()
 {
     while (nextKmIndex < kmThresholdsT.Length && t >= kmThresholdsT[nextKmIndex])
     {
+        int overallKmNumber = (currentLap * kmsPerLap) + nextKmIndex; // 1-based, matches above
+
         kmSplits.Add(new KmSplit
         {
-            kmIndex = nextKmIndex - 1,
+            kmIndex = overallKmNumber,
             timeSeconds = 0f,
-            paceKmh = -1f // sentinel: no real data, flags this km as suspicious/skipped
+            paceKmh = -1f
         });
         nextKmIndex++;
     }
-    lastKmCrossTime = Time.time; // reset so the next genuine split's timer starts fresh
+    lastKmCrossTime = Time.time;
 }
     void BuildActiveCheat()
     {
@@ -515,7 +523,10 @@ public class Runner : MonoBehaviour
         }
         else
         {
-            t -= 1f; // keep the overshoot so speed reads smoothly across the lap seam
+            t -= 1f; 
+            nextKmIndex = 1;             // reset for the new lap, now that t is safely back near 0
+            lastKmCrossTime = Time.time;
+            // keep the overshoot so speed reads smoothly across the lap seam
         }
     }
 

@@ -31,15 +31,35 @@ MonoBehaviour:
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: da5e93f6c384ec34c8e20a9b66654c75, type: 3}
+  - name: Loose
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: a1cab9a10574d304a97f3bb807fc596a, type: 3}
+  - name: PowerOn
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 4b170d15d6d0016478b3581dad6d6690, type: 3}
+  - name: Correct
+    volume: 1
+    mixer: {fileID: 0}
+    sounds: []
   - name: PowerUp
     volume: 1
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: 7342af87f83917748bc1f31fd561b7b0, type: 3}
-  - name: Run
+  - name: Success
     volume: 1
     mixer: {fileID: 0}
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: 876c35b8e3ab51944b2d18fcbbd902fe, type: 3}
+  - name: Wrong
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 39043fc6d25288b4e9bb37991408de78, type: 3}
   - name: Journal
     volume: 1
     mixer: {fileID: 0}
@@ -48,15 +68,26 @@ MonoBehaviour:
   - name: Click
     volume: 1
     mixer: {fileID: 0}
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: 2981d0128075feb45aa50bd8a0f2fbbe, type: 3}
   - name: Ambient
     volume: 1
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: 4939910e2dc62e041a2b07c8e9f9cf89, type: 3}
+  - name: Stamp
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 0d396da17fdd22a4c90d0167da95834d, type: 3}
   - name: Jazz
     volume: 1
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: d7d2b287e5b96004ea84ab9b110150d3, type: 3}
     - {fileID: 8300000, guid: ec68bcfa1fcb2984e9e187ba829054e9, type: 3}
+  - name: Drawing
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 2d91a25768116c942993ff2f84a57bfd, type: 3}
